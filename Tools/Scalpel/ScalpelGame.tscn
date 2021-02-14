@@ -7,3 +7,6 @@
 script = ExtResource( 3 )
 
 [node name="Incision" parent="." instance=ExtResource( 1 )]
+
+[node name="Timer" type="Timer" parent="Incision"]
+[connection signal="timeout" from="Incision/Timer" to="Incision" method="_on_Timer_timeout"]
