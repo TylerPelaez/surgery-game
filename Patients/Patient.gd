@@ -37,7 +37,12 @@ onready var head = $ViewportContainer/Viewport/Body/Head
 onready var face = $ViewportContainer/Viewport/Body/Head/Face
 onready var hair = $ViewportContainer/Viewport/Body/Head/Hair
 
+onready var dialog_box = $DialogBoxHolder/AfflictionDialogBox
+
 var ready = false
+
+var mouse_in_viewport = false
+var mouse_in_dialog_box = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,3 +60,28 @@ func _on_ViewportContainer_gui_input(event):
 	if ready and event is InputEventMouseButton:
 		emit_signal("cured", self)
 		queue_free()
+
+func show_dialog_box():
+	dialog_box.show()
+
+func check_begin_hide_dialog_box():
+	if !mouse_in_viewport and !mouse_in_dialog_box:
+		dialog_box.hide()
+	
+
+func _on_ViewportContainer_mouse_entered():
+	mouse_in_viewport = true
+	show_dialog_box()
+
+func _on_AfflictionDialogBox_mouse_entered():
+	mouse_in_dialog_box = true
+	show_dialog_box()
+
+func _on_ViewportContainer_mouse_exited():
+	mouse_in_viewport = false
+	check_begin_hide_dialog_box()
+
+func _on_AfflictionDialogBox_mouse_exited():
+	mouse_in_dialog_box = false
+	check_begin_hide_dialog_box()
+

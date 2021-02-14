@@ -32,3 +32,6 @@ func shape_cast_get_result(shape: Shape2D, transform: Transform2D, mask: int = 1
 	var query = construct_query_params(shape, transform, mask, exclude)
 	var shape_result = space_state.intersect_shape(query)
 	return shape_result
+
+func is_main_scene(scene: Node) -> bool:
+	return scene.name == get_tree().current_scene.name

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Patients/BodyParts/redbody.PNG" type="Texture" id=1]
 [ext_resource path="res://Patients/BodyParts/facehappy.PNG" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Patients/Patient.gd" type="Script" id=5]
 [ext_resource path="res://Patients/PatientShadow.tres" type="Material" id=6]
 [ext_resource path="res://Patients/PatientSpawnArea.tres" type="Shape2D" id=7]
+[ext_resource path="res://DriveInScreen/AfflictionDialog/AfflictionDialogBox.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Spawn"
@@ -68,6 +69,7 @@ margin_left = -64.0
 margin_top = -176.0
 margin_right = 72.0
 margin_bottom = 192.0
+mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,4 +105,19 @@ position = Vector2( -102.383, -80.607 )
 texture = ExtResource( 4 )
 centered = false
 offset = Vector2( 56.818, 47.577 )
+
+[node name="DialogBoxHolder" type="Node2D" parent="."]
+z_index = 2
+z_as_relative = false
+
+[node name="AfflictionDialogBox" parent="DialogBoxHolder" instance=ExtResource( 8 )]
+margin_left = 40.0
+margin_top = -152.0
+margin_right = 40.0
+margin_bottom = -152.0
+grow_vertical = 0
 [connection signal="gui_input" from="ViewportContainer" to="." method="_on_ViewportContainer_gui_input"]
+[connection signal="mouse_entered" from="ViewportContainer" to="." method="_on_ViewportContainer_mouse_entered"]
+[connection signal="mouse_exited" from="ViewportContainer" to="." method="_on_ViewportContainer_mouse_exited"]
+[connection signal="mouse_entered" from="DialogBoxHolder/AfflictionDialogBox" to="." method="_on_AfflictionDialogBox_mouse_entered"]
+[connection signal="mouse_exited" from="DialogBoxHolder/AfflictionDialogBox" to="." method="_on_AfflictionDialogBox_mouse_exited"]

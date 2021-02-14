@@ -30,3 +30,5 @@ position = Vector2( 960, 600 )
 max_patients = 6
 bounds = 700
 y_bounds = 50
+
+[node name="UI" type="CanvasLayer" parent="."]
