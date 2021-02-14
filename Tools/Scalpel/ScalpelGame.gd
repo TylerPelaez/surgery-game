@@ -9,6 +9,8 @@ onready var pattern4 = preload("res://Tools/Scalpel/ScalpelPattern4.tscn").insta
 onready var patterns = []
 onready var pattern_to_use
 
+const acceptable_dtw = 1000
+
 signal scalpel_result(result)
 
 # Called when the node enters the scene tree for the first time.
@@ -109,7 +111,7 @@ func _on_calculateDTW(incision_array):
 		
 	var min_dtw = min(dtw_array[base_array.size()-1][incision_array.size()-1], dtw_array_reversed[base_array_reversed.size()-1][incision_array.size()-1])
 	print("DTW IS:", min_dtw)
-	if min_dtw <= 1000:
+	if min_dtw <= acceptable_dtw:
 		print("Scalpel minigame passed!")
 		emit_signal("scalpel_result", true)
 	else:

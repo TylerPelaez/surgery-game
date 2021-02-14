@@ -9,7 +9,6 @@ onready var can_draw = true
 onready var start_point
 onready var end_point
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -23,8 +22,8 @@ func enable_draw():
 	
 func times_up():
 	$Timer.stop()
-	if can_draw:
-		emit_signal("calculateBandage", self.get_points())
+	if can_draw && self.points.size() == 2:
+		emit_signal("calculateBandage", start_point, end_point)
 	can_draw = false
 	$AnimationPlayer.play("Fade Out No Draw")
 	# TODO: SFX
@@ -33,7 +32,7 @@ func times_up():
 func _process(delta):
 	# Reset and start the timer
 	if Input.is_action_just_pressed("draw"):
-		$Timer.start(0.5)
+		$Timer.start(1)
 		start_point = get_global_mouse_position()
 		self.add_point(get_global_mouse_position())
 	# Snap bandage line to mouse
@@ -43,11 +42,12 @@ func _process(delta):
 			self.add_point(get_global_mouse_position())
 		else:
 			 self.add_point(get_global_mouse_position())
+		end_point = get_global_mouse_position()
 	# If mouse released, signal that bandage placement should be calculated
 	if Input.is_action_just_released("draw"):
 		$Timer.stop()
 		end_point = get_global_mouse_position()
-		if self.points.size() > 0 && can_draw:
+		if self.points.size() == 2 && can_draw:
 			emit_signal("calculateBandage", start_point, end_point)
 		if $AnimationPlayer.playback_active && $AnimationPlayer.current_animation == "Fade Out No Draw":
 			can_draw = true
