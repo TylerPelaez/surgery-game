@@ -15,9 +15,14 @@ func _ready():
 func set_afflictions( afflictions ):
 	for affliction in afflictions:
 		var new_rect = AfflictionTextureRect.instance()
+		new_rect.rect_rotation = 1
 		new_rect.mouse_filter = MOUSE_FILTER_IGNORE
 		new_rect.texture = AfflictionData.AFFLICTIONS[affliction].texture
 		affliction_container.add_child(new_rect)
+
+func _process(delta):
+	for child in affliction_container.get_children():
+		child.rect_rotation = 1
 
 func show():
 	if !visible or animation_player.current_animation == "hide":
