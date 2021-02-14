@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[node name="Line" type="Line2D"]
+points = PoolVector2Array( 279.479, 393.718, 286.222, 385.258, 286.89, 384.09, 287.724, 382.588, 288.225, 380.92, 289.059, 378.25, 292.062, 371.91, 293.23, 369.24, 294.232, 368.239, 295.566, 365.569, 297.402, 361.731, 300.739, 355.224, 304.656, 345.872, 306.997, 339.972, 308.121, 337.912, 309.526, 336.039, 310.181, 335.103, 314.395, 330.046, 319.138, 322.73, 320.821, 319.994, 324.399, 315.013, 326.153, 312.628, 326.574, 312.137 )
+script = SubResource( 1 )
