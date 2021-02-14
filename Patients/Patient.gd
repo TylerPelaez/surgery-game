@@ -1,5 +1,7 @@
 extends Node2D
 
+signal cured(this)
+
 const HEAD_SPRITES = [ 
 						preload("res://Patients/BodyParts/head1.PNG"),
 						preload("res://Patients/BodyParts/head2.PNG"),
@@ -30,10 +32,12 @@ const FACE_SPRITES = [
 					]
 
 
-onready var body = $Body
-onready var head = $Body/Head
-onready var face = $Body/Head/Face
-onready var hair = $Body/Head/Hair
+onready var body = $ViewportContainer/Viewport/Body
+onready var head = $ViewportContainer/Viewport/Body/Head
+onready var face = $ViewportContainer/Viewport/Body/Head/Face
+onready var hair = $ViewportContainer/Viewport/Body/Head/Hair
+
+var ready = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,7 +48,10 @@ func _ready():
 	
 	pass # Replace with function body.
 
+func _on_spawn_animation_finished():
+	ready = true
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_ViewportContainer_gui_input(event):
+	if ready and event is InputEventMouseButton:
+		emit_signal("cured", self)
+		queue_free()

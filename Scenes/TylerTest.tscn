@@ -26,5 +26,7 @@ texture = ExtResource( 5 )
 centered = false
 
 [node name="PatientGenerator" parent="." instance=ExtResource( 2 )]
-position = Vector2( 960, 552 )
+position = Vector2( 960, 600 )
+max_patients = 6
 bounds = 700
+y_bounds = 50

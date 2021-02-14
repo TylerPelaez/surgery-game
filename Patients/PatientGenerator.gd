@@ -2,14 +2,18 @@ extends Node2D
 tool
 
 const PatientScene = preload("res://Patients/Patient.tscn")
+const PatientSpawnArea = preload("res://Patients/PatientSpawnArea.tres")
 
+export var max_patients = 6
 export var bounds = 10
+export var y_bounds = 10
 export var draw_debug = false
 
-
+var spawned_patients = []
 
 
 func _ready():
+	randomize()
 	set_physics_process(true)
 
 func _physics_process(delta):
@@ -18,14 +22,33 @@ func _physics_process(delta):
 
 func _draw():
 	if draw_debug:
-		draw_line(Vector2.LEFT * bounds, Vector2.RIGHT * bounds, Color.red, 5)
+		draw_rect(Rect2(Vector2.LEFT.x * bounds, Vector2.UP.y * y_bounds, bounds * 2, y_bounds * 2), Color.red)
 
+func get_spawn_pos_x():
+	var test_offset_x = rand_range(-bounds, bounds)
+	for try in range(5):
+		var test_transform = global_transform.translated(Vector2(test_offset_x, 0))
+		if !Utils.shape_cast_would_collide(PatientSpawnArea, test_transform):
+			return global_position.x + test_offset_x
+		
+		test_offset_x += PatientSpawnArea.radius
+		if test_offset_x > bounds:
+			break
+	
+	return null
 
 func spawn_patient():
-	var x = global_position.x + rand_range(-bounds, bounds)
-	var y = global_position.y
-	var instance = Utils.instance_scene_on_main(PatientScene, Vector2(x,y))
-	
+	var x = get_spawn_pos_x()
+	if x != null:
+		var y = global_position.y + rand_range(-y_bounds, y_bounds)
+		var instance = Utils.instance_scene_on_main(PatientScene, Vector2(x,y))
+		instance.connect("cured", self, "on_patient_cured")
+		spawned_patients.append(instance)
+		
+
+func on_patient_cured(patient):
+	spawned_patients.erase(patient)
 
 func _on_SpawnPatientTimer_timeout():
-	spawn_patient()
+	if spawned_patients.size() < max_patients:
+		spawn_patient()
