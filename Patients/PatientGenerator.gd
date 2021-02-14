@@ -8,6 +8,7 @@ export var max_patients = 6
 export var bounds = 10
 export var y_bounds = 10
 export var draw_debug = false
+export var MAX_PATIENT_AFFLICTIONS = 2
 
 var spawned_patients = []
 
@@ -42,11 +43,13 @@ func spawn_patient():
 	if x != null:
 		var y = global_position.y + rand_range(-y_bounds, y_bounds)
 		var instance = Utils.instance_scene_on_main(PatientScene, Vector2(x,y))
-		instance.connect("cured", self, "on_patient_cured")
+		instance.init(MAX_PATIENT_AFFLICTIONS)
+		instance.connect("cured", self, "on_patient_cured_or_not_treated")
+		instance.connect("not_treated", self, "on_patient_cured_or_not_treated")
 		spawned_patients.append(instance)
-		
 
-func on_patient_cured(patient):
+
+func on_patient_cured_or_not_treated(patient):
 	spawned_patients.erase(patient)
 
 func _on_SpawnPatientTimer_timeout():

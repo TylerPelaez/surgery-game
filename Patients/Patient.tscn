@@ -94,10 +94,10 @@ centered = false
 offset = Vector2( 2.694, -5.622 )
 
 [node name="Face" type="Sprite" parent="ViewportContainer/Viewport/Body/Head"]
-position = Vector2( 0, 11.46 )
+position = Vector2( 0, 3.562 )
 texture = ExtResource( 2 )
 centered = false
-offset = Vector2( 32.651, 26.671 )
+offset = Vector2( 35.478, 30.16 )
 
 [node name="Hair" type="Sprite" parent="ViewportContainer/Viewport/Body/Head"]
 material = ExtResource( 6 )
@@ -116,8 +116,13 @@ margin_top = -152.0
 margin_right = 40.0
 margin_bottom = -152.0
 grow_vertical = 0
+
+[node name="EmotionChangeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 [connection signal="gui_input" from="ViewportContainer" to="." method="_on_ViewportContainer_gui_input"]
 [connection signal="mouse_entered" from="ViewportContainer" to="." method="_on_ViewportContainer_mouse_entered"]
 [connection signal="mouse_exited" from="ViewportContainer" to="." method="_on_ViewportContainer_mouse_exited"]
 [connection signal="mouse_entered" from="DialogBoxHolder/AfflictionDialogBox" to="." method="_on_AfflictionDialogBox_mouse_entered"]
 [connection signal="mouse_exited" from="DialogBoxHolder/AfflictionDialogBox" to="." method="_on_AfflictionDialogBox_mouse_exited"]
+[connection signal="timeout" from="EmotionChangeTimer" to="." method="_on_EmotionChangeTimer_timeout"]
