@@ -9,8 +9,8 @@ var _afflictions = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-#	if Utils.is_main_scene(self):
-	set_afflictions([AfflictionData.Afflictions.HeartPain, AfflictionData.Afflictions.Tumor])
+	if Utils.is_main_scene(self):
+		set_afflictions([AfflictionData.Afflictions.HeartPain, AfflictionData.Afflictions.Tumor])
 
 func set_afflictions( afflictions ):
 	for affliction in afflictions:
