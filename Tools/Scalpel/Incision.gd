@@ -22,15 +22,16 @@ func enable_draw():
 	
 func times_up():
 	$Timer.stop()
+	if can_draw:
+		emit_signal("calculateDTW", self.get_points())
 	can_draw = false
-	emit_signal("calculateDTW", self.get_points())
 	$AnimationPlayer.play("Fade Out No Draw")
 	# TODO: SFX
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Reset and start the timer
-	if Input.is_action_just_pressed("draw") && can_draw:
+	if Input.is_action_just_pressed("draw"):
 		$Timer.start(1.5)
 	# Draw incision line if mouse is held down 
 	if Input.is_action_pressed("draw") && can_draw:
@@ -43,10 +44,13 @@ func _process(delta):
 	# If mouse released, signal that DTW should be calculated against current pattern
 	if Input.is_action_just_released("draw"):
 		$Timer.stop()
-		can_draw = false
-		if self.points.size() > 0:
+		if self.points.size() > 0 && can_draw:
 			emit_signal("calculateDTW", self.get_points())
-		$AnimationPlayer.play("Fade Out")
+		if $AnimationPlayer.playback_active && $AnimationPlayer.current_animation == "Fade Out No Draw":
+			can_draw = true
+		else:
+			can_draw = false
+			$AnimationPlayer.play("Fade Out")
 		# TODO: SFX
 
 
