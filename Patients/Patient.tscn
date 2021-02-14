@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Patients/BodyParts/redbody.PNG" type="Texture" id=1]
+[ext_resource path="res://Patients/BodyParts/facehappy.PNG" type="Texture" id=2]
+[ext_resource path="res://Patients/BodyParts/head1.PNG" type="Texture" id=3]
+[ext_resource path="res://Patients/BodyParts/hair6.PNG" type="Texture" id=4]
+[ext_resource path="res://Patients/Patient.gd" type="Script" id=5]
+[ext_resource path="res://Patients/PatientShadow.tres" type="Material" id=6]
+[ext_resource path="res://Patients/PatientSpawnArea.tres" type="Shape2D" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Spawn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_on_spawn_animation_finished"
+} ]
+}
+
+[node name="Patient" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Spawn"
+anims/Spawn = SubResource( 1 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_left = -64.0
+margin_top = -176.0
+margin_right = 72.0
+margin_bottom = 192.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 136, 368 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+
+[node name="Body" type="Sprite" parent="ViewportContainer/Viewport"]
+material = ExtResource( 6 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Head" type="Sprite" parent="ViewportContainer/Viewport/Body"]
+position = Vector2( 11.232, 23.441 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 2.694, -5.622 )
+
+[node name="Face" type="Sprite" parent="ViewportContainer/Viewport/Body/Head"]
+position = Vector2( 0, 11.46 )
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( 32.651, 26.671 )
+
+[node name="Hair" type="Sprite" parent="ViewportContainer/Viewport/Body/Head"]
+material = ExtResource( 6 )
+position = Vector2( -102.383, -80.607 )
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( 56.818, 47.577 )
+[connection signal="gui_input" from="ViewportContainer" to="." method="_on_ViewportContainer_gui_input"]

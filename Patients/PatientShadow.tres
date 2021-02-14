@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://Patients/BodyParts/shadows.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D shadows;
+uniform vec2 shadow_texture_size;
+
+void fragment() {
+	vec4 original_color = texture(TEXTURE, UV);
+	vec2 texture_size = 1.0 / TEXTURE_PIXEL_SIZE;
+	
+	vec2 texture_pixels = UV * texture_size;
+	vec2 shadow_uv = texture_pixels / shadow_texture_size;
+	
+	vec4 shadow_color = texture(shadows, UV);
+	shadow_color.a *= original_color.a;
+
+	COLOR = vec4(original_color.rgb - (original_color.rgb * shadow_color.a), original_color.a);
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/shadow_texture_size = Vector2( 131, 360 )
+shader_param/shadows = ExtResource( 1 )
