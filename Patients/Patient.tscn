@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Patients/BodyParts/redbody.PNG" type="Texture" id=1]
+[ext_resource path="res://Patients/BodyParts/facehappy.PNG" type="Texture" id=2]
+[ext_resource path="res://Patients/BodyParts/head1.PNG" type="Texture" id=3]
+[ext_resource path="res://Patients/BodyParts/hair6.PNG" type="Texture" id=4]
+[ext_resource path="res://Patients/Patient.gd" type="Script" id=5]
+[ext_resource path="res://Patients/PatientShadow.tres" type="Material" id=6]
+
+[node name="Patient" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Body" type="Sprite" parent="."]
+material = ExtResource( 6 )
+texture = ExtResource( 1 )
+
+[node name="Head" type="Sprite" parent="Body"]
+position = Vector2( 2, -109 )
+texture = ExtResource( 3 )
+
+[node name="Face" type="Sprite" parent="Body/Head"]
+position = Vector2( 0, 11.46 )
+texture = ExtResource( 2 )
+
+[node name="Hair" type="Sprite" parent="Body/Head"]
+material = ExtResource( 6 )
+position = Vector2( -102.383, -80.607 )
+texture = ExtResource( 4 )
+centered = false
