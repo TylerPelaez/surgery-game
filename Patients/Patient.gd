@@ -2,6 +2,7 @@ extends Node2D
 
 signal not_treated(this)
 signal cured(this)
+signal ready_for_surgery(this)
 
 const HEAD_SPRITES = [ 
 						preload("res://Patients/BodyParts/head1.PNG"),
@@ -44,7 +45,6 @@ const EMOTIONAL_STATES = [
 
 const BASE_ADD_AFFLICTION_CHANCE = 0.5
 
-
 onready var body = $ViewportContainer/Viewport/Body
 onready var head = $ViewportContainer/Viewport/Body/Head
 onready var face = $ViewportContainer/Viewport/Body/Head/Face
@@ -62,6 +62,12 @@ var became_ready_tick_time_ms
 
 var afflictions
 
+var ready_for_surgery = false
+
+var required_tools = []
+var prepared_tools = []
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	body.texture = BODY_SPRITES[randi() % BODY_SPRITES.size()]
@@ -71,7 +77,11 @@ func _ready():
 
 func init(max_affliction):
 	afflictions = _choose_random_afflictions(1, max_affliction)
+	for affliction in afflictions:
+		for tool_data in AfflictionData.AFFLICTIONS[affliction].tools_required:
+			required_tools.append(tool_data["tool"])
 	dialog_box.set_afflictions(afflictions)
+	
 
 func _choose_random_afflictions(min_count, max_count):
 	var result = []
@@ -92,10 +102,21 @@ func _on_spawn_animation_finished():
 	$EmotionChangeTimer.start(EMOTIONAL_STATES[current_emotion].wait_time_s)
 	became_ready_tick_time_ms = OS.get_ticks_msec()
 
-func _on_ViewportContainer_gui_input(event):
-	if ready and event is InputEventMouseButton:
-		emit_signal("cured", self)
-		queue_free()
+func requires_tool(tool_type):
+	return !ready_for_surgery and required_tools.has(tool_type)
+
+func prepare_tool(tool_type):
+	if requires_tool(tool_type):
+		prepared_tools.append(tool_type)
+		required_tools.erase(tool_type)
+		if required_tools.empty():
+			ready_for_surgery = true
+			emit_signal("ready_for_surgery", self)
+
+#func _on_ViewportContainer_gui_input(event):
+#	if ready and event is InputEventMouseButton:
+#		emit_signal("cured", self)
+#		queue_free()
 
 func show_dialog_box():
 	dialog_box.show()

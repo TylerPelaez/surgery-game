@@ -54,10 +54,10 @@ tracks/2/keys = {
 script = ExtResource( 5 )
 
 [node name="Area2D" type="Area2D" parent="."]
-monitoring = false
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -168 )
 shape = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -111,16 +111,16 @@ z_index = 2
 z_as_relative = false
 
 [node name="AfflictionDialogBox" parent="DialogBoxHolder" instance=ExtResource( 8 )]
-margin_left = 40.0
-margin_top = -152.0
-margin_right = 40.0
-margin_bottom = -152.0
+visible = true
+margin_left = -40.0
+margin_top = -208.0
+margin_right = -40.0
+margin_bottom = -208.0
 grow_vertical = 0
 
 [node name="EmotionChangeTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
-[connection signal="gui_input" from="ViewportContainer" to="." method="_on_ViewportContainer_gui_input"]
 [connection signal="mouse_entered" from="ViewportContainer" to="." method="_on_ViewportContainer_mouse_entered"]
 [connection signal="mouse_exited" from="ViewportContainer" to="." method="_on_ViewportContainer_mouse_exited"]
 [connection signal="mouse_entered" from="DialogBoxHolder/AfflictionDialogBox" to="." method="_on_AfflictionDialogBox_mouse_entered"]

@@ -8,20 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "SelectableTool",
+"language": "GDScript",
+"path": "res://DriveInScreen/SelectableTools/SelectableTool.gd"
+} ]
 _global_script_class_icons={
-
+"SelectableTool": ""
 }
 
 [application]
 
 config/name="SurgeryGame"
-run/main_scene="res://Scenes/TylerTest.tscn"
+run/main_scene="res://Scenes/WaitingRoom.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Utils="*res://Utils.gd"
+ToolData="*res://Data/ToolData.gd"
 AfflictionData="*res://Data/AfflictionData.gd"
 
 [display]
@@ -44,6 +50,7 @@ draw={
 [layer_names]
 
 2d_physics/layer_1="Patient"
+2d_physics/layer_2="SelectableTool"
 
 [rendering]
 
