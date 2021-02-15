@@ -1,6 +1,8 @@
 extends Node2D
 tool
 
+signal spawned_patient(patient)
+
 const PatientScene = preload("res://Patients/Patient.tscn")
 const PatientSpawnArea = preload("res://Patients/PatientSpawnArea.tres")
 
@@ -47,6 +49,7 @@ func spawn_patient():
 		instance.connect("cured", self, "on_patient_cured_or_not_treated")
 		instance.connect("not_treated", self, "on_patient_cured_or_not_treated")
 		spawned_patients.append(instance)
+		emit_signal("spawned_patient", instance)
 
 
 func on_patient_cured_or_not_treated(patient):

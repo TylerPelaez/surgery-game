@@ -35,12 +35,14 @@ func _process(delta):
 		$Timer.start(1.5)
 	# Draw incision line if mouse is held down 
 	if Input.is_action_pressed("draw") && can_draw:
+		var mouse_pos = get_viewport().get_parent().get_local_mouse_position() if get_viewport().get_parent() != null else get_global_mouse_position()
+		
 		if self.points.size() > 0:
 			# Try not to place down extra points if they're the same as before
-			if get_global_mouse_position() != self.points[self.points.size()-1]:
-				add_point(get_global_mouse_position())
+			if mouse_pos != self.points[self.points.size()-1]:
+				add_point(mouse_pos)
 		else:
-			add_point(get_global_mouse_position())
+			add_point(mouse_pos)
 	# If mouse released, signal that DTW should be calculated against current pattern
 	if Input.is_action_just_released("draw"):
 		$Timer.stop()

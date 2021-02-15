@@ -118,6 +118,10 @@ func prepare_tool(tool_type):
 #		emit_signal("cured", self)
 #		queue_free()
 
+func cure():
+	emit_signal("cured", self)
+	queue_free()
+
 func show_dialog_box():
 	dialog_box.show()
 
