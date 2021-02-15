@@ -1,14 +1,11 @@
-extends Node2D
-
-# signals to be hooked up via inheritance:
-# signal game_finished(true/false)
-# signal botch_made(tbd)
+extends BaseToolMinigame
 
 onready var in_zone = false
 onready var qte_key = "spacebar"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	BOTCH_DAMAGE = 10
 	# Randomly pick a prompt that the QTE will use
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -51,7 +48,7 @@ func _process(delta):
 		emit_signal("game_finished", true)
 	elif Input.is_action_just_pressed("spacebar") || Input.is_action_just_pressed("q_key") || Input.is_action_just_pressed("e_key"):
 		print("Defibrillator minigame failed!")
-		emit_signal("game_finished", false)
+		emit_signal("botch_made", BOTCH_DAMAGE)
 		
 # When the needle enters the success zone
 func _on_Area2D_area_entered(area):

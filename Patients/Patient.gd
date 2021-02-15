@@ -139,6 +139,7 @@ func prepare_tool(tool_type):
 func enter_surgery():
 	$EmotionChangeTimer.stop()
 	time_to_treatment_ms = OS.get_ticks_msec() - became_ready_tick_time_ms
+	prepared_tools.shuffle()
 
 func cure():
 	emit_signal("cured", self)

@@ -15,6 +15,7 @@ signal scalpel_result(result)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	BOTCH_DAMAGE = 10
 	$Incision.connect("calculateDTW", self, "_on_calculateDTW")
 	
 	# Pick a pattern at random to use
@@ -116,4 +117,4 @@ func _on_calculateDTW(incision_array):
 		emit_signal("game_finished", true)
 	else:
 #		print("Scalpel minigame failed!")
-		emit_signal("game_finished", false)
+		emit_signal("botch_made", BOTCH_DAMAGE)

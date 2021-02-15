@@ -32,6 +32,7 @@ func set_tool_type(type):
 	tool_type = type
 	if sprite != null:
 		sprite.texture = ToolData.TOOLS_DATA[tool_type].texture
+		sprite.scale = Vector2(1.0, 1.0) * ToolData.TOOLS_DATA[tool_type].texture_scale
 	if Engine.is_editor_hint():
 		property_list_changed_notify()
 
@@ -43,6 +44,7 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 			held = false
 			emit_signal("released", self)
 			queue_free()
+
 
 # hover logic
 func _on_Area2D_mouse_entered():
