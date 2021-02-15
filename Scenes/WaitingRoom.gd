@@ -5,9 +5,11 @@ const SelectableToolScene = preload("res://DriveInScreen/SelectableTools/Selecta
 onready var patient_generator = $PatientGenerator
 onready var surgery_container = $CanvasLayer/SurgeryContainer
 onready var grey_out = $CanvasLayer/GreyOut
+onready var money_label_container = $CanvasLayer/MoneyLabelContainer
 
 var currently_held_tool
 var patient_in_surgery
+var player_money = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,6 +55,7 @@ func _on_tool_mouse_event(tool_instance, entered):
 
 func _on_patient_generator_spawned_patient(patient):
 	patient.connect("ready_for_surgery", self, "_on_patient_ready_for_surgery")
+	patient.connect("cured", self, "_on_patient_cured")
 
 func _on_patient_ready_for_surgery(patient):
 	surgery_container.add_surgery_games_for_tools(patient.prepared_tools)
@@ -66,4 +69,8 @@ func _on_surgery_container_all_games_finished():
 	surgery_container.visible = false
 	patient_in_surgery.cure()
 	patient_in_surgery = null
-	
+
+func _on_patient_cured(patient):
+	var payment = patient.get_cure_payment()
+	player_money += payment
+	money_label_container.add_money(payment)

@@ -13,15 +13,9 @@ _global_script_classes=[ {
 "class": "BaseToolMinigame",
 "language": "GDScript",
 "path": "res://Tools/BaseToolMinigame.gd"
-}, {
-"base": "Node2D",
-"class": "SelectableTool",
-"language": "GDScript",
-"path": "res://DriveInScreen/SelectableTools/SelectableTool.gd"
 } ]
 _global_script_class_icons={
-"BaseToolMinigame": "",
-"SelectableTool": ""
+"BaseToolMinigame": ""
 }
 
 [application]

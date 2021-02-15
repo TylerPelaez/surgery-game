@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://DriveInScreen/SelectableTools/SelectableTool.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Patients/PatientGenerator.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/Background/wall left.PNG" type="Texture" id=6]
 [ext_resource path="res://Scenes/WaitingRoom.gd" type="Script" id=7]
 [ext_resource path="res://SurgeryScreen/SurgeryContainer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Ui/MoneyLabelContainer.tscn" type="PackedScene" id=9]
 
 [node name="WaitingRoom" type="Node2D"]
 script = ExtResource( 7 )
@@ -34,8 +35,6 @@ position = Vector2( 960, 600 )
 max_patients = 6
 bounds = 700
 y_bounds = 50
-draw_debug = false
-MAX_PATIENT_AFFLICTIONS = 2
 
 [node name="Scalpel" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1568, 888 )
@@ -61,3 +60,6 @@ __meta__ = {
 
 [node name="SurgeryContainer" parent="CanvasLayer" instance=ExtResource( 8 )]
 visible = false
+
+[node name="MoneyLabelContainer" parent="CanvasLayer" instance=ExtResource( 9 )]
+mouse_filter = 2

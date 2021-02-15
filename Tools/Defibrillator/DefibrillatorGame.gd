@@ -38,16 +38,16 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("spacebar") && qte_key == "spacebar" && in_zone:
-		print("Defibrillator minigame passed!")
+#		print("Defibrillator minigame passed!")
 		emit_signal("game_finished", true)
 	elif Input.is_action_just_pressed("q_key") && qte_key == "q_key" && in_zone:
-		print("Defibrillator minigame passed!")
+#		print("Defibrillator minigame passed!")
 		emit_signal("game_finished", true)
 	elif Input.is_action_just_pressed("e_key") && qte_key == "e_key" && in_zone:
-		print("Defibrillator minigame passed!")
+#		print("Defibrillator minigame passed!")
 		emit_signal("game_finished", true)
 	elif Input.is_action_just_pressed("spacebar") || Input.is_action_just_pressed("q_key") || Input.is_action_just_pressed("e_key"):
-		print("Defibrillator minigame failed!")
+#		print("Defibrillator minigame failed!")
 		emit_signal("botch_made", BOTCH_DAMAGE)
 		
 # When the needle enters the success zone

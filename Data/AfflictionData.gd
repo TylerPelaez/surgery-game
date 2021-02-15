@@ -15,8 +15,9 @@ const AFFLICTIONS = {
 					"tool": ToolData.Tools.Defibrillator,
 					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
 					"tool_params": [], 
-				}
-			]
+				},
+			],
+			"base_payment": 100,
 		},
 	Afflictions.Tumor:
 		{
@@ -31,7 +32,8 @@ const AFFLICTIONS = {
 					"tool": ToolData.Tools.Bandage,
 					"tool_params": [], 
 				}
-			]
+			],
+			"base_payment": 200,
 		}
 }
 

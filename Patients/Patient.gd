@@ -34,12 +34,14 @@ const EMOTIONAL_STATES = [
 						},
 						{
 							"face_texture": preload("res://Patients/BodyParts/faceneutral.PNG"),
-							"wait_time_s": 20
+							"wait_time_s": 20,
+							"payment_curve": preload("res://Patients/PatientNeutralPaymentCurve.tres"),
 						},
 						{
 							"face_texture": preload("res://Patients/BodyParts/facemad.PNG"),
 							"wait_time_s": 10,
-							"texture_offset": Vector2(0, -12.0)
+							"texture_offset": Vector2(0, -12.0),
+							"payment_curve": preload("res://Patients/PatientMadPaymentCurve.tres")
 						}
 					]
 
@@ -61,6 +63,7 @@ var tool_in_drop_range = false
 var current_emotion = 0
 var became_ready_tick_time_ms
 var time_to_treatment_ms
+var total_possible_wait_time_ms
 
 var afflictions = {}
 var prepared_tools = []
@@ -73,11 +76,19 @@ func _ready():
 	head.texture = HEAD_SPRITES[randi() % HEAD_SPRITES.size()]
 	hair.texture = HAIR_SPRITES[randi() % HAIR_SPRITES.size()]
 	face.texture = EMOTIONAL_STATES[current_emotion].face_texture
+	
+	var total_wait_time_s = 0
+	for state in EMOTIONAL_STATES:
+		total_wait_time_s += state.wait_time_s
+	
+	total_possible_wait_time_ms = total_wait_time_s * 1000.0
+	
 
 func init(max_affliction):
 	var affliction_array = _choose_random_afflictions(1, max_affliction)
 	for affliction in affliction_array:
 		var tools_needed = []
+		
 		for tool_data in AfflictionData.AFFLICTIONS[affliction].tools_required:
 			tools_needed.append(tool_data["tool"])
 		
@@ -113,7 +124,6 @@ func requires_tool(tool_type):
 	
 	return false	
 
-
 func prepare_tool(tool_type):
 	# O(n^2) lol
 	if requires_tool(tool_type):
@@ -144,6 +154,22 @@ func enter_surgery():
 func cure():
 	emit_signal("cured", self)
 	queue_free()
+
+func get_cure_payment():
+	var base_payments = []
+	for affliction in afflictions.keys():
+		base_payments.append(AfflictionData.AFFLICTIONS[affliction].base_payment)
+	
+	var multiplier = 1.0
+	if current_emotion != 0:
+		var curve = EMOTIONAL_STATES[current_emotion].payment_curve
+		multiplier = curve.interpolate(time_to_treatment_ms / total_possible_wait_time_ms)
+	
+	var sum = 0
+	for base_payment in base_payments:
+		sum += base_payment * multiplier 
+	
+	return sum
 
 func show_dialog_box():
 	dialog_box.show()

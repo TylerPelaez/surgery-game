@@ -1,5 +1,4 @@
 extends Node2D
-class_name SelectableTool
 tool # haha
 
 signal clicked(this)
@@ -44,7 +43,6 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 			held = false
 			emit_signal("released", self)
 			queue_free()
-
 
 # hover logic
 func _on_Area2D_mouse_entered():
