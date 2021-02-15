@@ -46,13 +46,12 @@ func spawn_patient():
 		var y = global_position.y + rand_range(-y_bounds, y_bounds)
 		var instance = Utils.instance_scene_on_main(PatientScene, Vector2(x,y))
 		instance.init(MAX_PATIENT_AFFLICTIONS)
-		instance.connect("cured", self, "on_patient_cured_or_not_treated")
-		instance.connect("not_treated", self, "on_patient_cured_or_not_treated")
+		instance.connect("not_treated", self, "remove_patient")
 		spawned_patients.append(instance)
 		emit_signal("spawned_patient", instance)
 
 
-func on_patient_cured_or_not_treated(patient):
+func remove_patient(patient):
 	spawned_patients.erase(patient)
 
 func _on_SpawnPatientTimer_timeout():

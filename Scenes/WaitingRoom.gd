@@ -10,11 +10,13 @@ onready var money_label_container = $CanvasLayer/MoneyLabelContainer
 var currently_held_tool
 var patient_in_surgery
 var player_money = 0
+var death_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	patient_generator.connect("spawned_patient", self, "_on_patient_generator_spawned_patient")
 	surgery_container.connect("all_games_finished", self, "_on_surgery_container_all_games_finished")
+	surgery_container.connect("patient_death", self, "_on_surgery_container_patient_death")
 	
 	for node in get_tree().get_nodes_in_group("selectable_tool"):
 		node.connect("clicked", self, "_on_tool_clicked")
@@ -55,7 +57,6 @@ func _on_tool_mouse_event(tool_instance, entered):
 
 func _on_patient_generator_spawned_patient(patient):
 	patient.connect("ready_for_surgery", self, "_on_patient_ready_for_surgery")
-	patient.connect("cured", self, "_on_patient_cured")
 
 func _on_patient_ready_for_surgery(patient):
 	surgery_container.add_surgery_games_for_tools(patient.prepared_tools)
@@ -64,13 +65,31 @@ func _on_patient_ready_for_surgery(patient):
 	patient_in_surgery = patient
 	patient_in_surgery.enter_surgery()
 
-func _on_surgery_container_all_games_finished():
+func _hide_surgery_ui():
 	grey_out.visible = false
 	surgery_container.visible = false
-	patient_in_surgery.cure()
+
+func _on_surgery_container_all_games_finished(percent_damage_taken):
+	_hide_surgery_ui()
+	patient_generator.remove_patient(patient_in_surgery)
+	_on_patient_cured(patient_in_surgery, percent_damage_taken)
+	patient_in_surgery.queue_free()
 	patient_in_surgery = null
 
-func _on_patient_cured(patient):
-	var payment = patient.get_cure_payment()
-	player_money += payment
-	money_label_container.add_money(payment)
+func _on_surgery_container_patient_death():
+	_hide_surgery_ui()
+	patient_generator.remove_patient(patient_in_surgery)
+	_on_patient_death(patient_in_surgery)
+	patient_in_surgery.queue_free()
+	patient_in_surgery = null
+
+func _on_patient_cured(patient, percent_damage_taken):
+	var time_waited_payment = patient.get_cure_payment()
+	var post_damage_calculation_payment =  max(1.0 - percent_damage_taken, 0.1) * (time_waited_payment)
+	player_money += post_damage_calculation_payment
+	money_label_container.add_money(post_damage_calculation_payment)
+
+func _on_patient_death(patient):
+	death_count += 1
+
+

@@ -1,7 +1,6 @@
 extends Node2D
 
 signal not_treated(this)
-signal cured(this)
 signal ready_for_surgery(this)
 
 const HEAD_SPRITES = [ 
@@ -151,9 +150,13 @@ func enter_surgery():
 	time_to_treatment_ms = OS.get_ticks_msec() - became_ready_tick_time_ms
 	prepared_tools.shuffle()
 
-func cure():
-	emit_signal("cured", self)
-	queue_free()
+#func cure():
+#	emit_signal("cured", self)
+#	queue_free()
+#
+#func death():
+#	emit_signal("death", self)
+#	queue_free()
 
 func get_cure_payment():
 	var base_payments = []
