@@ -1,12 +1,15 @@
 extends BaseToolMinigame
 
-onready var pattern0 = preload("res://Tools/Scalpel/ScalpelPattern0.tscn").instance()
-onready var pattern1 = preload("res://Tools/Scalpel/ScalpelPattern1.tscn").instance()
-onready var pattern2 = preload("res://Tools/Scalpel/ScalpelPattern2.tscn").instance()
-onready var pattern3 = preload("res://Tools/Scalpel/ScalpelPattern3.tscn").instance()
-onready var pattern4 = preload("res://Tools/Scalpel/ScalpelPattern4.tscn").instance()
+const patterns = [
+	preload("res://Tools/Scalpel/ScalpelPattern0.tscn"),
+	preload("res://Tools/Scalpel/ScalpelPattern1.tscn"),
+	preload("res://Tools/Scalpel/ScalpelPattern2.tscn"),
+	preload("res://Tools/Scalpel/ScalpelPattern3.tscn"),
+	preload("res://Tools/Scalpel/ScalpelPattern4.tscn")
+]
 
-onready var patterns = []
+const dotted_line_texture = preload("res://Tools/Scalpel/Dottedline.png")
+
 onready var pattern_to_use
 
 const acceptable_dtw = 1000
@@ -19,29 +22,18 @@ func _ready():
 	$Incision.connect("calculateDTW", self, "_on_calculateDTW")
 	
 	# Pick a pattern at random to use
-	patterns.append(pattern0)
-	patterns.append(pattern1)
-	patterns.append(pattern2)
-	patterns.append(pattern3)
-	patterns.append(pattern4)
-	
+	var pattern_index = randi() % patterns.size()
+	pattern_to_use = patterns[pattern_index].instance()
+	add_child(pattern_to_use)
+	pattern_to_use.width = 30
+	pattern_to_use.texture = dotted_line_texture
+	pattern_to_use.texture_mode = Line2D.LINE_TEXTURE_TILE
+
+	pattern_to_use.show()
+
+
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var pattern_number = rng.randi_range(0, 4)
-	
-	if pattern_number == 0:
-		pattern_to_use = pattern0
-	if pattern_number == 1:
-		pattern_to_use = pattern1
-	if pattern_number == 2:
-		pattern_to_use = pattern2
-	if pattern_number == 3:
-		pattern_to_use = pattern3
-	if pattern_number == 4:
-		pattern_to_use = pattern4
-
-	add_child(pattern_to_use)
-	pattern_to_use.show()
 	# Randomize the position of the pattern
 	var y_offset = rng.randi_range(-150, 150)
 	var x_offset = rng.randi_range(-150, 150)
