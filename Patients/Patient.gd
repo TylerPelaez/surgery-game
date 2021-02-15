@@ -56,17 +56,16 @@ var ready = false
 
 var mouse_in_viewport = false
 var mouse_in_dialog_box = false
+var tool_in_drop_range = false
 
 var current_emotion = 0
 var became_ready_tick_time_ms
+var time_to_treatment_ms
 
-var afflictions
-
-var ready_for_surgery = false
-
-var required_tools = []
+var afflictions = {}
 var prepared_tools = []
 
+var ready_for_surgery = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -76,12 +75,14 @@ func _ready():
 	face.texture = EMOTIONAL_STATES[current_emotion].face_texture
 
 func init(max_affliction):
-	afflictions = _choose_random_afflictions(1, max_affliction)
-	for affliction in afflictions:
+	var affliction_array = _choose_random_afflictions(1, max_affliction)
+	for affliction in affliction_array:
+		var tools_needed = []
 		for tool_data in AfflictionData.AFFLICTIONS[affliction].tools_required:
-			required_tools.append(tool_data["tool"])
-	dialog_box.set_afflictions(afflictions)
-	
+			tools_needed.append(tool_data["tool"])
+		
+		afflictions[affliction] = tools_needed
+	dialog_box.set_afflictions(affliction_array)
 
 func _choose_random_afflictions(min_count, max_count):
 	var result = []
@@ -103,20 +104,41 @@ func _on_spawn_animation_finished():
 	became_ready_tick_time_ms = OS.get_ticks_msec()
 
 func requires_tool(tool_type):
-	return !ready_for_surgery and required_tools.has(tool_type)
+	if ready_for_surgery:
+		return false
+	
+	for affliction in afflictions.keys():
+		if afflictions[affliction].has(tool_type):
+			return true
+	
+	return false	
+
 
 func prepare_tool(tool_type):
+	# O(n^2) lol
 	if requires_tool(tool_type):
-		prepared_tools.append(tool_type)
-		required_tools.erase(tool_type)
-		if required_tools.empty():
+
+		for affliction in afflictions.keys():
+			if afflictions[affliction].has(tool_type):
+				afflictions[affliction].erase(tool_type)
+				prepared_tools.append(tool_type)
+				if afflictions[affliction].empty():
+					dialog_box.set_affliction_prepared(affliction)
+				break
+		
+		var all_empty = true
+		for affliction in afflictions.keys():
+			if !afflictions[affliction].empty():
+				all_empty = false
+				break
+		
+		if all_empty:
 			ready_for_surgery = true
 			emit_signal("ready_for_surgery", self)
 
-#func _on_ViewportContainer_gui_input(event):
-#	if ready and event is InputEventMouseButton:
-#		emit_signal("cured", self)
-#		queue_free()
+func enter_surgery():
+	$EmotionChangeTimer.stop()
+	time_to_treatment_ms = OS.get_ticks_msec() - became_ready_tick_time_ms
 
 func cure():
 	emit_signal("cured", self)
@@ -126,9 +148,8 @@ func show_dialog_box():
 	dialog_box.show()
 
 func check_begin_hide_dialog_box():
-	if !mouse_in_viewport and !mouse_in_dialog_box:
+	if !mouse_in_viewport and !mouse_in_dialog_box and !tool_in_drop_range:
 		dialog_box.hide()
-	
 
 func _on_ViewportContainer_mouse_entered():
 	mouse_in_viewport = true
@@ -157,3 +178,16 @@ func _on_EmotionChangeTimer_timeout():
 		if emotional_state_dict.has("texture_offset"):
 			face.offset += emotional_state_dict.texture_offset
 		$EmotionChangeTimer.start(emotional_state_dict.wait_time_s)
+
+func _on_Area2D_area_entered(area):
+	tool_in_drop_range = true
+	show_dialog_box()
+
+
+func _on_Area2D_area_exited(area):
+	tool_in_drop_range = false
+	check_begin_hide_dialog_box()
+
+
+func _on_InitialHideDialogBoxTimer_timeout():
+	check_begin_hide_dialog_box()

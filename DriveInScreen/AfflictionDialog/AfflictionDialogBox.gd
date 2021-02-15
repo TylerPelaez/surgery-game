@@ -2,6 +2,9 @@ extends Control
 
 const AfflictionTextureRect = preload("res://DriveInScreen/AfflictionDialog/AfflictionTextureRect.tscn")
 
+const AFFLICTION_TEXTURE_PREFIX = "Affliction"
+
+
 onready var affliction_container = $MarginContainer/VBoxContainer
 onready var animation_player = $AnimationPlayer
 
@@ -19,6 +22,11 @@ func set_afflictions( afflictions ):
 		new_rect.mouse_filter = MOUSE_FILTER_IGNORE
 		new_rect.texture = AfflictionData.AFFLICTIONS[affliction].texture
 		affliction_container.add_child(new_rect)
+		new_rect.name = AFFLICTION_TEXTURE_PREFIX + str(affliction)
+
+func set_affliction_prepared(affliction):
+	var affliction_texture_rect = affliction_container.get_node(AFFLICTION_TEXTURE_PREFIX + str(affliction))
+	affliction_texture_rect.set_addressed()
 
 func _process(delta):
 	for child in affliction_container.get_children():

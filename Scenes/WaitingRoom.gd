@@ -28,8 +28,7 @@ func _on_tool_clicked(tool_instance):
 	else:
 		var instance = Utils.instance_scene_on_main(SelectableToolScene, tool_instance.global_position)
 		instance.tool_type = tool_instance.tool_type
-		instance.held = true
-		instance.selectable = false
+		instance.init_for_pickup()
 		currently_held_tool = instance
 		currently_held_tool.connect("released", self, "_on_tool_released")
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
@@ -38,8 +37,10 @@ func _on_tool_released(tool_instance):
 	if currently_held_tool != tool_instance:
 		print_debug("ERROR - released tool different from currently held tool")
 	else:
-		if currently_held_tool.overlapping_patient != null:
-			currently_held_tool.overlapping_patient.prepare_tool(currently_held_tool.tool_type)
+		if !currently_held_tool.overlapping_patients.empty():
+			var patient = currently_held_tool.get_overlapping_patient_for_tool_type(currently_held_tool.tool_type)
+			if patient != null:
+				patient.prepare_tool(currently_held_tool.tool_type)
 		
 		currently_held_tool = null
 		
@@ -58,6 +59,7 @@ func _on_patient_ready_for_surgery(patient):
 	grey_out.visible = true
 	surgery_container.visible = true
 	patient_in_surgery = patient
+	patient_in_surgery.enter_surgery()
 
 func _on_surgery_container_all_games_finished():
 	grey_out.visible = false

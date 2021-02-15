@@ -7,7 +7,7 @@
 radius = 112.285
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 64.4981
+radius = 88.3629
 
 [node name="SelectableTool" type="Node2D" groups=[
 "selectable_tool",
@@ -31,6 +31,7 @@ collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PatientOverlap"]
 shape = SubResource( 2 )
+disabled = true
 [connection signal="input_event" from="PickupArea" to="." method="_on_Area2D_input_event"]
 [connection signal="mouse_entered" from="PickupArea" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="PickupArea" to="." method="_on_Area2D_mouse_exited"]

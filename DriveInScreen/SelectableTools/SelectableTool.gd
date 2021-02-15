@@ -9,17 +9,24 @@ signal released(this)
 export (ToolData.Tools) var tool_type setget set_tool_type
 
 onready var sprite = $Sprite
+onready var patient_overlap_collider = $PatientOverlap/CollisionShape2D
+onready var pickup_area_collider = $PickupArea/CollisionShape2D
 
 var held = false
 var selectable = true
 var mouse_in = false
 
-var overlapping_patient = null
+var overlapping_patients = []
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_tool_type(tool_type)
+
+func init_for_pickup():
+	held = true
+	selectable = false
+	patient_overlap_collider.disabled = false
 
 func set_tool_type(type):
 	tool_type = type
@@ -48,11 +55,15 @@ func _on_Area2D_mouse_exited():
 		mouse_in = false
 		emit_signal("mouse_event", self, false)
 
-
-
 func _on_PatientOverlap_area_entered(area):
-	overlapping_patient = area.get_parent()
+	overlapping_patients.append(area.get_parent())
 
 func _on_PatientOverlap_area_exited(area):
-	if area.get_parent() == overlapping_patient:
-		overlapping_patient = null
+	overlapping_patients.erase(area.get_parent())
+
+func get_overlapping_patient_for_tool_type(tool_type):
+	for patient in overlapping_patients:
+		if patient.requires_tool(tool_type):
+			return patient
+	
+	return null

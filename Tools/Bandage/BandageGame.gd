@@ -72,5 +72,5 @@ func _on_calculateBandage(start_point, end_point):
 		emit_signal("game_finished", true)
 	else:
 #		print("Bandage minigame failed!")
-		emit_signal("botch_,made", 0)
+		emit_signal("botch_made", 0)
 	
