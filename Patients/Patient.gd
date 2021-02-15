@@ -148,8 +148,9 @@ func show_dialog_box():
 	dialog_box.show()
 
 func check_begin_hide_dialog_box():
-	if !mouse_in_viewport and !mouse_in_dialog_box and !tool_in_drop_range:
-		dialog_box.hide()
+	pass
+#	if !mouse_in_viewport and !mouse_in_dialog_box and !tool_in_drop_range:
+#		dialog_box.hide()
 
 func _on_ViewportContainer_mouse_entered():
 	mouse_in_viewport = true

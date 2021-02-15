@@ -59,7 +59,6 @@ tracks/1/keys = {
 }
 
 [node name="AfflictionDialogBox" type="Control"]
-visible = false
 mouse_filter = 1
 script = ExtResource( 2 )
 __meta__ = {
