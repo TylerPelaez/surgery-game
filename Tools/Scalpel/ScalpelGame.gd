@@ -1,4 +1,4 @@
-extends Node
+extends BaseToolMinigame
 
 onready var pattern0 = preload("res://Tools/Scalpel/ScalpelPattern0.tscn").instance()
 onready var pattern1 = preload("res://Tools/Scalpel/ScalpelPattern1.tscn").instance()
@@ -110,10 +110,10 @@ func _on_calculateDTW(incision_array):
 			dtw_array_reversed[i][j] = cost + min(dtw_array_reversed[i-1][j], min(dtw_array_reversed[i][j-1], dtw_array_reversed[i-1][j-1]))
 		
 	var min_dtw = min(dtw_array[base_array.size()-1][incision_array.size()-1], dtw_array_reversed[base_array_reversed.size()-1][incision_array.size()-1])
-	print("DTW IS:", min_dtw)
+#	print("DTW IS:", min_dtw)
 	if min_dtw <= acceptable_dtw:
-		print("Scalpel minigame passed!")
-		emit_signal("scalpel_result", true)
+#		print("Scalpel minigame passed!")
+		emit_signal("game_finished", true)
 	else:
-		print("Scalpel minigame failed!")
-		emit_signal("scalpel_result", false)
+#		print("Scalpel minigame failed!")
+		emit_signal("game_finished", false)

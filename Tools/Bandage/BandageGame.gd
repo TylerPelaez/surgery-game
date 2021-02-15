@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseToolMinigame
 
 onready var pattern0 = preload("res://Tools/Bandage/BandagePattern0.tscn").instance()
 onready var pattern1 = preload("res://Tools/Bandage/BandagePattern1.tscn").instance()
@@ -9,8 +9,6 @@ onready var patterns = []
 onready var pattern_to_use
 
 const acceptable_radius = 6
-
-signal bnadage_result(result)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,11 +47,11 @@ func _ready():
 
 # Compare the player's bandage against the template pattern
 func _on_calculateBandage(start_point, end_point):
-	print("Calculating Bandage Game")
+#	print("Calculating Bandage Game")
 	# Auto-fail if player bandage somehow does not have 2 points
 	if start_point == null || end_point == null:
-		print("Bandage minigame failed! Invalid player line!")
-		emit_signal("bandage_result", false)
+#		print("Bandage minigame failed! Invalid player line!")
+		emit_signal("botch_made", 0)
 		return
 	
 	# Coordinates of the template line start and end points
@@ -68,11 +66,11 @@ func _on_calculateBandage(start_point, end_point):
 	var radius3 = end_point.distance_to(pattern_start)
 	var radius4 = start_point.distance_to(pattern_end)
 	
-	print("Radius check: ", radius1, ", ", radius2, ", ", radius3, ", ", radius4)
+#	print("Radius check: ", radius1, ", ", radius2, ", ", radius3, ", ", radius4)
 	if (radius1 <= acceptable_radius && radius2 <= acceptable_radius) || (radius3 <= acceptable_radius && radius4 <= acceptable_radius):
-		print("Bandage minigame success!")
-		emit_signal("bandage_result", true)
+#		print("Bandage minigame success!")
+		emit_signal("game_finished", true)
 	else:
-		print("Bandage minigame failed!")
-		emit_signal("bandage_result", false)
+#		print("Bandage minigame failed!")
+		emit_signal("botch_,made", 0)
 	

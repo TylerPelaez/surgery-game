@@ -30,23 +30,24 @@ func times_up():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var mouse_pos = get_viewport().get_parent().get_local_mouse_position() if get_viewport().get_parent() != null else get_global_mouse_position()
 	# Reset and start the timer
 	if Input.is_action_just_pressed("draw"):
 		$Timer.start(1)
-		start_point = get_global_mouse_position()
-		self.add_point(get_global_mouse_position())
+		start_point = mouse_pos
+		self.add_point(mouse_pos)
 	# Snap bandage line to mouse
 	if Input.is_action_pressed("draw") && can_draw:
 		if self.points.size() > 1:
 			self.remove_point(1)
-			self.add_point(get_global_mouse_position())
+			self.add_point(mouse_pos)
 		else:
-			 self.add_point(get_global_mouse_position())
-		end_point = get_global_mouse_position()
+			 self.add_point(mouse_pos)
+		end_point = mouse_pos
 	# If mouse released, signal that bandage placement should be calculated
 	if Input.is_action_just_released("draw"):
 		$Timer.stop()
-		end_point = get_global_mouse_position()
+		end_point = mouse_pos
 		if self.points.size() == 2 && can_draw:
 			emit_signal("calculateBandage", start_point, end_point)
 		if $AnimationPlayer.playback_active && $AnimationPlayer.current_animation == "Fade Out No Draw":
