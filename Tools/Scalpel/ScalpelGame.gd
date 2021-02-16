@@ -1,11 +1,11 @@
 extends BaseToolMinigame
 
 const patterns = [
-	preload("res://Tools/Scalpel/ScalpelPattern0.tscn"),
-	preload("res://Tools/Scalpel/ScalpelPattern1.tscn"),
-	preload("res://Tools/Scalpel/ScalpelPattern2.tscn"),
-	preload("res://Tools/Scalpel/ScalpelPattern3.tscn"),
-	preload("res://Tools/Scalpel/ScalpelPattern4.tscn")
+	preload("res://Tools/Scalpel/Patterns/ScalpelPattern0.tscn"),
+	preload("res://Tools/Scalpel/Patterns/ScalpelPattern1.tscn"),
+	preload("res://Tools/Scalpel/Patterns/ScalpelPattern2.tscn"),
+	preload("res://Tools/Scalpel/Patterns/ScalpelPattern3.tscn"),
+	preload("res://Tools/Scalpel/Patterns/ScalpelPattern4.tscn")
 ]
 
 const dotted_line_texture = preload("res://Tools/Scalpel/Dottedline.png")
@@ -18,8 +18,9 @@ signal scalpel_result(result)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	accepted_tool_type = ToolData.Tools.Scalpel
+	
 	BOTCH_DAMAGE = 10
-	$Incision.connect("calculateDTW", self, "_on_calculateDTW")
 	
 	# Pick a pattern at random to use
 	var pattern_index = randi() % patterns.size()
@@ -31,17 +32,20 @@ func _ready():
 
 	pattern_to_use.show()
 
-
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	# Randomize the position of the pattern
 	var y_offset = rng.randi_range(-150, 150)
 	var x_offset = rng.randi_range(-150, 150)
 	pattern_to_use.set_position(Vector2(x_offset,y_offset))
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	
+	if Utils.is_main_scene(self):
+		var instance = load("res://Tools/Scalpel/ScalpelGameInputHandler.tscn").instance()
+		instance.connect("input_finished", self, "process_input")
+		add_child(instance)
+		
+func accept_tool_input(tool_input_data: ScalpelInputData):
+	_on_calculateDTW(tool_input_data.points)
 	
 func _on_calculateDTW(incision_array):
 	var base_array = []
@@ -105,8 +109,8 @@ func _on_calculateDTW(incision_array):
 	var min_dtw = min(dtw_array[base_array.size()-1][incision_array.size()-1], dtw_array_reversed[base_array_reversed.size()-1][incision_array.size()-1])
 #	print("DTW IS:", min_dtw)
 	if min_dtw <= acceptable_dtw:
-#		print("Scalpel minigame passed!")
+		print("Scalpel minigame passed!")
 		emit_signal("game_finished", true)
 	else:
-#		print("Scalpel minigame failed!")
+		print("Scalpel minigame failed!")
 		emit_signal("botch_made", BOTCH_DAMAGE)

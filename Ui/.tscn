@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://DriveInScreen/AfflictionDialog/9slice.png" type="Texture" id=1]
+[ext_resource path="res://DriveInScreen/SelectableTools/scalpel.png" type="Texture" id=2]
+
+[node name="MarginContainer" type="MarginContainer"]
+margin_left = 618.0
+margin_right = 702.0
+margin_bottom = 84.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 84.0
+margin_bottom = 84.0
+texture = ExtResource( 1 )
+patch_margin_left = 13
+patch_margin_top = 13
+patch_margin_right = 11
+patch_margin_bottom = 11
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 84.0
+margin_bottom = 84.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 74.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

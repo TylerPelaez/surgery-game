@@ -9,13 +9,49 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "ToolInputData",
+"class": "BandageInputData",
+"language": "GDScript",
+"path": "res://Tools/Bandage/BandageInputData.gd"
+}, {
 "base": "Node2D",
 "class": "BaseToolMinigame",
 "language": "GDScript",
 "path": "res://Tools/BaseToolMinigame.gd"
+}, {
+"base": "Node2D",
+"class": "GameInputHandler",
+"language": "GDScript",
+"path": "res://Tools/GameInputHandler.gd"
+}, {
+"base": "GameInputHandler",
+"class": "LineBasedGameInputHandler",
+"language": "GDScript",
+"path": "res://Tools/LineBasedGameInputHandler.gd"
+}, {
+"base": "LineBasedGameInputHandler",
+"class": "ScalpelGameInputHandler",
+"language": "GDScript",
+"path": "res://Tools/Scalpel/ScalpelGameInputHandler.gd"
+}, {
+"base": "ToolInputData",
+"class": "ScalpelInputData",
+"language": "GDScript",
+"path": "res://Tools/Scalpel/ScalpelInputData.gd"
+}, {
+"base": "Node",
+"class": "ToolInputData",
+"language": "GDScript",
+"path": "res://Tools/ToolInputData.gd"
 } ]
 _global_script_class_icons={
-"BaseToolMinigame": ""
+"BandageInputData": "",
+"BaseToolMinigame": "",
+"GameInputHandler": "",
+"LineBasedGameInputHandler": "",
+"ScalpelGameInputHandler": "",
+"ScalpelInputData": "",
+"ToolInputData": ""
 }
 
 [application]

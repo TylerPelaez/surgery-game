@@ -1,9 +1,9 @@
 extends BaseToolMinigame
 
-onready var pattern0 = preload("res://Tools/Bandage/BandagePattern0.tscn").instance()
-onready var pattern1 = preload("res://Tools/Bandage/BandagePattern1.tscn").instance()
-onready var pattern2 = preload("res://Tools/Bandage/BandagePattern2.tscn").instance()
-onready var pattern3 = preload("res://Tools/Bandage/BandagePattern3.tscn").instance()
+onready var pattern0 = preload("res://Tools/Bandage/Patterns/BandagePattern0.tscn").instance()
+onready var pattern1 = preload("res://Tools/Bandage/Patterns/BandagePattern1.tscn").instance()
+onready var pattern2 = preload("res://Tools/Bandage/Patterns/BandagePattern2.tscn").instance()
+onready var pattern3 = preload("res://Tools/Bandage/Patterns/BandagePattern3.tscn").instance()
 
 onready var patterns = []
 onready var pattern_to_use
@@ -12,7 +12,7 @@ const acceptable_radius = 6
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Bandage.connect("calculateBandage", self, "_on_calculateBandage")
+	accepted_tool_type = ToolData.Tools.Bandage
 	
 	# Pick a pattern at random to use
 	patterns.append(pattern0)
@@ -39,11 +39,14 @@ func _ready():
 	var y_offset = rng.randi_range(-75, 75)
 	var x_offset = rng.randi_range(-150, 150)
 	pattern_to_use.set_position(Vector2(x_offset,y_offset))
+	
+	if Utils.is_main_scene(self):
+		var instance = load("res://Tools/Bandage/BandageGameInputHandler.tscn").instance()
+		instance.connect("input_finished", self, "process_input")
+		add_child(instance)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func accept_tool_input(tool_input_data: BandageInputData):
+	_on_calculateBandage(tool_input_data.start_pos, tool_input_data.end_pos)
 
 # Compare the player's bandage against the template pattern
 func _on_calculateBandage(start_point, end_point):

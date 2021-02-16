@@ -14,12 +14,14 @@ const TOOLS_DATA = {
 		"texture": preload("res://DriveInScreen/SelectableTools/scalpel.png"),
 		"texture_scale": 1.0,
 		"tool_scene": preload("res://Tools/Scalpel/ScalpelGame.tscn"),
+		"tool_input_handler": preload("res://Tools/Scalpel/ScalpelGameInputHandler.tscn")
 	},
 	Tools.Bandage: {
 		"name": "Bandage",
 		"texture": preload("res://Assets/Tools/Bandage/Bandages.png"),
 		"texture_scale": 0.2,
 		"tool_scene": preload("res://Tools/Bandage/BandageGame.tscn"),
+		"tool_input_handler": preload("res://Tools/Bandage/BandageGameInputHandler.tscn")
 	},
 	Tools.Defibrillator: {
 		"name": "Defibrillator",
