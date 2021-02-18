@@ -14,10 +14,10 @@
 script = ExtResource( 1 )
 
 [node name="Syringe" parent="." instance=ExtResource( 2 )]
-position = Vector2( 213, 0 )
+position = Vector2( 425, 0 )
 
 [node name="SyringeZone" parent="." instance=ExtResource( 3 )]
-position = Vector2( 576.333, 605 )
+position = Vector2( 788.5, 605 )
 
 [node name="BlueVial" type="Sprite" parent="."]
 position = Vector2( 578, 700 )
