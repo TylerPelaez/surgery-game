@@ -33,13 +33,13 @@ const TOOLS_DATA = {
 		"name": "Defibrillator",
 		"texture": preload("res://Assets/Tools/Defibrillator/Defib_View.png"),
 		"texture_scale": .15,
-		"tool_scene": preload("res://Tools/Defibrillator/DefibrillatorGame.tscn")
+		"tool_input_handler": preload("res://Tools/Defibrillator/DefibrillatorGame.tscn")
 	},
 	Tools.Adenosine: {
 		"name": "Adenosine",
 		"texture": preload("res://Assets/Tools/Syringe/Adenosine Vial.png"),
 		"texture_scale": .15,
-		"tool_scene": preload("res://Tools/Adenosine/AdenosineGame.tscn")
+		"tool_input_handler": preload("res://Tools/Adenosine/AdenosineGame.tscn")
 	},
 	Tools.Syringe: {
 		"name": "Syringe",

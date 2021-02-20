@@ -8,13 +8,20 @@ const MIN_HEART_RATE = 10
 const MAX_HEART_RATE = 180
 const NATURAL_FLUCTUATION_PER_SECOND = 2.0
 
+const SELECT_HOVER_COLOR = Color("#e4e89c")
+
 const ToolSelectButtonScene = preload("res://Ui/SurgeryToolSelectButton.tscn")
 
 var current_heart_rate setget set_heart_rate
 
-onready var viewport = $GameScreenContainer/MarginContainer/ViewportContainer/Viewport
-onready var bpm_label = $GameScreenContainer/BPMLabel
+onready var viewport = $HBoxContainer/GameScreenContainer/MarginContainer/ViewportContainer/Viewport
+onready var bpm_label = $HBoxContainer/GameScreenContainer/BPMLabel
 onready var tool_select_container = $ToolSelectContainer
+
+onready var defib_button = $HBoxContainer/DefibItemButton/DefibMarginContainer
+onready var adenosine_button = $HBoxContainer/AdenosineItemButton/DefibMarginContainer
+onready var original_defib_modulate = $HBoxContainer/DefibItemButton/DefibMarginContainer/NinePatchRect.modulate
+onready var original_adenosine_modulate = $HBoxContainer/AdenosineItemButton/DefibMarginContainer/NinePatchRect.modulate
 
 var surgery_list = []
 var current_game
@@ -72,7 +79,11 @@ func _on_tool_select_button_selected(button, tool_type):
 	if current_input_handler != null:
 		current_input_handler.queue_free()
 	
-	if currently_selected_button != null:
+	if currently_selected_button == defib_button:
+		defib_button.get_node("NinePatchRect").modulate = original_defib_modulate
+	elif currently_selected_button == adenosine_button:
+		adenosine_button.get_node("NinePatchRect").modulate = original_adenosine_modulate
+	elif currently_selected_button != null:
 		currently_selected_button.deselect()
 	
 	currently_selected_button = button
@@ -113,3 +124,30 @@ func get_next_game():
 	current_game.connect("game_finished", self, "_on_game_finished")
 	viewport.add_child(current_game)
 
+func _on_DefibMarginContainer_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.is_pressed() and event.button_index == BUTTON_LEFT:
+			defib_button.get_node("NinePatchRect").modulate = SELECT_HOVER_COLOR
+			_on_tool_select_button_selected(defib_button, ToolData.Tools.Defibrillator)
+
+func _on_DefibMarginContainer_mouse_entered():
+	if currently_selected_button != defib_button:
+		defib_button.get_node("NinePatchRect").modulate = SELECT_HOVER_COLOR
+
+func _on_DefibMarginContainer_mouse_exited():
+	if currently_selected_button != defib_button:
+		defib_button.get_node("NinePatchRect").modulate = original_defib_modulate
+
+func _on_AdenosineMarginContainer_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.is_pressed() and event.button_index == BUTTON_LEFT:
+			adenosine_button.get_node("NinePatchRect").modulate = SELECT_HOVER_COLOR
+			_on_tool_select_button_selected(adenosine_button, ToolData.Tools.Adenosine)
+
+func _on_AdenosineMarginContainer_mouse_entered():
+	if currently_selected_button != defib_button:
+		adenosine_button.get_node("NinePatchRect").modulate = SELECT_HOVER_COLOR
+
+func _on_AdenosineMarginContainer_mouse_exited():
+	if currently_selected_button != defib_button:
+		adenosine_button.get_node("NinePatchRect").modulate = original_adenosine_modulate
