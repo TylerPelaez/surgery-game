@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-3.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-2.png" type="Texture" id=2]
@@ -10,6 +10,10 @@
 [ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-4.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Tools/Defibrillator/Defib_View.png" type="Texture" id=9]
 [ext_resource path="res://Tools/Defibrillator/DefibrillatorGame.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Audio/Defib.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Audio/Defib Beep.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Audio/Success.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Audio/Fail.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 129.891, 113.063 )
@@ -89,5 +93,16 @@ texture = ExtResource( 7 )
 position = Vector2( 980.046, 638.463 )
 scale = Vector2( 0.470558, 0.577615 )
 texture = ExtResource( 9 )
+
+[node name="DefibBeep" type="AudioStreamPlayer" parent="." index="7"]
+stream = ExtResource( 12 )
+volume_db = -2.0
+
+[node name="DefibZap" type="AudioStreamPlayer" parent="." index="8"]
+stream = ExtResource( 11 )
+
+[node name="Fail" parent="." index="9" instance=ExtResource( 14 )]
+
+[node name="Success" parent="." index="10" instance=ExtResource( 13 )]
 [connection signal="area_entered" from="Path2D/PathFollow2D/Needle/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Path2D/PathFollow2D/Needle/Area2D" to="." method="_on_Area2D_area_exited"]
