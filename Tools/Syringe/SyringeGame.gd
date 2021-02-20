@@ -3,9 +3,11 @@ extends BaseToolMinigame
 onready var InjectionNode = preload("res://Tools/Syringe/InjectionZone.tscn");
 
 # Vector2 coordinate array with possible injection zone placements
-onready var placement_zones = [Vector2(-409,-246), Vector2(105,-161), Vector2(640,9), Vector2(-168,272), Vector2(500,350)]
+onready var placement_zones = [Vector2(-409,-346), Vector2(105,-261), Vector2(660,-440), Vector2(-168,172), Vector2(500,200)]
 # Bool array corresponding to each possible placement zone. True if on, false if off
-onready var zone_enabled = [false, false, false, false, false]
+#onready var zone_enabled = [false, false, false, false, false]
+# for debugging
+onready var zone_enabled = [true, true, true, true, true]
 # Array of injection nodes
 onready var injection_nodes = []
 
@@ -21,12 +23,14 @@ func _ready():
 		var zone_is_enabled = rng.randi_range(0,1)
 		if zone_is_enabled == 1:
 			zone_enabled[i] = true
+			
+	var scale_factor = Vector2(get_x_scale_factor(), get_y_scale_factor())
 	# Spawn an injection zone at each enabled zone
 	for i in range(0, zone_enabled.size()):
 		if zone_enabled[i] == true:
 			var injection_zone = InjectionNode.instance()
 			add_child(injection_zone)
-			injection_zone.position = placement_zones[i]
+			injection_zone.position = Vector2(placement_zones[i].x * scale_factor.x, placement_zones[i].y * scale_factor.y)
 			injection_nodes.append(injection_zone)
 			
 	if Utils.is_main_scene(self):

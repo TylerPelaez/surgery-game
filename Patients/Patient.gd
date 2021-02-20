@@ -95,6 +95,7 @@ func init(max_affliction):
 	dialog_box.set_afflictions(affliction_array)
 
 func _choose_random_afflictions(min_count, max_count):
+	return [AfflictionData.Afflictions.HeartPain]
 	var result = []
 	for i in range(max_count):
 		var affliction_to_add = null
@@ -125,7 +126,7 @@ func requires_tool(tool_type):
 
 func prepare_tool(tool_type):
 	# O(n^2) lol
-	if requires_tool(tool_type):
+	if ready && requires_tool(tool_type):
 
 		for affliction in afflictions.keys():
 			if afflictions[affliction].has(tool_type):

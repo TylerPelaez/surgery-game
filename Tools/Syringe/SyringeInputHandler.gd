@@ -31,12 +31,18 @@ func randomize_success_zone():
 	# Randomize position of the syringe success zone
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var syringe_zone_y_pos = rng.randi_range(syringe_zone_min_y_pos, syringe_zone_max_y_pos)
-	$SyringeZone.position = Vector2(syringe_zone_blue_x_pos, syringe_zone_y_pos)
 	
+	var scale_factor = Vector2(get_x_scale_factor(), get_y_scale_factor())
+	
+	var syringe_zone_y_pos = rng.randi_range(syringe_zone_min_y_pos, syringe_zone_max_y_pos) * scale_factor.y
+	$SyringeZone.position = Vector2(syringe_zone_blue_x_pos * scale_factor.x, syringe_zone_y_pos * scale_factor.y)
+
+func scale_vector(original):
+	return Vector2(original.x * get_x_scale_factor(), original.y * get_y_scale_factor())
+
 func show_syringe(color):
 	if color == "blue":
-		$Syringe.position = syringe_blue_pos
+		$Syringe.position = syringe_blue_pos 
 		$SyringeZone.position.x = syringe_zone_blue_x_pos
 		$Syringe/BlueFluid.visible = true
 		$Syringe/YellowFluid.visible = false
@@ -53,6 +59,8 @@ func show_syringe(color):
 		$Syringe/BlueFluid.visible = false
 		$Syringe/YellowFluid.visible = false
 		$Syringe/PinkFluid.visible = true
+		
+	$SyringeZone.position.y *= get_y_scale_factor()
 	$Syringe.visible = true
 	$SyringeZone.visible = true
 	
@@ -151,8 +159,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("lmb") && syringe_fill_color != "none":
 		$Syringe/Plunger.position.y = plunger_max_pos
 		syringe_dispensing = true
+		var mouse_pos = get_mouse_pos()
 		# Correctly place syringe sprite to correspond with mouse position
-		$Syringe.position = Vector2(get_global_mouse_position().x - 360, get_global_mouse_position().y - 665)
+		$Syringe.position = Vector2(mouse_pos.x - 360, mouse_pos.y - 665)
 		# Correctly position plunger
 		show_syringe("syringe_fill_color")
 		$SyringeZone.visible = false

@@ -41,7 +41,7 @@ const TOOLS_DATA = {
 	},
 	Tools.Syringe: {
 		"name": "Syringe",
-		"texture": preload("res://Assets/Tools/Syringe/Blue Vial.png"),
+		"texture": preload("res://Assets/Tools/Syringe/SyringeUITexture.png"),
 		"texture_scale": .15,
 		"tool_scene": preload("res://Tools/Syringe/SyringeGame.tscn"),
 		"tool_input_handler": preload("res://Tools/Syringe/SyringeInputHandler.tscn")

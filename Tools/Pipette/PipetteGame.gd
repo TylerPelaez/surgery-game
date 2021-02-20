@@ -26,7 +26,7 @@ func _ready():
 		if zone_is_enabled == 1:
 			zone_enabled[i] = true
 			
-	var scale_factor = get_viewport().get_visible_rect().size.x / get_tree().current_scene.get_viewport().get_visible_rect().size.x
+	var scale_factor = Vector2(get_x_scale_factor(), get_y_scale_factor())
 			
 	# Spawn an injection zone at each enabled zone
 	for i in range(0, zone_enabled.size()):
@@ -34,7 +34,7 @@ func _ready():
 			var blood = BloodNode.instance()
 			add_child(blood)
 			
-			blood.position = placement_zones[i] * scale_factor
+			blood.position = Vector2(placement_zones[i].x * scale_factor.x, placement_zones[i].y * scale_factor.y)
 			blood_nodes.append(blood)
 			
 	if Utils.is_main_scene(self):

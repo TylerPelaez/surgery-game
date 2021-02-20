@@ -34,6 +34,12 @@ func set_heart_rate(value):
 	current_heart_rate = value
 	if current_heart_rate > MAX_HEART_RATE or current_heart_rate < MIN_HEART_RATE:
 		emit_signal("patient_death")
+		
+		if current_input_handler != null:
+			current_input_handler.queue_free()
+		for child in tool_select_container.get_children():
+			tool_select_container.remove_child(child)
+			child.queue_free()
 		current_game.queue_free()
 		running = false
 	
