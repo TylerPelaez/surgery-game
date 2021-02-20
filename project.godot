@@ -114,6 +114,7 @@ lmb={
 2d_physics/layer_1="Patient"
 2d_physics/layer_2="SelectableTool"
 2d_physics/layer_3="DefibrillatorZone"
+2d_physics/layer_4="InjectionZones"
 
 [rendering]
 

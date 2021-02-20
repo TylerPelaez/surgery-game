@@ -16,8 +16,8 @@ const syringe_zone_max_y_pos = 520
 const plunger_speed = 200
 
 onready var in_syringe_zone = false
-
 onready var syringe_fill_color = "none"
+onready var syringe_dispensing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -63,9 +63,12 @@ func hide_syringe():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Reset plunger position if it is at the max position
+	if !syringe_dispensing:
 		if $Syringe/Plunger.position.y < plunger_max_pos:
 			$Syringe/Plunger.position = plunger_starting_pos
 		# Q to draw from Blue serum
+		if Input.is_action_just_pressed("q_key"):
+			$Syringe/Plunger.position = plunger_starting_pos
 		if Input.is_action_pressed("q_key"):
 			# Move plunger while spacebar is held
 			$Syringe.position = syringe_blue_pos
@@ -88,6 +91,8 @@ func _process(delta):
 				randomize_success_zone()
 			hide_syringe()
 		# Spacebar to draw from yellow serum
+		if Input.is_action_just_pressed("spacebar"):
+			$Syringe/Plunger.position = plunger_starting_pos
 		if Input.is_action_pressed("spacebar"):
 			# Move plunger while spacebar is held
 			$Syringe.position = syringe_yellow_pos
@@ -110,6 +115,8 @@ func _process(delta):
 				randomize_success_zone()
 			hide_syringe()
 		# E to draw from pink serum
+		if Input.is_action_just_pressed("e_key"):
+			$Syringe/Plunger.position = plunger_starting_pos
 		if Input.is_action_pressed("e_key"):
 			# Move plunger while spacebar is held
 			$Syringe.position = syringe_pink_pos
@@ -131,12 +138,31 @@ func _process(delta):
 				# TODO: Feedback for loading failed
 				randomize_success_zone()
 			hide_syringe()
-		
-	# TODO: Implement syringe dispensing	
-	# If lmb held and a color is loaded, begin dispensing animation at pointer, place syringe at cursor
-	# If lmb released prematurely, send botch signal, hide syringe
-	# If syringe fully dispensed, send input_finished signal. Syringe tip should have a collider masked for interaction with sprites in the SyringeGame
-	# If SyringeGame sprite collider with the syringe from this helper are active when SyringeGame receives this signal, then check on that end for botch or success 
+	# Check if syringe is done dispensing and send input_finished signal if so
+	if $Syringe/Plunger.position.y > plunger_starting_pos.y && syringe_dispensing:
+			$Syringe.visible = false
+			var input_data = SyringeInputData.new()
+			input_data.initialize([syringe_fill_color])
+			emit_signal("input_finished", input_data)
+			$Syringe/Plunger.position.y = plunger_max_pos
+			syringe_fill_color = "none"
+			syringe_dispensing = false
+	# Begin syringe dispensation 
+	if Input.is_action_just_pressed("lmb") && syringe_fill_color != "none":
+		$Syringe/Plunger.position.y = plunger_max_pos
+		syringe_dispensing = true
+		# Correctly place syringe sprite to correspond with mouse position
+		$Syringe.position = Vector2(get_global_mouse_position().x - 360, get_global_mouse_position().y - 665)
+		# Correctly position plunger
+		show_syringe("syringe_fill_color")
+		$SyringeZone.visible = false
+	# Play plunger animation
+	elif Input.is_action_pressed("lmb") && syringe_fill_color != "none":
+		$Syringe/Plunger.position += Vector2(0 , plunger_speed * delta)
+	# Botch if syringe dispensation prematurely ended 
+	elif Input.is_action_just_released("lmb") && syringe_dispensing:
+		syringe_dispensing = false
+		hide_syringe()
 			
 func _on_entered_zone():
 	in_syringe_zone = true

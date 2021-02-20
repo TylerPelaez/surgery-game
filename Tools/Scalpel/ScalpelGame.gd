@@ -14,8 +14,6 @@ onready var pattern_to_use
 
 const acceptable_dtw = 1000
 
-signal scalpel_result(result)
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	accepted_tool_type = ToolData.Tools.Scalpel
