@@ -7,6 +7,7 @@ func _ready():
 	draw_time = 2.0
 
 func start_drawing(mouse_pos):
+	$Zipper.play()
 	.start_drawing(mouse_pos)
 
 # https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/

@@ -70,6 +70,7 @@ func get_side(test_point: Vector2) -> float:
 func accept_tool_input(tool_input_data: SutureInputData):
 	if tool_input_data.has_intersection:
 		print("Suture failed")
+		$Fail.play()
 		emit_signal("botch_made", BOTCH_DAMAGE)
 		return
 
@@ -91,7 +92,9 @@ func accept_tool_input(tool_input_data: SutureInputData):
 	
 	if !failed and side_change_count > REQUIRED_SIDE_CHANGE_COUNT:
 		print("Suture pass")
+		$Success.play()
 		emit_signal("game_finished", true)
 	else:
 		print("Suture fail")
+		$Fail.play()
 		emit_signal("botch_made", BOTCH_DAMAGE)
