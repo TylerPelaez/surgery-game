@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Tools/BaseToolMinigame.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tools/Adenosine/AdenosineGame.gd" type="Script" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Assets/Tools/Syringe/Syringe Body.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Tools/Syringe/Adenosine Vial.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Tools/Syringe/Adenosine Zone.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Tools/Syringe/Lmb Prompt.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.3235, 10.9667 )
@@ -34,7 +33,7 @@ texture = ExtResource( 3 )
 position = Vector2( 591.642, 55.2319 )
 
 [node name="Body" type="Sprite" parent="Syringe" index="0"]
-position = Vector2( 403.139, 461.799 )
+position = Vector2( 357.884, 538.167 )
 scale = Vector2( 0.303711, 0.375 )
 z_index = 2
 texture = ExtResource( 7 )
@@ -45,7 +44,7 @@ scale = Vector2( 0.330132, 0.383816 )
 texture = ExtResource( 6 )
 
 [node name="Plunger" type="Sprite" parent="Syringe" index="2"]
-position = Vector2( 307.217, 433.949 )
+position = Vector2( 358.129, 503.953 )
 scale = Vector2( 0.305518, 0.324499 )
 z_index = 1
 texture = ExtResource( 5 )
@@ -54,7 +53,7 @@ texture = ExtResource( 5 )
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Syringe/Plunger/Area2D" index="0"]
-position = Vector2( 183.98, 559.906 )
+position = Vector2( 15.9316, 354.125 )
 shape = SubResource( 1 )
 
 [node name="SyringeZone" parent="." index="3" instance=ExtResource( 4 )]
@@ -70,11 +69,6 @@ texture = ExtResource( 9 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InjectionZone/Area2D" index="0"]
 position = Vector2( 573.638, 392.89 )
 shape = SubResource( 2 )
-
-[node name="LMBPrompt" type="Sprite" parent="InjectionZone" index="1"]
-position = Vector2( 383.189, 782.667 )
-scale = Vector2( 0.32348, 0.335458 )
-texture = ExtResource( 10 )
 [connection signal="area_entered" from="Syringe/Plunger/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Syringe/Plunger/Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="mouse_entered" from="InjectionZone/Area2D" to="." method="_on_Area2D_mouse_entered"]
