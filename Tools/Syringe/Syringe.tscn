@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Tools/Syringe/Syringe Body.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tools/Syringe/Syringe Plunger.png" type="Texture" id=2]
@@ -9,6 +9,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.3235, 10.9667 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9.66687, 21.8208 )
 
 [node name="Syringe" type="Node2D"]
 position = Vector2( 591.642, 55.2319 )
@@ -47,5 +50,12 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plunger/Area2D"]
 position = Vector2( 183.98, 559.906 )
 shape = SubResource( 1 )
+
+[node name="Tip" type="Area2D" parent="."]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
+position = Vector2( 365.441, 649.839 )
+shape = SubResource( 2 )
 [connection signal="area_entered" from="Plunger/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Plunger/Area2D" to="." method="_on_Area2D_area_exited"]
