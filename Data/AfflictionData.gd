@@ -16,6 +16,11 @@ const AFFLICTIONS = {
 					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
 					"tool_params": [], 
 				},
+				{ 
+					"tool": ToolData.Tools.Suture,
+					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
+					"tool_params": [], 
+				},
 			],
 			"base_payment": 100,
 		},

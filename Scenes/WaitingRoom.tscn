@@ -40,7 +40,6 @@ MAX_PATIENT_AFFLICTIONS = 2
 
 [node name="Scalpel" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1568, 888 )
-tool_type = 0
 
 [node name="Defibrillator" parent="." instance=ExtResource( 1 )]
 position = Vector2( 575.003, 973.408 )
@@ -49,6 +48,10 @@ tool_type = 2
 [node name="Bandage" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1212.82, 858.078 )
 tool_type = 1
+
+[node name="SutureNeedle" parent="." instance=ExtResource( 1 )]
+position = Vector2( 280, 904 )
+tool_type = 6
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

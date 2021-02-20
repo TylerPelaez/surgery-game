@@ -52,5 +52,12 @@ const TOOLS_DATA = {
 		"texture_scale": .15,
 		"tool_scene": preload("res://Tools/Pipette/PipetteGame.tscn"),
 		"tool_input_handler": preload("res://Tools/Pipette/PipetteInputHandler.tscn")
+	},
+	Tools.Suture: {
+		"name": "Suture Needle",
+		"texture": preload("res://Assets/Tools/SutureNeedle/sutureneedle.png"),
+		"texture_scale": 1.0,
+		"tool_scene": preload("res://Tools/Suture/SutureMinigame.tscn"),
+		"tool_input_handler": preload("res://Tools/Suture/SutureGameInputHandler.tscn")
 	}
 }
