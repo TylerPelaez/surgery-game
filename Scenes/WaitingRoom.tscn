@@ -35,12 +35,9 @@ position = Vector2( 960, 600 )
 max_patients = 6
 bounds = 700
 y_bounds = 50
-draw_debug = false
-MAX_PATIENT_AFFLICTIONS = 2
 
 [node name="Scalpel" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1568, 888 )
-tool_type = 0
 
 [node name="Defibrillator" parent="." instance=ExtResource( 1 )]
 position = Vector2( 575.003, 973.408 )

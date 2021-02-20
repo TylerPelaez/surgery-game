@@ -8,6 +8,7 @@ signal released(this)
 export (ToolData.Tools) var tool_type setget set_tool_type
 
 onready var sprite = $Sprite
+
 onready var patient_overlap_collider = $PatientOverlap/CollisionShape2D
 onready var pickup_area_collider = $PickupArea/CollisionShape2D
 
