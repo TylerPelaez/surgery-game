@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Tools/Pipette/Blood.png" type="Texture" id=1]
+[ext_resource path="res://Tools/Pipette/Blood.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 370.504
+
+[node name="Blood" type="Sprite"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -89.1729, 92.5364 )
+shape = SubResource( 1 )
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

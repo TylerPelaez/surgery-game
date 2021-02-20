@@ -8,4 +8,4 @@ func initialize(varargs: Array):
 		print("ERROR: SyringeInputData given wrongly sized varargs")
 	.initialize(ToolData.Tools.Syringe)
 	color = varargs[0]
-	game_tool_mismatch_damage = 5
+	game_tool_mismatch_damage = 10
