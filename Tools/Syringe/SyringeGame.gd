@@ -1,13 +1,6 @@
 extends BaseToolMinigame
 
 onready var InjectionNode = preload("res://Tools/Syringe/InjectionZone.tscn");
-
-# Vector2 coordinate array with possible injection zone placements
-onready var placement_zones = [Vector2(-409,-346), Vector2(105,-261), Vector2(660,-440), Vector2(-168,172), Vector2(500,200)]
-# Bool array corresponding to each possible placement zone. True if on, false if off
-onready var zone_enabled = [false, false, false, false, false]
-# for debugging
-#onready var zone_enabled = [true, true, true, true, true]
 # Array of injection nodes
 onready var injection_nodes = []
 
@@ -16,23 +9,24 @@ func _ready():
 	accepted_tool_type = ToolData.Tools.Syringe
 	BOTCH_DAMAGE = 10
 	
-	# Determine wshich zones are enabled
-	for i in range(0, zone_enabled.size()):
-		var rng = RandomNumberGenerator.new()
-		rng.randomize()
-		var zone_is_enabled = rng.randi_range(0,1)
-		if zone_is_enabled == 1:
-			zone_enabled[i] = true
-			
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
 	var scale_factor = Vector2(get_x_scale_factor(), get_y_scale_factor())
-	# Spawn an injection zone at each enabled zone
-	for i in range(0, zone_enabled.size()):
-		if zone_enabled[i] == true:
-			var injection_zone = InjectionNode.instance()
-			add_child(injection_zone)
-			injection_zone.position = Vector2(placement_zones[i].x * scale_factor.x, placement_zones[i].y * scale_factor.y)
-			injection_nodes.append(injection_zone)
+	var at_least_one = false
+	
+	print(scale_factor)
+	# Determine wshich zones are enabled
+	for child in get_children():
+		if child is Position2D:
+			if !at_least_one or rng.randi_range(0,1):
+				at_least_one = true
+				var injection_zone = InjectionNode.instance()
+				add_child(injection_zone)
+				injection_zone.position = Vector2(child.position.x * scale_factor.x, child.position.y * scale_factor.y)
+				injection_nodes.append(injection_zone)
 			
+
 	if Utils.is_main_scene(self):
 		var instance = load("res://Tools/Syringe/SyringeInputHandler.tscn").instance()
 		instance.connect("input_finished", self, "process_input")

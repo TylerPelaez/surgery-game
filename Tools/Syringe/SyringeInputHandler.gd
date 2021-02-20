@@ -83,6 +83,19 @@ func fluid_draw_complete(delta):
 		print("ERROR - bad state, no selected fluid in draw complete")
 		return
 		
+	var new_chosen_fluid = null
+	if Input.is_action_just_pressed("q_key"):
+		new_chosen_fluid = Syringe.FluidColor.YELLOW
+	if Input.is_action_just_pressed("spacebar"):
+		new_chosen_fluid = Syringe.FluidColor.PINK	
+	if Input.is_action_just_pressed("e_key"):
+		new_chosen_fluid = Syringe.FluidColor.BLUE
+
+	if new_chosen_fluid != null:
+		start_fluid_draw_state(new_chosen_fluid)
+		return
+	
+		
 	# Begin syringe dispensation 
 	if Input.is_action_just_pressed("lmb"):
 		var mouse_pos = get_mouse_pos()

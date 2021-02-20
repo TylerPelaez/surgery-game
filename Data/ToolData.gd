@@ -9,7 +9,7 @@ enum Tools {
 	Syringe,
 	Pipette,
 	Suture,
-	RX
+	RX,
 }
 
 # TODO:
