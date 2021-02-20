@@ -16,6 +16,9 @@ func process_input(tool_input_data: ToolInputData):
 func accept_tool_input(tool_input_data):
 	pass
 
+func scale_vector(vector):
+	return Vector2(vector.x * get_x_scale_factor(), vector.y * get_y_scale_factor())
+
 func get_x_scale_factor():
 	return get_viewport().get_visible_rect().size.x / get_tree().current_scene.get_viewport().get_visible_rect().size.x
 

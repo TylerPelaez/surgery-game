@@ -56,7 +56,7 @@ __meta__ = {
 
 [node name="Viewport" type="Viewport" parent="GameScreenContainer/MarginContainer/ViewportContainer"]
 size = Vector2( 1548, 792 )
-handle_input_locally = false
+size_override_stretch = true
 render_target_update_mode = 3
 
 [node name="BPMLabel" type="Label" parent="GameScreenContainer"]

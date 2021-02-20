@@ -13,9 +13,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("lmb"):
-		var mouse_pos = get_mouse_pos()
-		
+	var mouse_pos = get_mouse_pos()
+	if Input.is_action_pressed("lmb") and get_viewport().get_visible_rect().has_point(mouse_pos):
 		$Pipette.visible = true
 		$Pipette.position = Vector2(mouse_pos.x + 175, mouse_pos.y - 210)
 		var input_data = PipetteInputData.new()
