@@ -8,7 +8,7 @@ onready var pattern3 = preload("res://Tools/Bandage/Patterns/BandagePattern3.tsc
 onready var patterns = []
 onready var pattern_to_use
 
-const acceptable_radius = 6
+const acceptable_radius = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,7 +53,7 @@ func _on_calculateBandage(start_point, end_point):
 #	print("Calculating Bandage Game")
 	# Auto-fail if player bandage somehow does not have 2 points
 	if start_point == null || end_point == null:
-#		print("Bandage minigame failed! Invalid player line!")
+		print("Bandage minigame failed! Invalid player line!")
 		emit_signal("botch_made", 0)
 		return
 	
@@ -71,9 +71,9 @@ func _on_calculateBandage(start_point, end_point):
 	
 #	print("Radius check: ", radius1, ", ", radius2, ", ", radius3, ", ", radius4)
 	if (radius1 <= acceptable_radius && radius2 <= acceptable_radius) || (radius3 <= acceptable_radius && radius4 <= acceptable_radius):
-#		print("Bandage minigame success!")
+		print("Bandage minigame success!")
 		emit_signal("game_finished", true)
 	else:
-#		print("Bandage minigame failed!")
+		print("Bandage minigame failed!")
 		emit_signal("botch_made", 0)
 	
