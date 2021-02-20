@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Tools/Bandage/BandageGame.gd" type="Script" id=2]
 [ext_resource path="res://Tools/BaseToolMinigame.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Audio/Success.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Audio/Fail.tscn" type="PackedScene" id=5]
 
 [node name="BandageGame" instance=ExtResource( 3 )]
 script = ExtResource( 2 )
+
+[node name="Fail" parent="." index="0" instance=ExtResource( 5 )]
+
+[node name="Success" parent="." index="1" instance=ExtResource( 4 )]
+pitch_scale = 1.0

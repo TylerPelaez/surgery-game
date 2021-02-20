@@ -17,10 +17,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.3235, 10.9667 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10.3023, 22.231 )
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 142.574
 
 [node name="BaseToolMinigame" instance=ExtResource( 1 )]
@@ -68,7 +68,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Syringe/Tip" index="0"]
 position = Vector2( 365.856, 649.333 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="SyringeZone" parent="." index="3" instance=ExtResource( 4 )]
 
@@ -83,18 +83,16 @@ collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InjectionZone/Area2D" index="0"]
 position = Vector2( -1.67554, -2.63831 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Tink" parent="." index="5" instance=ExtResource( 13 )]
 
 [node name="Squish" parent="." index="6" instance=ExtResource( 10 )]
 
 [node name="Success" parent="." index="7" instance=ExtResource( 11 )]
-volume_db = -2.0
 pitch_scale = 1.0
 
 [node name="Fail" parent="." index="8" instance=ExtResource( 12 )]
-volume_db = -2.0
 pitch_scale = 1.0
 [connection signal="area_entered" from="Syringe/Plunger/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Syringe/Plunger/Area2D" to="." method="_on_Area2D_area_exited"]
