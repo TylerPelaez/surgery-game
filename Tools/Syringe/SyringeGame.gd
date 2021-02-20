@@ -37,20 +37,25 @@ func accept_tool_input(tool_input_data: SyringeInputData):
 	var touching_injection_zone = false
 	for node in injection_nodes:
 		if node.syringe_in_zone:
+			$Squish.play()
 			touching_injection_zone = true
 			if tool_input_data.color == node.color:
 				node.visible = false
 				injection_nodes.erase(node)
 				node.queue_free()
+				$Success.play()
 			else:
 				print("Syringe minigame botch made!")
+				$Fail.play()
 				emit_signal("botch_made", BOTCH_DAMAGE)
 	if !touching_injection_zone:
 		print("Syringe minigame botch made!")
+		$Fail.play()
 		emit_signal("botch_made", BOTCH_DAMAGE)
 	# Check if all nodes have been cleared
 	if injection_nodes.size() < 1:
 		print("Syringe minigame success!")
+		$Success.play()
 		emit_signal("game_finished", true)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
