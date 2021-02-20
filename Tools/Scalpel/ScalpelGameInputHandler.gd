@@ -5,6 +5,7 @@ func _ready():
 	draw_time = 1.5
 
 func start_drawing(mouse_pos):
+	$Cut.play()
 	.start_drawing(mouse_pos)
 
 func draw(mouse_pos):
