@@ -3,10 +3,10 @@ extends VBoxContainer
 signal all_games_finished(percent_damage_taken)
 signal patient_death
 
-const RESTING_HEART_RATE = 90
-const MIN_HEART_RATE = 20
-const MAX_HEART_RATE = 160
-const NATURAL_FLUCTUATION_PER_SECOND = 3.0
+const RESTING_HEART_RATE = 95
+const MIN_HEART_RATE = 10
+const MAX_HEART_RATE = 180
+const NATURAL_FLUCTUATION_PER_SECOND = 2.0
 
 const ToolSelectButtonScene = preload("res://Ui/SurgeryToolSelectButton.tscn")
 

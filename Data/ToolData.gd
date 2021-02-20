@@ -10,6 +10,7 @@ enum Tools {
 	Pipette,
 	Suture,
 	RX,
+	BiopsyNeedle,
 }
 
 # TODO:
@@ -67,5 +68,12 @@ const TOOLS_DATA = {
 		"texture_scale": .15,
 		"tool_scene": preload("res://Tools/RX/RXGame.tscn"),
 		"tool_input_handler": preload("res://Tools/RX/RXInputHandler.tscn")
+	},
+	Tools.BiopsyNeedle: {
+		"name": "Biopsy Needle",
+		"texture": preload("res://Assets/Tools/BiopsyNeedle/Biopsy_Needle.png"),
+		"texture_scale": .15,
+		"tool_scene": preload("res://Tools/BiopsyNeedle/BiopsyNeedleGame.tscn"),
+		"tool_input_handler": preload("res://Tools/BiopsyNeedle/BiopsyNeedleGameInputHandler.tscn")
 	}
 }

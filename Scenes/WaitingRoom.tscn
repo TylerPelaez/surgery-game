@@ -37,23 +37,31 @@ bounds = 700
 y_bounds = 50
 
 [node name="Scalpel" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1568, 888 )
-
-[node name="Defibrillator" parent="." instance=ExtResource( 1 )]
-position = Vector2( 575.003, 973.408 )
-tool_type = 2
+position = Vector2( 1464, 952 )
 
 [node name="Bandage" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1212.82, 858.078 )
+position = Vector2( 1128, 784 )
 tool_type = 1
 
 [node name="SutureNeedle" parent="." instance=ExtResource( 1 )]
-position = Vector2( 280, 904 )
+position = Vector2( 456, 952 )
 tool_type = 6
 
-[node name="Pipette" parent="." instance=ExtResource( 1 )]
-position = Vector2( 936, 928 )
+[node name="Syringe" parent="." instance=ExtResource( 1 )]
+position = Vector2( 880, 960 )
 tool_type = 4
+
+[node name="BiopsyNeedle" parent="." instance=ExtResource( 1 )]
+position = Vector2( 672, 816 )
+tool_type = 8
+
+[node name="Pipette" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1792, 944 )
+tool_type = 5
+
+[node name="Rx" parent="." instance=ExtResource( 1 )]
+position = Vector2( 200, 808 )
+tool_type = 7
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
