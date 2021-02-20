@@ -12,7 +12,7 @@ const dotted_line_texture = preload("res://Tools/Scalpel/Dottedline.png")
 
 onready var pattern_to_use
 
-const acceptable_dtw = 1000
+const acceptable_dtw = 600
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,6 +21,7 @@ func _ready():
 	BOTCH_DAMAGE = 10
 	
 	# Pick a pattern at random to use
+	randomize()
 	var pattern_index = randi() % patterns.size()
 	pattern_to_use = patterns[pattern_index].instance()
 	add_child(pattern_to_use)
@@ -33,8 +34,8 @@ func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	# Randomize the position of the pattern
-	var y_offset = rng.randi_range(-150, 150)
-	var x_offset = rng.randi_range(-150, 150)
+	var y_offset = rng.randi_range(0, 600)
+	var x_offset = rng.randi_range(0, 600)
 	pattern_to_use.set_position(Vector2(x_offset,y_offset))
 	
 	if Utils.is_main_scene(self):
