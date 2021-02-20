@@ -22,7 +22,6 @@ func _ready():
 		if zone_is_enabled == 1:
 			zone_enabled[i] = true
 	# Spawn an injection zone at each enabled zone
-	print("enabled zones: ", zone_enabled)
 	for i in range(0, zone_enabled.size()):
 		if zone_enabled[i] == true:
 			var injection_zone = InjectionNode.instance()
@@ -37,8 +36,10 @@ func _ready():
 			
 func accept_tool_input(tool_input_data: SyringeInputData):
 	# Iterate through each injection_node to see which one the syringe is in
+	var touching_injection_zone = false
 	for node in injection_nodes:
 		if node.syringe_in_zone:
+			touching_injection_zone = true
 			if tool_input_data.color == node.color:
 				node.visible = false
 				injection_nodes.erase(node)
@@ -46,6 +47,9 @@ func accept_tool_input(tool_input_data: SyringeInputData):
 			else:
 				print("Syringe minigame botch made!")
 				emit_signal("botch_made", BOTCH_DAMAGE)
+	if !touching_injection_zone:
+		print("Syringe minigame botch made!")
+		emit_signal("botch_made", BOTCH_DAMAGE)
 	# Check if all nodes have been cleared
 	if injection_nodes.size() < 1:
 		print("Syringe minigame success!")
