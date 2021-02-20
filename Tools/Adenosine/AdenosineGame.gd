@@ -1,16 +1,16 @@
 extends BaseToolMinigame
 
 const plunger_starting_pos = Vector2(358, 505)
-const plunger_max_y_pos = 243
+const plunger_max_y_pos = 280
 
 const syringe_zone_x_pos = 954
 const syringe_zone_min_y_pos = 654
 const syringe_zone_max_y_pos = 520
 
-const injection_zone_min_x = -150
-const injection_zone_max_X = 1544
-const injection_zone_min_y = -85
-const injection_zone_max_y = 709
+const injection_zone_min_x = 82
+const injection_zone_max_X = 1834
+const injection_zone_min_y = 84
+const injection_zone_max_y = 997
 
 const plunger_speed = 200
 
@@ -22,7 +22,7 @@ onready var fill_syringe_stage = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	BOTCH_DAMAGE = 0
+	BOTCH_DAMAGE = 10
 	
 	$Syringe/Plunger.position = plunger_starting_pos
 	$Syringe.show()
@@ -66,19 +66,19 @@ func _process(delta):
 				$Syringe/Plunger.position = plunger_starting_pos
 	# Dispense fluid if mouse held inside injection zone and not on fill syringe stage
 	if !fill_syringe_stage:
-		if $Syringe/Plunger.position.y > plunger_starting_pos.y && in_injection_zone:
+		if $Syringe/Plunger.position.y > plunger_starting_pos.y:
 			$Syringe/Plunger.position.y = plunger_max_y_pos
-			print("Adenosine minigame passed!")
-			emit_signal("game_finished", true)
-		if Input.is_action_pressed("lmb"):
 			if in_injection_zone:
-				$Syringe.visible = true
-				$Syringe.position = Vector2($InjectionZone.position.x - 85, $InjectionZone.position.y - 500)
-				$Syringe/Plunger.position += Vector2(0, plunger_speed * delta)
+				print("Adenosine minigame passed!")
+				emit_signal("game_finished", true)
 			else:
 				print("Adenosine minigame botch!")
-				emit_signal("botch_made", BOTCH_DAMAGE * delta)
-				$Syringe.visible = false
+				emit_signal("botch_made", BOTCH_DAMAGE)
+		if Input.is_action_just_pressed("lmb"):
+			$Syringe.visible = true
+			$Syringe.position = Vector2(get_global_mouse_position().x - 360, get_global_mouse_position().y - 675)
+		if Input.is_action_pressed("lmb"):			
+			$Syringe/Plunger.position += Vector2(0, plunger_speed * delta)
 		elif Input.is_action_just_released("lmb"):
 			$Syringe.visible = false
 			$Syringe/Plunger.position.y = plunger_max_y_pos
@@ -92,9 +92,9 @@ func _on_Area2D_area_exited(area):
 	in_syringe_zone = false
 
 
-func _on_Area2D_mouse_entered():
+func _on_injection_area_entered(area):
 	in_injection_zone = true
 
 
-func _on_Area2D_mouse_exited():
+func _on_injected_area_exited(area):
 	in_injection_zone = false
