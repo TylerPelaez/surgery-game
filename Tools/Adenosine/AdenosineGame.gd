@@ -1,6 +1,6 @@
 extends BaseToolMinigame
 
-const plunger_starting_pos = Vector2(308.596, 439.03)
+const plunger_starting_pos = Vector2(358, 505)
 const plunger_max_y_pos = 243
 
 const syringe_zone_x_pos = 954
