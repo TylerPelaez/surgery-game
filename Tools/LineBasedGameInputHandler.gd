@@ -20,9 +20,6 @@ func _physics_process(delta):
 	if Input.is_action_just_released("draw"):
 		end_drawing(mouse_pos)
 
-func get_mouse_pos():
-	return get_viewport().get_parent().get_local_mouse_position() if get_viewport().get_parent() != null else get_global_mouse_position()
-
 func enable_draw():
 	can_draw = true
 

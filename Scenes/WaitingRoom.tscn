@@ -53,6 +53,10 @@ tool_type = 1
 position = Vector2( 280, 904 )
 tool_type = 6
 
+[node name="Pipette" parent="." instance=ExtResource( 1 )]
+position = Vector2( 936, 928 )
+tool_type = 5
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GreyOut" type="ColorRect" parent="CanvasLayer"]

@@ -1,6 +1,6 @@
 extends Node
 
-var DRAW_DEBUG = false
+var DRAW_DEBUG = true
 
 func instance_scene_on_main(scene: PackedScene, position: Vector2) -> Node:
 	var main = get_tree().current_scene

@@ -9,7 +9,7 @@ var midpoint
 var maxDistanceFromMidpoint
 
 
-const SUTURE_DRAW_RADIUS = 400
+const SUTURE_DRAW_RADIUS = 200
 const REQUIRED_SIDE_CHANGE_COUNT = 4
 
 func _ready():

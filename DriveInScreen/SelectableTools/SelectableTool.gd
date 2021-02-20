@@ -7,7 +7,6 @@ signal released(this)
 
 export (ToolData.Tools) var tool_type setget set_tool_type
 
-
 onready var sprite = $Sprite
 onready var patient_overlap_collider = $PatientOverlap/CollisionShape2D
 onready var pickup_area_collider = $PickupArea/CollisionShape2D
@@ -32,6 +31,10 @@ func set_tool_type(type):
 	tool_type = type
 	if sprite != null:
 		sprite.texture = ToolData.TOOLS_DATA[tool_type].texture
+		if ToolData.TOOLS_DATA[tool_type].has("texture_offset"):
+			sprite.offset = ToolData.TOOLS_DATA[tool_type].texture_offset
+		else:
+			sprite.offset = Vector2.ZERO
 		sprite.scale = Vector2(1.0, 1.0) * ToolData.TOOLS_DATA[tool_type].texture_scale
 	if Engine.is_editor_hint():
 		property_list_changed_notify()

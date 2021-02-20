@@ -8,7 +8,7 @@ enum Tools {
 	Adenosine,
 	Syringe,
 	Pipette,
-	Suture
+	Suture,
 }
 
 # TODO:
@@ -48,7 +48,7 @@ const TOOLS_DATA = {
 	},
 	Tools.Pipette: {
 		"name": "Pipette",
-		"texture": preload("res://Assets/Tools/Pipette/Pipette.png"),
+		"texture": preload("res://Assets/Tools/Pipette/PipetteUITexture.png"),
 		"texture_scale": .15,
 		"tool_scene": preload("res://Tools/Pipette/PipetteGame.tscn"),
 		"tool_input_handler": preload("res://Tools/Pipette/PipetteInputHandler.tscn")
