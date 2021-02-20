@@ -39,6 +39,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Tools/Scalpel/ScalpelInputData.gd"
 }, {
+"base": "LineBasedGameInputHandler",
+"class": "SutureGameInputHandler",
+"language": "GDScript",
+"path": "res://Tools/Suture/SutureGameInputHandler.gd"
+}, {
+"base": "ToolInputData",
+"class": "SutureInputData",
+"language": "GDScript",
+"path": "res://Tools/Suture/SutureInputData.gd"
+}, {
 "base": "ToolInputData",
 "class": "SyringeInputData",
 "language": "GDScript",
@@ -56,6 +66,8 @@ _global_script_class_icons={
 "LineBasedGameInputHandler": "",
 "ScalpelGameInputHandler": "",
 "ScalpelInputData": "",
+"SutureGameInputHandler": "",
+"SutureInputData": "",
 "SyringeInputData": "",
 "ToolInputData": ""
 }

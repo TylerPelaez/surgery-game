@@ -6,7 +6,8 @@ enum Tools {
 	Bandage,
 	Defibrillator,
 	Adenosine,
-	Syringe
+	Syringe,
+	Suture,
 }
 
 # TODO:

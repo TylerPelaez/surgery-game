@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Tools/LineBasedGameInputHandler.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Tools/Suture/SutureGameInputHandler.gd" type="Script" id=2]
+
+[node name="SutureGameInputHandler" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Line2D" parent="." index="0"]
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
