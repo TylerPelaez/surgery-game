@@ -26,13 +26,13 @@ extents = Vector2( 65.2618, 62.3593 )
 script = ExtResource( 10 )
 
 [node name="Gauge" type="Sprite" parent="." index="0"]
-position = Vector2( 519.994, 181.409 )
+position = Vector2( 980.34, 360.785 )
 scale = Vector2( 0.32753, 0.289204 )
 texture = ExtResource( 3 )
 
 [node name="Zone" type="Sprite" parent="." index="1"]
 self_modulate = Color( 1, 1, 1, 0.74902 )
-position = Vector2( 717.406, 182.708 )
+position = Vector2( 1177.22, 362.084 )
 scale = Vector2( 0.170371, 0.298747 )
 texture = ExtResource( 2 )
 
@@ -43,6 +43,7 @@ collision_layer = 4
 shape = SubResource( 1 )
 
 [node name="Path2D" type="Path2D" parent="." index="2"]
+position = Vector2( 460.346, 179.376 )
 curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
@@ -68,24 +69,24 @@ shape = SubResource( 3 )
 
 [node name="SpacePrompt" type="Sprite" parent="." index="3"]
 visible = false
-position = Vector2( 508.609, 382.069 )
+position = Vector2( 968.955, 561.445 )
 scale = Vector2( 0.218575, 0.272367 )
 texture = ExtResource( 8 )
 
 [node name="QPrompt" type="Sprite" parent="." index="4"]
 visible = false
-position = Vector2( 510.553, 381.867 )
+position = Vector2( 970.899, 561.243 )
 scale = Vector2( 0.211547, 0.252276 )
 texture = ExtResource( 6 )
 
 [node name="EPrompt" type="Sprite" parent="." index="5"]
 visible = false
-position = Vector2( 510.553, 381.867 )
+position = Vector2( 970.899, 561.243 )
 scale = Vector2( 0.211547, 0.252276 )
 texture = ExtResource( 7 )
 
 [node name="Paddles" type="Sprite" parent="." index="6"]
-position = Vector2( 519.7, 459.087 )
+position = Vector2( 980.046, 638.463 )
 scale = Vector2( 0.470558, 0.577615 )
 texture = ExtResource( 9 )
 [connection signal="area_entered" from="Path2D/PathFollow2D/Needle/Area2D" to="." method="_on_Area2D_area_entered"]
