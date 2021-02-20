@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-2.png" type="Texture" id=1]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 129.297, 112.64 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 147.136, 112.64 )
 
 [node name="SyringeZone" type="Sprite"]
 self_modulate = Color( 1, 1, 1, 0.745098 )
@@ -16,4 +16,4 @@ texture = ExtResource( 1 )
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+shape = SubResource( 4 )

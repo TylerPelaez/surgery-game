@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Tools/Suture/SutureInputData.gd"
 }, {
+"base": "Node2D",
+"class": "Syringe",
+"language": "GDScript",
+"path": "res://Tools/Syringe/Syringe.gd"
+}, {
 "base": "ToolInputData",
 "class": "SyringeInputData",
 "language": "GDScript",
@@ -80,6 +85,7 @@ _global_script_class_icons={
 "ScalpelInputData": "",
 "SutureGameInputHandler": "",
 "SutureInputData": "",
+"Syringe": "",
 "SyringeInputData": "",
 "ToolInputData": ""
 }
@@ -140,6 +146,7 @@ lmb={
 2d_physics/layer_3="DefibrillatorZone"
 2d_physics/layer_4="InjectionZones"
 2d_physics/layer_5="BloodZones"
+2d_physics/layer_6="SyringeTip"
 
 [rendering]
 

@@ -5,9 +5,9 @@ onready var InjectionNode = preload("res://Tools/Syringe/InjectionZone.tscn");
 # Vector2 coordinate array with possible injection zone placements
 onready var placement_zones = [Vector2(-409,-346), Vector2(105,-261), Vector2(660,-440), Vector2(-168,172), Vector2(500,200)]
 # Bool array corresponding to each possible placement zone. True if on, false if off
-#onready var zone_enabled = [false, false, false, false, false]
+onready var zone_enabled = [false, false, false, false, false]
 # for debugging
-onready var zone_enabled = [true, true, true, true, true]
+#onready var zone_enabled = [true, true, true, true, true]
 # Array of injection nodes
 onready var injection_nodes = []
 

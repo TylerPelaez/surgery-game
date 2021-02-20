@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Tools/Syringe/Syringe Body.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tools/Syringe/Syringe Plunger.png" type="Texture" id=2]
@@ -6,56 +6,149 @@
 [ext_resource path="res://Tools/Syringe/Syringe.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Tools/Syringe/Blue Fluid.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Tools/Syringe/Yellow fluid.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-2.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 51.3235, 10.9667 )
+extents = Vector2( 60.479, 14.748 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9.66687, 21.8208 )
+extents = Vector2( 40.9442, 35.5052 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "DispenseLiquid"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Plunger:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -27.245, -977.793 ), Vector2( -27.245, -483.352 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "liquid_dispensed"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "DrawLiquid"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Plunger:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -27.245, -483.352 ), Vector2( -27.245, -977.793 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "liquid_drawn"
+} ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 147.136, 112.64 )
 
 [node name="Syringe" type="Node2D"]
-position = Vector2( 591.642, 55.2319 )
 script = ExtResource( 4 )
 
 [node name="Body" type="Sprite" parent="."]
-position = Vector2( 403.139, 461.799 )
-scale = Vector2( 0.303711, 0.375 )
+position = Vector2( 0.561218, 0 )
 z_index = 2
 texture = ExtResource( 1 )
+offset = Vector2( -30, -350 )
 
 [node name="BlueFluid" type="Sprite" parent="."]
-position = Vector2( 406.693, 459.496 )
-scale = Vector2( 0.330132, 0.383816 )
+visible = false
 texture = ExtResource( 5 )
-
-[node name="YellowFluid" type="Sprite" parent="."]
-position = Vector2( 406.693, 459.496 )
-scale = Vector2( 0.330132, 0.383816 )
-texture = ExtResource( 6 )
+offset = Vector2( -13.321, -393.724 )
 
 [node name="PinkFluid" type="Sprite" parent="."]
-position = Vector2( 406.693, 459.496 )
-scale = Vector2( 0.330132, 0.383816 )
+visible = false
 texture = ExtResource( 3 )
+offset = Vector2( -13.321, -393.724 )
+
+[node name="YellowFluid" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 6 )
+offset = Vector2( -13.321, -393.724 )
 
 [node name="Plunger" type="Sprite" parent="."]
-position = Vector2( 307.217, 433.949 )
-scale = Vector2( 0.305518, 0.324499 )
+position = Vector2( -27.245, -977.793 )
 z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="Plunger"]
+position = Vector2( 12.31, 0 )
 collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Plunger/Area2D"]
-position = Vector2( 183.98, 559.906 )
+position = Vector2( 0, 356.359 )
 shape = SubResource( 1 )
 
 [node name="Tip" type="Area2D" parent="."]
+collision_layer = 32
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
-position = Vector2( 365.441, 649.839 )
+position = Vector2( -3.17841, -7.41623 )
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DispenseLiquid = SubResource( 5 )
+anims/DrawLiquid = SubResource( 3 )
+
+[node name="SyringeZone" type="Sprite" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.745098 )
+position = Vector2( -15.3846, -430.365 )
+scale = Vector2( 0.42557, 0.30467 )
+z_index = 2
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Area2D" type="Area2D" parent="SyringeZone"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SyringeZone/Area2D"]
+shape = SubResource( 4 )
+
+[node name="SyringeZoneUpperBound" type="Position2D" parent="."]
+visible = false
+position = Vector2( -15.83, -571.537 )
+
+[node name="SyringeZoneLowerBound" type="Position2D" parent="."]
+visible = false
+position = Vector2( -15.83, -232.618 )
 [connection signal="area_entered" from="Plunger/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Plunger/Area2D" to="." method="_on_Area2D_area_exited"]
