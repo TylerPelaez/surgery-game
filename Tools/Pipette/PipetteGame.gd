@@ -47,6 +47,7 @@ func accept_tool_input(tool_input_data: PipetteInputData):
 	var touching_injection_zone = false
 	for node in blood_nodes:
 		if node.pipette_in_zone:
+			$Squish.play()
 			touching_injection_zone = true
 			# If zone alpha <= 0.3, delete it
 			if node.modulate.a <= 0.3:
@@ -63,6 +64,7 @@ func accept_tool_input(tool_input_data: PipetteInputData):
 	# Check if all nodes have been cleared
 	if blood_nodes.size() < 1:
 		print("Pipette minigame success!")
+		$Success.play()
 		emit_signal("game_finished", true)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

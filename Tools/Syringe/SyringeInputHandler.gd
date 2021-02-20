@@ -50,6 +50,7 @@ func start_fluid_draw_state(fluidColor):
 	state = FLUID_DRAW_IN_PROGRESS
 	currently_selected_fluid = fluidColor
 	vial_draw.start_draw_fluid(fluidColor)
+	$Tink.play()
 	
 func fluid_draw_in_progress(delta):
 	if currently_selected_fluid == null:
@@ -73,9 +74,11 @@ func fluid_draw_in_progress(delta):
 		if vial_draw.syringe_in_zone():
 			print("Syringe loaded with " + str(currently_selected_fluid) + " fluid!")
 			state = FLUID_DRAW_COMPLETE
+			$Success.play()
 		else:
 			state = NO_FLUID_DRAWN
 			currently_selected_fluid = null
+			$Fail.play()
 		vial_draw.end_fluid_draw()
 
 func fluid_draw_complete(delta):

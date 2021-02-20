@@ -54,6 +54,7 @@ func _on_calculateBandage(start_point, end_point):
 	# Auto-fail if player bandage somehow does not have 2 points
 	if start_point == null || end_point == null:
 		print("Bandage minigame failed! Invalid player line!")
+		$Fail.play()
 		emit_signal("botch_made", 0)
 		return
 	
@@ -72,8 +73,10 @@ func _on_calculateBandage(start_point, end_point):
 #	print("Radius check: ", radius1, ", ", radius2, ", ", radius3, ", ", radius4)
 	if (radius1 <= acceptable_radius && radius2 <= acceptable_radius) || (radius3 <= acceptable_radius && radius4 <= acceptable_radius):
 		print("Bandage minigame success!")
+		$Success.play()
 		emit_signal("game_finished", true)
 	else:
 		print("Bandage minigame failed!")
+		$Fail.play()
 		emit_signal("botch_made", 0)
 	

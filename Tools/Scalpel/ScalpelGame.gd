@@ -109,7 +109,9 @@ func _on_calculateDTW(incision_array):
 #	print("DTW IS:", min_dtw)
 	if min_dtw <= acceptable_dtw:
 		print("Scalpel minigame passed!")
+		$Success.play()
 		emit_signal("game_finished", true)
 	else:
 		print("Scalpel minigame failed!")
+		$Fail.play()
 		emit_signal("botch_made", BOTCH_DAMAGE)

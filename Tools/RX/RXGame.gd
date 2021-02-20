@@ -22,6 +22,7 @@ func accept_tool_input(tool_input_data: RXInputData):
 	var points_in_bounds = 0
 	if tool_input_data.points.size() < 100:
 		print("RX Game Botch")
+		$Fail.play()
 		emit_signal("botch_made", BOTCH_DAMAGE)
 	else:
 		for point in tool_input_data.points:
@@ -30,7 +31,9 @@ func accept_tool_input(tool_input_data: RXInputData):
 		print("dividing ", points_in_bounds, " by ", tool_input_data.points.size(), " to get ", float(points_in_bounds)/tool_input_data.points.size())
 		if float(points_in_bounds)/tool_input_data.points.size() < .75:
 			print("RX Game Botch")
+			$Fail.play()
 			emit_signal("botch_made", BOTCH_DAMAGE)
 		else:
 			print("RX Game Passed!")
+			$Success.play()
 			emit_signal("game_finished", true)

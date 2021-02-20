@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Tools/Syringe/SyringeGame.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Audio/Success.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Audio/Fail.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Audio/Squish.tscn" type="PackedScene" id=4]
 
 [node name="SyringeGame" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,3 +22,9 @@ position = Vector2( 848, 168 )
 
 [node name="Position2D5" type="Position2D" parent="."]
 position = Vector2( 1712, 704 )
+
+[node name="Success" parent="." instance=ExtResource( 2 )]
+
+[node name="Fail" parent="." instance=ExtResource( 3 )]
+
+[node name="Squish" parent="." instance=ExtResource( 4 )]

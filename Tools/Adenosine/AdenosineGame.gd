@@ -46,6 +46,8 @@ func _process(delta):
 		# Reset plunger position if it is at the max position
 		if $Syringe/Plunger.position.y < plunger_max_y_pos:
 			$Syringe/Plunger.position = plunger_starting_pos
+		if Input.is_action_just_pressed("spacebar"):
+			$Tink.play()
 		if Input.is_action_pressed("spacebar"):
 			# Move plunger while spacebar is held
 			$Syringe/Plunger.position += Vector2(0 , -plunger_speed * delta)
@@ -60,19 +62,24 @@ func _process(delta):
 				$SyringeZone.visible = false
 				$Syringe/Plunger.position.y = plunger_max_y_pos
 				$InjectionZone.visible = true
+				$Success.play()
 			# If not, reset minigame
 			else:
 				print("Adenosine part 1 failed!")
+				$Fail.play()
 				$Syringe/Plunger.position = plunger_starting_pos
 	# Dispense fluid if mouse held inside injection zone and not on fill syringe stage
 	if !fill_syringe_stage:
 		if $Syringe/Plunger.position.y > plunger_starting_pos.y:
 			$Syringe/Plunger.position.y = plunger_max_y_pos
+			$Squish.play()
 			if in_injection_zone:
 				print("Adenosine minigame passed!")
+				$Success.play()
 				emit_signal("game_finished", true)
 			else:
 				print("Adenosine minigame botch!")
+				$Fail.play()
 				emit_signal("botch_made", BOTCH_DAMAGE)
 		if Input.is_action_just_pressed("lmb"):
 			$Syringe.visible = true
@@ -91,10 +98,8 @@ func _on_Area2D_area_entered(area):
 func _on_Area2D_area_exited(area):
 	in_syringe_zone = false
 
-
 func _on_injection_area_entered(area):
 	in_injection_zone = true
 
-
-func _on_injected_area_exited(area):
+func _on_injection_area_exited(area):
 	in_injection_zone = false

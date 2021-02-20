@@ -9,6 +9,7 @@ func start_drawing(mouse_pos):
 	.start_drawing(mouse_pos)
 	start_point = mouse_pos
 	line_2d.add_point(mouse_pos)
+	$Rip.play()
 
 func draw(mouse_pos):
 	# Snap bandage line to mouse

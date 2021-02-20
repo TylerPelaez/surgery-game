@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tools/Syringe/SyringeInputHandler.gd" type="Script" id=1]
 [ext_resource path="res://Tools/Syringe/VialDraw.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Audio/Tink.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Audio/Success.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Audio/Fail.tscn" type="PackedScene" id=5]
 
 [node name="SyringeInputHandler" type="Node2D"]
 script = ExtResource( 1 )
@@ -30,4 +33,10 @@ render_target_update_mode = 3
 [node name="VialDraw" parent="CanvasLayer/ViewportContainer/Viewport" instance=ExtResource( 2 )]
 position = Vector2( 300, 500 )
 scale = Vector2( 0.4, 0.4 )
+
+[node name="Tink" parent="." instance=ExtResource( 3 )]
+
+[node name="Fail" parent="." instance=ExtResource( 5 )]
+
+[node name="Success" parent="." instance=ExtResource( 4 )]
 [connection signal="liquid_drawn" from="CanvasLayer/ViewportContainer/Viewport/VialDraw" to="." method="_on_VialDraw_liquid_drawn"]

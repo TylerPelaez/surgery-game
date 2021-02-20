@@ -5,6 +5,7 @@ func _process(delta):
 	var mouse_pos = get_mouse_pos()
 	
 	if Input.is_action_just_pressed("lmb") and point_in_viewport(mouse_pos):
+		$Scribble.play()
 		$Signature.clear_points()
 	if Input.is_action_pressed("lmb") and point_in_viewport(mouse_pos):
 		$Pen.visible = true
