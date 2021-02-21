@@ -6,6 +6,8 @@ var button_pressed
 
 var botch_damage = 5
 
+var damage_threshold = 0
+
 func _physics_process(delta):
 	if !button_pressed and Input.is_action_just_pressed("lmb"):
 		button_pressed = true
@@ -17,7 +19,10 @@ func _physics_process(delta):
 			button_pressed = false
 			biopsy_needle.disable_collision()
 		elif Input.is_action_pressed("lmb") and !biopsy_needle.is_in_organ():
-			$Fail.play()
+			damage_threshold += botch_damage * delta
+			if damage_threshold >= 2.5:
+				$Fail.play()
+				damage_threshold = 0
 			emit_signal("do_botch", botch_damage * delta)
 	
 	biopsy_needle.position = get_mouse_pos()
