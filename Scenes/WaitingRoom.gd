@@ -54,6 +54,8 @@ func _ready():
 		node.connect("mouse_event", self, "_on_tool_mouse_event")
 	
 	day_timer.start(DAY_LENGTH_SECONDS)
+	time_label.add_color_override("font_color", Color.white)
+
 
 func convert_to_timer_string(time_left):
 	var minutes_string = ""
@@ -65,6 +67,8 @@ func convert_to_timer_string(time_left):
 	return minutes_string + ":" + seconds_string
 
 func _physics_process(delta):
+	if day_timer.time_left <= 30:
+		time_label.add_color_override("font_color", Color.red)
 	time_label.text = convert_to_timer_string(day_timer.time_left)
 	
 	if Input.is_action_just_pressed("lmb") && mouse_on_drbook:
@@ -181,3 +185,6 @@ func _on_drbook_entered():
 
 func _on_drbook_exited():
 	mouse_on_drbook = false
+func _on_NextDay_pressed():
+	# next day
+	pass # Replace with function body.
