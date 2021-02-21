@@ -205,6 +205,12 @@ func _on_patient_not_treated(patient):
 	total_untreated += 1
 
 func end_of_day():
+	if current_day >= 7:
+		if player_money >= 2000:
+			get_tree().change_scene("res://Win.tscn")
+		else:
+			get_tree().change_scene("res://Lose.tscn")
+	
 	state = DAY_END_SCREEN
 	grey_out.visible = true
 	day_end_screen.set_stats( death_count, treated_count, not_treated_count, player_money - day_start_money, current_day, TOTAL_NUM_DAYS - current_day)
@@ -251,6 +257,7 @@ func _on_drbook_exited():
 	
 func _on_NextDay_pressed():
 	current_day += 1
+
 	grey_out.visible = false
 	day_end_screen.visible = false
 	patient_generator.start_day(player_tools)
