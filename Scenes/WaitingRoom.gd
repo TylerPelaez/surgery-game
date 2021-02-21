@@ -179,9 +179,9 @@ func _on_surgery_container_patient_death():
 	state = WAITING_ROOM_DEFAULT
 	_hide_surgery_ui()
 	patient_generator.remove_patient(patient_in_surgery)
-	_on_patient_death(patient_in_surgery)
 	patient_in_surgery.queue_free()
 	patient_in_surgery = null
+	_on_patient_death(patient_in_surgery)
 
 func _on_patient_cured(patient, percent_damage_taken):
 	treated_count += 1
@@ -195,6 +195,9 @@ func _on_patient_cured(patient, percent_damage_taken):
 func _on_patient_death(patient):
 	death_count += 1
 	total_deaths += 1
+	get_tree().paused = true
+	$CanvasLayer/BotchInfoContainer/AnimationPlayer.play("FadeIn")
+	
 
 func _on_patient_not_treated(patient):
 	not_treated_count += 1
@@ -265,3 +268,7 @@ func _on_NextDay_pressed():
 func _on_BackButton_pressed():
 	state = DAY_END_SCREEN
 	shop_container.visible = false
+
+func _on_BotchButton_pressed():
+	get_tree().paused = false
+	$CanvasLayer/BotchInfoContainer/AnimationPlayer.play("FadeOut")

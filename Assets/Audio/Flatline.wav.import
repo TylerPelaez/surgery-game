@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Flatline.wav-b7bb6ee4d8f5105e37d6b858fdd6fbe4.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Flatline.wav"
+dest_files=[ "res://.import/Flatline.wav-b7bb6ee4d8f5105e37d6b858fdd6fbe4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
