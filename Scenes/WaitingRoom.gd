@@ -120,7 +120,7 @@ func _physics_process(delta):
 			pass
 			
 func openDrBook():
-	$DrBook.visible = true
+	$DrBook/DrBook.visible = true
 
 func _on_tool_clicked(tool_instance):
 	if currently_held_tool != null:

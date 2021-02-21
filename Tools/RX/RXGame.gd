@@ -17,10 +17,10 @@ func _ready():
 		instance.connect("input_finished", self, "process_input")
 		add_child(instance)
 
-# Given an array of Point2D, make sure array is at least size 100, and 75% of the points are in the specified area
+# Given an array of Point2D, make sure array is at least size 75, and 75% of the points are in the specified area
 func accept_tool_input(tool_input_data: RXInputData):
 	var points_in_bounds = 0
-	if tool_input_data.points.size() < 100:
+	if tool_input_data.points.size() < 75:
 		print("RX Game Botch")
 		$Fail.play()
 		emit_signal("botch_made", BOTCH_DAMAGE)

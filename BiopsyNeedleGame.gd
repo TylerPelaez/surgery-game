@@ -44,6 +44,7 @@ func _physics_process(delta):
 
 
 func accept_tool_input(tool_input_data: BiopsyNeedleInputData):
+	$Success.play()
 	emit_signal("game_finished", true)
 
 

@@ -45,9 +45,22 @@ var adenosine_available = false
 var last_viewed_organ = 2
 var currently_selected_button
 
+var current_time = 0
+var last_heartbeat = 0
+onready var HeartbeatNode = preload("res://Assets/Audio/Heartbeat.tscn")
+
 func _physics_process(delta):
 	if running:
+		# Heartbeat logic
+		current_time += delta
 		self.current_heart_rate += (delta * NATURAL_FLUCTUATION_PER_SECOND * direction_multiplier)
+		var bps = current_heart_rate/60
+		if current_time - last_heartbeat >= 1/bps:
+			# Beat heart
+			var new_heartbeat = HeartbeatNode.instance()
+			add_child(new_heartbeat)
+			new_heartbeat.play()
+			last_heartbeat = current_time
 		
 		var tool_selected = null
 		
