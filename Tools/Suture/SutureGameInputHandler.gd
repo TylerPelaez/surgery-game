@@ -65,6 +65,7 @@ func draw(mouse_pos):
 		line_2d.add_point(mouse_pos)
 	
 func end_drawing(mouse_pos):
+	.end_drawing(mouse_pos)
 	timer.stop()
 	if line_2d.points.size() > 0 && can_draw:
 		var input_data = SutureInputData.new()

@@ -13,7 +13,6 @@ enum Tools {
 	BiopsyNeedle,
 }
 
-# TODO:
 const TOOLS_DATA = {
 	Tools.Scalpel: {
 		"name": "Scalpel",
@@ -33,7 +32,7 @@ const TOOLS_DATA = {
 		"name": "Defibrillator",
 		"texture": preload("res://Assets/Tools/Defibrillator/Defib_View.png"),
 		"texture_scale": .15,
-		"tool_input_handler": preload("res://Tools/Defibrillator/DefibrillatorGame.tscn")
+		"tool_input_handler": preload("res://Tools/Defibrillator/DefibrillatorGameInputHandler.tscn"),
 	},
 	Tools.Adenosine: {
 		"name": "Adenosine",

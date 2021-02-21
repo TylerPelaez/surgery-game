@@ -3,6 +3,7 @@ class_name BaseToolMinigame
 
 signal game_finished(result)
 signal botch_made(damage)
+signal health_item_used(amount)
 
 var BOTCH_DAMAGE
 var accepted_tool_type
@@ -10,6 +11,10 @@ var accepted_tool_type
 func process_input(tool_input_data: ToolInputData):
 	if tool_input_data.matches_game_type(accepted_tool_type):
 		accept_tool_input(tool_input_data)
+	elif tool_input_data is DefibrillatorToolInputData:
+		emit_signal("health_item_used", 60)
+	elif tool_input_data is AdenosineToolInputData:
+		emit_signal("health_item_used", -60)
 	else:
 		$Fail.play()
 		emit_signal("botch_made", tool_input_data.get_tool_mismatch_damage())

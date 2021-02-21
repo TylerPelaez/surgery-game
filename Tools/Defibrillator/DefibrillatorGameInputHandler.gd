@@ -1,11 +1,11 @@
-extends BaseToolMinigame
+extends GameInputHandler
+
 
 onready var in_zone = false
 onready var qte_key = "spacebar"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	BOTCH_DAMAGE = 10
 	# Randomly pick a prompt that the QTE will use
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -39,22 +39,24 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var success_data = DefibrillatorToolInputData.new()
+	success_data.initialize(null)
+	
 	if Input.is_action_just_pressed("spacebar") && qte_key == "spacebar" && in_zone:
 		print("Defibrillator minigame passed!")
 		$Success.play()
-		emit_signal("game_finished", true)
+		emit_signal("input_finished", success_data)
 	elif Input.is_action_just_pressed("q_key") && qte_key == "q_key" && in_zone:
 		print("Defibrillator minigame passed!")
 		$Success.play()
-		emit_signal("game_finished", true)
+		emit_signal("input_finished", success_data)
 	elif Input.is_action_just_pressed("e_key") && qte_key == "e_key" && in_zone:
 		print("Defibrillator minigame passed!")
 		$Success.play()
-		emit_signal("game_finished", true)
+		emit_signal("input_finished", success_data)
 	elif Input.is_action_just_pressed("spacebar") || Input.is_action_just_pressed("q_key") || Input.is_action_just_pressed("e_key"):
 		print("Defibrillator minigame failed!")
 		$Fail.play()
-		emit_signal("botch_made", BOTCH_DAMAGE)
 		
 # When the needle enters the success zone
 func _on_Area2D_area_entered(area):

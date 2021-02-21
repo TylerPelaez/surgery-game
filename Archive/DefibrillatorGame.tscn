@@ -1,19 +1,18 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-3.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-2.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Tools/Defibrillator/Defib gauge.png" type="Texture" id=3]
-[ext_resource path="res://Tools/Defibrillator/PathFollow2D.gd" type="Script" id=4]
-[ext_resource path="res://Tools/BaseToolMinigame.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Audio/Success.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Tools/BaseToolMinigame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Tools/Defibrillator/PathFollow2D.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-4.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Audio/Defib Beep.wav" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-5.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-6.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-4.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Tools/Defibrillator/Defib_View.png" type="Texture" id=9]
-[ext_resource path="res://Tools/Defibrillator/DefibrillatorGame.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defib_View.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-6.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-2.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-3.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Audio/Defib.wav" type="AudioStream" id=11]
-[ext_resource path="res://Assets/Audio/Defib Beep.wav" type="AudioStream" id=12]
-[ext_resource path="res://Assets/Audio/Success.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Assets/Audio/Fail.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defib gauge.png" type="Texture" id=12]
+[ext_resource path="res://Archive/DefibrillatorGame.gd" type="Script" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 129.891, 113.063 )
@@ -26,19 +25,19 @@ _data = {
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 65.2618, 62.3593 )
 
-[node name="DefibrillatorGame" instance=ExtResource( 5 )]
-script = ExtResource( 10 )
+[node name="DefibrillatorGame" instance=ExtResource( 2 )]
+script = ExtResource( 13 )
 
 [node name="Gauge" type="Sprite" parent="." index="0"]
 position = Vector2( 980.34, 360.785 )
 scale = Vector2( 0.32753, 0.289204 )
-texture = ExtResource( 3 )
+texture = ExtResource( 12 )
 
 [node name="Zone" type="Sprite" parent="." index="1"]
 self_modulate = Color( 1, 1, 1, 0.74902 )
 position = Vector2( 1177.22, 362.084 )
 scale = Vector2( 0.170371, 0.298747 )
-texture = ExtResource( 2 )
+texture = ExtResource( 9 )
 
 [node name="Area2D" type="Area2D" parent="Zone" index="0"]
 collision_layer = 4
@@ -55,13 +54,13 @@ position = Vector2( 302.156, 213.901 )
 rotation = -7.8008e-06
 rotate = false
 cubic_interp = false
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
 [node name="Needle" type="Sprite" parent="Path2D/PathFollow2D" index="0"]
 position = Vector2( 18.3221, -15.4658 )
 rotation = 7.8008e-06
 scale = Vector2( 0.282077, 0.349905 )
-texture = ExtResource( 1 )
+texture = ExtResource( 10 )
 
 [node name="Area2D" type="Area2D" parent="Path2D/PathFollow2D/Needle" index="0"]
 position = Vector2( -1.87793, -0.756958 )
@@ -75,7 +74,7 @@ shape = SubResource( 3 )
 visible = false
 position = Vector2( 968.955, 561.445 )
 scale = Vector2( 0.218575, 0.272367 )
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="QPrompt" type="Sprite" parent="." index="4"]
 visible = false
@@ -87,22 +86,20 @@ texture = ExtResource( 6 )
 visible = false
 position = Vector2( 970.899, 561.243 )
 scale = Vector2( 0.211547, 0.252276 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="Paddles" type="Sprite" parent="." index="6"]
 position = Vector2( 980.046, 638.463 )
 scale = Vector2( 0.470558, 0.577615 )
-texture = ExtResource( 9 )
+texture = ExtResource( 7 )
 
 [node name="DefibBeep" type="AudioStreamPlayer" parent="." index="7"]
-stream = ExtResource( 12 )
+stream = ExtResource( 5 )
 volume_db = -2.0
 
 [node name="DefibZap" type="AudioStreamPlayer" parent="." index="8"]
 stream = ExtResource( 11 )
 
-[node name="Fail" parent="." index="9" instance=ExtResource( 14 )]
-
-[node name="Success" parent="." index="10" instance=ExtResource( 13 )]
+[node name="Success" parent="." index="10" instance=ExtResource( 1 )]
 [connection signal="area_entered" from="Path2D/PathFollow2D/Needle/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Path2D/PathFollow2D/Needle/Area2D" to="." method="_on_Area2D_area_exited"]

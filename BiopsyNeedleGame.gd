@@ -10,8 +10,8 @@ func _ready():
 	BOTCH_DAMAGE = 0
 	
 	for child in get_children():
-		print(get_x_scale_factor())
-		child.position = Vector2(child.position.x * get_x_scale_factor(), child.position.y * get_y_scale_factor())
+		if child is StaticBody2D:
+			child.position = Vector2(child.position.x * get_x_scale_factor(), child.position.y * get_y_scale_factor())
 	
 	var viewport_rect = get_viewport().get_visible_rect()
 	var center_point = (viewport_rect.end + get_viewport_rect().position) / 2.0

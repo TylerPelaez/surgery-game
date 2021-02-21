@@ -31,11 +31,9 @@ var running = false
 
 var currently_selected_button
 
-
 func _physics_process(delta):
 	if running:
 		self.current_heart_rate += (delta * NATURAL_FLUCTUATION_PER_SECOND * direction_multiplier)
-
 
 func set_heart_rate(value):
 	current_heart_rate = value
@@ -73,6 +71,8 @@ func add_surgery_games_for_tools(tool_list):
 	self.current_heart_rate = RESTING_HEART_RATE
 	if randf() > 0.5:
 		direction_multiplier = -1.0
+	else:
+		direction_multiplier = 1.0
 	
 
 func _on_tool_select_button_selected(button, tool_type):
@@ -116,12 +116,26 @@ func _on_game_finished(result):
 		emit_signal("all_games_finished", percent_damage_taken)
 
 func _on_botch_made(damage):
-		self.current_heart_rate += (damage * direction_multiplier)
+	self.current_heart_rate += (damage * direction_multiplier)
+
+func _on_health_item_used(amount):
+	self.current_heart_rate += amount
+	
+	if current_input_handler != null:
+		current_input_handler.queue_free()
+		current_input_handler = null
+	
+	if currently_selected_button == defib_button:
+		defib_button.get_node("NinePatchRect").modulate = original_defib_modulate
+	elif currently_selected_button == adenosine_button:
+		adenosine_button.get_node("NinePatchRect").modulate = original_adenosine_modulate
+	
 
 func get_next_game():
 	current_game = surgery_list.pop_front().instance()
 	current_game.connect("botch_made", self, "_on_botch_made")
 	current_game.connect("game_finished", self, "_on_game_finished")
+	current_game.connect("health_item_used", self, "_on_health_item_used")
 	viewport.add_child(current_game)
 
 func _on_DefibMarginContainer_gui_input(event):
