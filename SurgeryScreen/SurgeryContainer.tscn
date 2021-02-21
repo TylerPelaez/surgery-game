@@ -94,6 +94,7 @@ texture = ExtResource( 6 )
 stretch_mode = 2
 
 [node name="BPMLabel" type="Label" parent="HBoxContainer/GameScreenContainer"]
+visible = false
 margin_right = 1588.0
 margin_bottom = 832.0
 size_flags_vertical = 5
