@@ -14,7 +14,6 @@ onready var day_timer = $DayTimer
 onready var day_end_screen = $CanvasLayer/DayEndScreen
 onready var shop_container = $CanvasLayer/ShopContainer
 
-
 # gameplay vars
 var currently_held_tool
 var patient_in_surgery
@@ -219,8 +218,8 @@ func _on_shop_item_pressed(item):
 	if player_money >= item_cost:
 		# can afford:
 		item.purchase()
-		player_money -= item_cost
 		money_label_container.set_display_money(player_money)
+		player_money -= item_cost
 		money_label_container.add_money(-item_cost)
 		
 		player_tools.append(item_tool)
