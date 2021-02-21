@@ -24,4 +24,4 @@ func _on_Area2D_mouse_exited():
 
 
 func _on_Play_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://SynopsisScreen/Synopsis.tscn")
