@@ -19,6 +19,9 @@ func process_input(tool_input_data: ToolInputData):
 		$Fail.play()
 		emit_signal("botch_made", tool_input_data.get_tool_mismatch_damage())
 
+func process_botch(damage):
+	emit_signal("botch_made", damage)
+
 func accept_tool_input(tool_input_data):
 	pass
 

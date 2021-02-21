@@ -48,11 +48,15 @@ func _transition_to_in_progress():
 	timer.start()
 
 func _on_Area2D_area_entered(area):
+	if !area.is_in_group("BiopsyNeedle"):
+		return
 	if state == State.DEFAULT:
 		avoid_target = area.get_parent()
 		_transition_to_in_progress()
 
 func _on_Area2D_area_exited(area):
+	if !area.is_in_group("BiopsyNeedle"):
+		return
 	if state == State.BIOPSY_IN_PROGRESS and avoid_target == area.get_parent():
 		avoid_target = null
 		state = State.DEFAULT

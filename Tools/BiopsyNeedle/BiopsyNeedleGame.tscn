@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tools/BaseToolMinigame.tscn" type="PackedScene" id=1]
 [ext_resource path="res://BiopsyNeedleGame.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-2.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 968, 24 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 968, 50 )
 
 [node name="BiopsyNeedleGame" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -42,3 +46,69 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" index="0"]
 rotation = 1.57079
 shape = SubResource( 1 )
+
+[node name="BiopsyPain" type="Sprite" parent="." index="5"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 960, 40 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1920, 100 )
+
+[node name="Area2D" type="Area2D" parent="BiopsyPain" index="0"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BiopsyPain/Area2D" index="0"]
+shape = SubResource( 2 )
+
+[node name="BiopsyPain2" type="Sprite" parent="." index="6"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 960, 1032 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1920, 100 )
+
+[node name="Area2D" type="Area2D" parent="BiopsyPain2" index="0"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BiopsyPain2/Area2D" index="0"]
+shape = SubResource( 2 )
+
+[node name="BiopsyPain3" type="Sprite" parent="." index="7"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1880, 464 )
+rotation = 1.5708
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1920, 100 )
+
+[node name="Area2D" type="Area2D" parent="BiopsyPain3" index="0"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BiopsyPain3/Area2D" index="0"]
+shape = SubResource( 2 )
+
+[node name="BiopsyPain4" type="Sprite" parent="." index="8"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 40, 440 )
+rotation = 1.5708
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1920, 100 )
+
+[node name="Area2D" type="Area2D" parent="BiopsyPain4" index="0"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BiopsyPain4/Area2D" index="0"]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="BiopsyPain/Area2D" to="." method="_on_area1_body_entered"]
+[connection signal="body_exited" from="BiopsyPain/Area2D" to="." method="_on_area1_body_exited"]
+[connection signal="body_entered" from="BiopsyPain2/Area2D" to="." method="_on_area2_body_entered"]
+[connection signal="body_exited" from="BiopsyPain2/Area2D" to="." method="_on_area2_body_exited"]
+[connection signal="body_entered" from="BiopsyPain3/Area2D" to="." method="_on_area3_body_entered"]
+[connection signal="body_exited" from="BiopsyPain3/Area2D" to="." method="_on_area3_body_exited"]
+[connection signal="body_entered" from="BiopsyPain4/Area2D" to="." method="_on_area4_body_entered"]
+[connection signal="body_exited" from="BiopsyPain4/Area2D" to="." method="_on_area4_body_exited"]

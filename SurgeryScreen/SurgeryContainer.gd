@@ -91,6 +91,7 @@ func _on_tool_select_button_selected(button, tool_type):
 	current_input_handler = ToolData.TOOLS_DATA[tool_type].tool_input_handler.instance()
 	current_game.add_child(current_input_handler)
 	current_input_handler.connect("input_finished", current_game, "process_input")
+	current_input_handler.connect("do_botch", current_game, "process_botch")
 
 
 func _on_game_finished(result):

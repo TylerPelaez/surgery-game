@@ -12,7 +12,7 @@ const AFFLICTIONS = {
 			"texture": preload("res://Data/Afflictions/heartpain.png"),
 			"tools_required": [
 				{ 
-					"tool": ToolData.Tools.Scalpel,
+					"tool": ToolData.Tools.BiopsyNeedle,
 					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
 					"tool_params": [], 
 				},
