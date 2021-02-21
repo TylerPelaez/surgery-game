@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Shopping w Paranoid.wav-5da00c15fae5c216bfd1ee7c2a63c944.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Shopping w Paranoid.wav"
+dest_files=[ "res://.import/Shopping w Paranoid.wav-5da00c15fae5c216bfd1ee7c2a63c944.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

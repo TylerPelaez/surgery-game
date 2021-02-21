@@ -161,6 +161,7 @@ func _on_patient_ready_for_surgery(patient):
 	surgery_container.visible = true
 	patient_in_surgery = patient
 	state = SURGERY
+	BackgroundMusic.pause_music()
 	patient_in_surgery.enter_surgery()
 
 func _hide_surgery_ui():
@@ -174,6 +175,7 @@ func _on_surgery_container_all_games_finished(percent_damage_taken):
 	_on_patient_cured(patient_in_surgery, percent_damage_taken)
 	patient_in_surgery.queue_free()
 	patient_in_surgery = null
+	BackgroundMusic.play_music()
 
 func _on_surgery_container_patient_death():
 	state = WAITING_ROOM_DEFAULT
@@ -272,3 +274,4 @@ func _on_BackButton_pressed():
 func _on_BotchButton_pressed():
 	get_tree().paused = false
 	$CanvasLayer/BotchInfoContainer/AnimationPlayer.play("FadeOut")
+	BackgroundMusic.play_music()
