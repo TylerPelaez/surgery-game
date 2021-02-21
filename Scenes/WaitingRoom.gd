@@ -33,6 +33,8 @@ var day_ended = false
 
 var state = WAITING_ROOM_DEFAULT
 
+var mouse_on_drbook = false
+
 enum  {
 	WAITING_ROOM_DEFAULT,
 	SURGERY,
@@ -65,6 +67,9 @@ func convert_to_timer_string(time_left):
 func _physics_process(delta):
 	time_label.text = convert_to_timer_string(day_timer.time_left)
 	
+	if Input.is_action_just_pressed("lmb") && mouse_on_drbook:
+		openDrBook()
+	
 	match state:
 		WAITING_ROOM_DEFAULT:
 			if currently_held_tool != null:
@@ -78,6 +83,9 @@ func _physics_process(delta):
 			pass
 		SHOP_SCREEN:
 			pass
+			
+func openDrBook():
+	$DrBook.visible = true
 
 func _on_tool_clicked(tool_instance):
 	if currently_held_tool != null:
@@ -165,3 +173,11 @@ func _on_DayTimer_timeout():
 func _on_ShopButton_pressed():
 	state = SHOP_SCREEN
 	print ("button pressed")
+
+
+func _on_drbook_entered():
+	mouse_on_drbook = true
+
+
+func _on_drbook_exited():
+	mouse_on_drbook = false
