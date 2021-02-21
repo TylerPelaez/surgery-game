@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://DriveInScreen/SelectableTools/SelectableTool.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Patients/PatientGenerator.tscn" type="PackedScene" id=2]
@@ -54,9 +54,6 @@ outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_char = 5
 font_data = ExtResource( 10 )
-
-[sub_resource type="CircleShape2D" id=7]
-radius = 473.185
 
 [sub_resource type="Animation" id=8]
 resource_name = "FadeIn"
@@ -664,16 +661,6 @@ margin_left = 701.0
 margin_right = 910.0
 margin_bottom = 246.0
 
-[node name="DrBook" type="Sprite" parent="CanvasLayer"]
-position = Vector2( 79.0443, 146.316 )
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 15 )
-
-[node name="Area2D" type="Area2D" parent="CanvasLayer/DrBook"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/DrBook/Area2D"]
-shape = SubResource( 7 )
-
 [node name="BotchInfoContainer" type="MarginContainer" parent="CanvasLayer"]
 pause_mode = 2
 visible = false
@@ -765,10 +752,27 @@ custom_styles/normal = ExtResource( 17 )
 custom_fonts/font = ExtResource( 13 )
 text = "OK"
 
+[node name="DrBookTexture" type="TextureRect" parent="CanvasLayer"]
+anchor_left = 0.016
+anchor_top = 0.115
+anchor_right = 0.057
+anchor_bottom = 0.12
+margin_left = 9.28
+margin_top = -4.2
+margin_right = 23.56
+margin_bottom = 74.4
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="DayTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="DrBook" type="CanvasLayer" parent="."]
+pause_mode = 2
 layer = 2
 
 [node name="DrBook" parent="DrBook" instance=ExtResource( 14 )]
@@ -777,7 +781,8 @@ visible = false
 [connection signal="pressed" from="CanvasLayer/DayEndScreen/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ShopButton" to="." method="_on_ShopButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/DayEndScreen/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/NextDay" to="." method="_on_NextDay_pressed"]
 [connection signal="pressed" from="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/DrBook/Area2D" to="." method="_on_drbook_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/DrBook/Area2D" to="." method="_on_drbook_exited"]
 [connection signal="pressed" from="CanvasLayer/BotchInfoContainer/VBoxContainer/MarginContainer/BotchButton" to="." method="_on_BotchButton_pressed"]
+[connection signal="gui_input" from="CanvasLayer/DrBookTexture" to="." method="_on_DrBookTexture_gui_input"]
 [connection signal="timeout" from="DayTimer" to="." method="_on_DayTimer_timeout"]
+
+[editable path="DrBook/DrBook"]

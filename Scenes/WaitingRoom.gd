@@ -36,8 +36,6 @@ var day_ended = false
 
 var state = WAITING_ROOM_DEFAULT
 
-var mouse_on_drbook = false
-
 
 enum  {
 	WAITING_ROOM_DEFAULT,
@@ -100,9 +98,6 @@ func _physics_process(delta):
 	if day_timer.time_left <= 30:
 		time_label.add_color_override("font_color", Color.red)
 	time_label.text = convert_to_timer_string(day_timer.time_left)
-	
-	if Input.is_action_just_pressed("lmb") && mouse_on_drbook:
-		openDrBook()
 	
 	match state:
 		WAITING_ROOM_DEFAULT:
@@ -247,14 +242,6 @@ func _on_ShopButton_pressed():
 	state = SHOP_SCREEN
 	shop_container.visible = true
 
-
-func _on_drbook_entered():
-	mouse_on_drbook = true
-
-
-func _on_drbook_exited():
-	mouse_on_drbook = false
-	
 func _on_NextDay_pressed():
 	current_day += 1
 
@@ -281,3 +268,9 @@ func _on_BotchButton_pressed():
 	get_tree().paused = false
 	$CanvasLayer/BotchInfoContainer/AnimationPlayer.play("FadeOut")
 	BackgroundMusic.play_music()
+
+
+func _on_DrBookTexture_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.is_pressed() and event.button_index == BUTTON_LEFT:
+			openDrBook()
