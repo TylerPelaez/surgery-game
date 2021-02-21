@@ -74,7 +74,10 @@ func _on_Next_pressed():
 		current_page.visible = false
 		current_page = $Tools4
 		current_page.visible = true
-
+	elif current_page == $Tools4:
+		current_page.visible = false
+		current_page = $Tools5
+		current_page.visible = true
 
 func _on_Prev_pressed():
 	if current_page == $HowToPlay3:
@@ -97,6 +100,10 @@ func _on_Prev_pressed():
 		current_page.visible = true
 	elif current_page == $Procedures1:
 		pass
+	elif current_page == $Tools5:
+		current_page.visible = false
+		current_page = $Tools4
+		current_page.visible = true
 	elif current_page == $Tools4:
 		current_page.visible = false
 		current_page = $Tools3
