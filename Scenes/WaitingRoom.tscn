@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://DriveInScreen/SelectableTools/SelectableTool.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Patients/PatientGenerator.tscn" type="PackedScene" id=2]
@@ -12,10 +12,10 @@
 [ext_resource path="res://PermanentMarker-Regular.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://Scenes/DayEndScreen.gd" type="Script" id=11]
 [ext_resource path="res://DriveInScreen/AfflictionDialog/9slice.png" type="Texture" id=12]
-[ext_resource path="res://DrBook/DrBook Icon.png" type="Texture" id=13]
-[ext_resource path="res://DrBook/DrBook.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Ui/WaitingRoom.tres" type="DynamicFont" id=13]
-[ext_resource path="res://Ui/ShopItem.tscn" type="PackedScene" id=14]
+[ext_resource path="res://DrBook/DrBook.tscn" type="PackedScene" id=14]
+[ext_resource path="res://DrBook/DrBook Icon.png" type="Texture" id=15]
+[ext_resource path="res://Ui/ShopItem.tscn" type="PackedScene" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -385,20 +385,20 @@ size_flags_vertical = 3
 custom_constants/separation = 25
 alignment = 1
 
-[node name="ShopItem5" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/FirstRowContainer/FirstRow" instance=ExtResource( 14 )]
+[node name="ShopItem5" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/FirstRowContainer/FirstRow" instance=ExtResource( 16 )]
 margin_right = 270.0
 margin_bottom = 246.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 
-[node name="ShopItem6" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/FirstRowContainer/FirstRow" instance=ExtResource( 14 )]
+[node name="ShopItem6" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/FirstRowContainer/FirstRow" instance=ExtResource( 16 )]
 margin_left = 295.0
 margin_right = 565.0
 margin_bottom = 246.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 
-[node name="ShopItem4" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/FirstRowContainer/FirstRow" instance=ExtResource( 14 )]
+[node name="ShopItem4" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/FirstRowContainer/FirstRow" instance=ExtResource( 16 )]
 margin_left = 590.0
 margin_right = 860.0
 margin_bottom = 246.0
@@ -423,11 +423,11 @@ size_flags_vertical = 3
 custom_constants/separation = 150
 alignment = 1
 
-[node name="ShopItem7" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/MarginContainer/SecondRow" instance=ExtResource( 14 )]
+[node name="ShopItem7" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/MarginContainer/SecondRow" instance=ExtResource( 16 )]
 margin_right = 280.0
 margin_bottom = 246.0
 
-[node name="ShopItem3" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/MarginContainer/SecondRow" instance=ExtResource( 14 )]
+[node name="ShopItem3" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer/MarginContainer/SecondRow" instance=ExtResource( 16 )]
 margin_left = 430.0
 margin_right = 710.0
 margin_bottom = 246.0
@@ -435,7 +435,7 @@ margin_bottom = 246.0
 [node name="DrBook" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 79.0443, 146.316 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 13 )
+texture = ExtResource( 15 )
 
 [node name="Area2D" type="Area2D" parent="CanvasLayer/DrBook"]
 
@@ -445,11 +445,13 @@ shape = SubResource( 7 )
 [node name="DayTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Shop" parent="." instance=ExtResource( 16 )]
+visible = false
+
 [node name="DrBook" parent="." instance=ExtResource( 14 )]
 visible = false
-[connection signal="pressed" from="CanvasLayer/DayEndScreen/MarginContainer/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_ShopButton_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/DrBook/Area2D" to="." method="_on_drbook_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/DrBook/Area2D" to="." method="_on_drbook_exited"]
 [connection signal="pressed" from="CanvasLayer/DayEndScreen/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ShopButton" to="." method="_on_ShopButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/DayEndScreen/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/NextDay" to="." method="_on_NextDay_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/DrBook/Area2D" to="." method="_on_drbook_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/DrBook/Area2D" to="." method="_on_drbook_exited"]
 [connection signal="timeout" from="DayTimer" to="." method="_on_DayTimer_timeout"]
