@@ -13,6 +13,8 @@ onready var blood_nodes = []
 # Calculate the blood alpha modulate amount based on delta
 onready var modulate_amt = 0.5
 
+var pipette_max = 5
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	accepted_tool_type = ToolData.Tools.Pipette
@@ -25,9 +27,11 @@ func _ready():
 		var zone_is_enabled = rng.randi_range(0,1)
 		if zone_is_enabled == 1:
 			zone_enabled[i] = true
-			
+	
 	var scale_factor = Vector2(get_x_scale_factor(), get_y_scale_factor())
-			
+	
+	var count = 0 
+	
 	# Spawn an injection zone at each enabled zone
 	for i in range(0, zone_enabled.size()):
 		if zone_enabled[i] == true:
@@ -36,6 +40,11 @@ func _ready():
 			
 			blood.position = Vector2(placement_zones[i].x * scale_factor.x, placement_zones[i].y * scale_factor.y)
 			blood_nodes.append(blood)
+			
+			count += 1
+			if count >= pipette_max:
+				break
+			
 			
 	if Utils.is_main_scene(self):
 		var instance = load("res://Tools/Pipette/PipetteInputHandler.tscn").instance()

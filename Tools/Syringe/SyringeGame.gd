@@ -4,6 +4,8 @@ onready var InjectionNode = preload("res://Tools/Syringe/InjectionZone.tscn");
 # Array of injection nodes
 onready var injection_nodes = []
 
+var injection_max = 3
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	accepted_tool_type = ToolData.Tools.Syringe
@@ -14,6 +16,7 @@ func _ready():
 	
 	var scale_factor = Vector2(get_x_scale_factor(), get_y_scale_factor())
 	var at_least_one = false
+	var count = 0
 	
 	print(scale_factor)
 	# Determine wshich zones are enabled
@@ -25,6 +28,9 @@ func _ready():
 				add_child(injection_zone)
 				injection_zone.position = Vector2(child.position.x * scale_factor.x, child.position.y * scale_factor.y)
 				injection_nodes.append(injection_zone)
+				count += 1
+				if count >= injection_max:
+					break
 			
 
 	if Utils.is_main_scene(self):
