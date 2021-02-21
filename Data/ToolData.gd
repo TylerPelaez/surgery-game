@@ -1,14 +1,14 @@
 extends Node
 
 enum Tools {
-	Scalpel,
 	Bandage,
+	RX,
+	Suture,
+	Syringe,
+	Scalpel,
 	Defibrillator,
 	Adenosine,
-	Syringe,
 	Pipette,
-	Suture,
-	RX,
 	BiopsyNeedle
 }
 

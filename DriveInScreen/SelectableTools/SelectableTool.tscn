@@ -15,7 +15,6 @@ radius = 88.3629
 z_index = 2
 z_as_relative = false
 script = ExtResource( 1 )
-tool_type = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

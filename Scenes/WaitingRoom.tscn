@@ -263,18 +263,18 @@ y_bounds = 50
 
 [node name="Scalpel" parent="." instance=ExtResource( 1 )]
 position = Vector2( 432, 944 )
+tool_type = 4
 
 [node name="Bandage" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1728, 880 )
-tool_type = 1
 
 [node name="SutureNeedle" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1424, 928 )
-tool_type = 6
+tool_type = 2
 
 [node name="Syringe" parent="." instance=ExtResource( 1 )]
 position = Vector2( 888, 952 )
-tool_type = 4
+tool_type = 3
 
 [node name="BiopsyNeedle" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1152, 856 )
@@ -283,12 +283,12 @@ tool_type = 8
 
 [node name="Pipette" parent="." instance=ExtResource( 1 )]
 position = Vector2( 672, 848 )
-tool_type = 5
+tool_type = 7
 
 [node name="Rx" parent="." instance=ExtResource( 1 )]
 position = Vector2( 184, 832 )
 rotation = 0.43884
-tool_type = 7
+tool_type = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -497,7 +497,6 @@ margin_right = 500.0
 margin_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 0
@@ -543,6 +542,7 @@ alignment = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ShopContainer/MarginContainer/VBoxContainer"]
 margin_right = 960.0
 margin_bottom = 108.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.42
@@ -564,6 +564,7 @@ valign = 1
 margin_left = 960.0
 margin_right = 960.0
 margin_bottom = 108.0
+mouse_filter = 2
 custom_constants/margin_right = 7
 custom_constants/margin_left = -191
 
@@ -586,6 +587,7 @@ text = "BACK"
 margin_top = 148.0
 margin_right = 960.0
 margin_bottom = 394.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 125
@@ -597,6 +599,7 @@ margin_right = 835.0
 margin_bottom = 246.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 25
@@ -626,6 +629,7 @@ size_flags_vertical = 7
 margin_top = 434.0
 margin_right = 960.0
 margin_bottom = 680.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 25
@@ -635,6 +639,7 @@ custom_constants/margin_left = 25
 margin_left = 25.0
 margin_right = 935.0
 margin_bottom = 246.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 25
