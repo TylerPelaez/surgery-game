@@ -34,8 +34,8 @@ func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	# Randomize the position of the pattern
-	var y_offset = rng.randi_range(0, 600)
-	var x_offset = rng.randi_range(0, 600)
+	var y_offset = rng.randi_range(50, 200)
+	var x_offset = rng.randi_range(50, 400)
 	pattern_to_use.set_position(Vector2(x_offset,y_offset))
 	
 	if Utils.is_main_scene(self):

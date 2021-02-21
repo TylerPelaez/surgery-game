@@ -38,7 +38,7 @@ const TOOLS_DATA = {
 		"name": "Adenosine",
 		"texture": preload("res://Assets/Tools/Syringe/Adenosine Vial.png"),
 		"texture_scale": .15,
-		"tool_input_handler": preload("res://Tools/Adenosine/AdenosineGame.tscn")
+		"tool_input_handler": preload("res://Tools/Adenosine/AdenosineGameInputHandler.tscn")
 	},
 	Tools.Syringe: {
 		"name": "Syringe",

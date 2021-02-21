@@ -29,12 +29,20 @@ extents = Vector2( 65.2618, 62.3593 )
 [node name="DefibrillatorGameInputHandler" instance=ExtResource( 1 )]
 script = ExtResource( 14 )
 
-[node name="Gauge" type="Sprite" parent="." index="0"]
+[node name="GreyOut" type="ColorRect" parent="." index="0"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 0.32549 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gauge" type="Sprite" parent="." index="1"]
 position = Vector2( 980.34, 360.785 )
 scale = Vector2( 0.32753, 0.289204 )
 texture = ExtResource( 13 )
 
-[node name="Zone" type="Sprite" parent="." index="1"]
+[node name="Zone" type="Sprite" parent="." index="2"]
 self_modulate = Color( 1, 1, 1, 0.74902 )
 position = Vector2( 1177.22, 362.084 )
 scale = Vector2( 0.170371, 0.298747 )
@@ -46,7 +54,7 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zone/Area2D" index="0"]
 shape = SubResource( 1 )
 
-[node name="Path2D" type="Path2D" parent="." index="2"]
+[node name="Path2D" type="Path2D" parent="." index="3"]
 position = Vector2( 460.346, 179.376 )
 curve = SubResource( 2 )
 
@@ -71,38 +79,38 @@ collision_mask = 4
 position = Vector2( 0.558472, -0.450134 )
 shape = SubResource( 3 )
 
-[node name="SpacePrompt" type="Sprite" parent="." index="3"]
+[node name="SpacePrompt" type="Sprite" parent="." index="4"]
 visible = false
 position = Vector2( 968.955, 561.445 )
 scale = Vector2( 0.218575, 0.272367 )
 texture = ExtResource( 5 )
 
-[node name="QPrompt" type="Sprite" parent="." index="4"]
+[node name="QPrompt" type="Sprite" parent="." index="5"]
 visible = false
 position = Vector2( 970.899, 561.243 )
 scale = Vector2( 0.211547, 0.252276 )
 texture = ExtResource( 7 )
 
-[node name="EPrompt" type="Sprite" parent="." index="5"]
+[node name="EPrompt" type="Sprite" parent="." index="6"]
 visible = false
 position = Vector2( 970.899, 561.243 )
 scale = Vector2( 0.211547, 0.252276 )
 texture = ExtResource( 9 )
 
-[node name="Paddles" type="Sprite" parent="." index="6"]
+[node name="Paddles" type="Sprite" parent="." index="7"]
 position = Vector2( 980.046, 638.463 )
 scale = Vector2( 0.470558, 0.577615 )
 texture = ExtResource( 8 )
 
-[node name="DefibBeep" type="AudioStreamPlayer" parent="." index="7"]
+[node name="DefibBeep" type="AudioStreamPlayer" parent="." index="8"]
 stream = ExtResource( 6 )
 volume_db = -2.0
 
-[node name="DefibZap" type="AudioStreamPlayer" parent="." index="8"]
+[node name="DefibZap" type="AudioStreamPlayer" parent="." index="9"]
 stream = ExtResource( 12 )
 
-[node name="Fail" parent="." index="9" instance=ExtResource( 3 )]
+[node name="Fail" parent="." index="10" instance=ExtResource( 3 )]
 
-[node name="Success" parent="." index="10" instance=ExtResource( 2 )]
+[node name="Success" parent="." index="11" instance=ExtResource( 2 )]
 [connection signal="area_entered" from="Path2D/PathFollow2D/Needle/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Path2D/PathFollow2D/Needle/Area2D" to="." method="_on_Area2D_area_exited"]

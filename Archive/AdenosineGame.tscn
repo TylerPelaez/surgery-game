@@ -1,0 +1,96 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Assets/Audio/Success.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Tools/BaseToolMinigame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Tools/Defibrillator/Defibrillator_Gauge-4.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Tools/Syringe/Adenosine Vial.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Tools/Syringe/Syringe Body.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Tools/Syringe/Syringe Plunger.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Tools/Syringe/Adenosine Fluid.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Tools/Syringe/Adenosine Zone.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Audio/Tink.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Tools/Syringe/SyringeZone.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/Audio/Squish.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Archive/AdenosineGame.gd" type="Script" id=12]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 51.3235, 10.9667 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10.3023, 22.231 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 142.574
+
+[node name="BaseToolMinigame" instance=ExtResource( 2 )]
+script = ExtResource( 12 )
+
+[node name="Vial" type="Sprite" parent="." index="0"]
+position = Vector2( 1112.76, 752 )
+scale = Vector2( 0.278731, 0.295538 )
+texture = ExtResource( 4 )
+
+[node name="Space" type="Sprite" parent="." index="1"]
+position = Vector2( 959.142, 998.732 )
+scale = Vector2( 0.330592, 0.326531 )
+texture = ExtResource( 3 )
+
+[node name="Syringe" type="Node2D" parent="." index="2"]
+position = Vector2( 591.642, 55.2319 )
+
+[node name="Body" type="Sprite" parent="Syringe" index="0"]
+position = Vector2( 357.884, 538.167 )
+scale = Vector2( 0.303711, 0.375 )
+z_index = 2
+texture = ExtResource( 5 )
+
+[node name="Fluid" type="Sprite" parent="Syringe" index="1"]
+position = Vector2( 406.693, 459.496 )
+scale = Vector2( 0.330132, 0.383816 )
+texture = ExtResource( 7 )
+
+[node name="Plunger" type="Sprite" parent="Syringe" index="2"]
+position = Vector2( 358.129, 503.953 )
+scale = Vector2( 0.305518, 0.324499 )
+z_index = 1
+texture = ExtResource( 6 )
+
+[node name="Area2D" type="Area2D" parent="Syringe/Plunger" index="0"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Syringe/Plunger/Area2D" index="0"]
+position = Vector2( 15.9316, 354.125 )
+shape = SubResource( 1 )
+
+[node name="Tip" type="Area2D" parent="Syringe" index="3"]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Syringe/Tip" index="0"]
+position = Vector2( 365.856, 649.333 )
+shape = SubResource( 2 )
+
+[node name="SyringeZone" parent="." index="3" instance=ExtResource( 10 )]
+
+[node name="InjectionZone" type="Sprite" parent="." index="4"]
+visible = false
+position = Vector2( 1544.39, 709.334 )
+scale = Vector2( 0.496094, 0.496094 )
+texture = ExtResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="InjectionZone" index="0"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InjectionZone/Area2D" index="0"]
+position = Vector2( -1.67554, -2.63831 )
+shape = SubResource( 3 )
+
+[node name="Tink" parent="." index="5" instance=ExtResource( 9 )]
+
+[node name="Squish" parent="." index="6" instance=ExtResource( 11 )]
+
+[node name="Success" parent="." index="7" instance=ExtResource( 1 )]
+pitch_scale = 1.0
+[connection signal="area_entered" from="Syringe/Plunger/Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Syringe/Plunger/Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="area_entered" from="InjectionZone/Area2D" to="." method="_on_injection_area_entered"]
+[connection signal="area_exited" from="InjectionZone/Area2D" to="." method="_on_injection_area_exited"]

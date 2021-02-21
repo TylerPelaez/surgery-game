@@ -1,5 +1,6 @@
 extends GameInputHandler
 
+const offset = Vector2(-200, -280)
 
 onready var in_zone = false
 onready var qte_key = "spacebar"
@@ -36,6 +37,8 @@ func _ready():
 	$Path2D/PathFollow2D.needle_speed = needle_speed
 	
 	$DefibBeep.play()
+	
+	position += offset
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
