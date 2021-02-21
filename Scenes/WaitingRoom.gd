@@ -12,6 +12,8 @@ onready var money_label_container = $CanvasLayer/MoneyLabelContainer
 onready var time_label = $CanvasLayer/TimeLabel
 onready var day_timer = $DayTimer
 onready var day_end_screen = $CanvasLayer/DayEndScreen
+onready var shop_container = $CanvasLayer/ShopContainer
+
 
 # gameplay vars
 var currently_held_tool
@@ -24,6 +26,8 @@ var total_deaths = 0
 var total_treated = 0
 var total_untreated = 0
 
+var player_tools = []
+
 # Reset Daily
 var day_start_money = 0
 var death_count = 0
@@ -34,6 +38,7 @@ var day_ended = false
 var state = WAITING_ROOM_DEFAULT
 
 var mouse_on_drbook = false
+
 
 enum  {
 	WAITING_ROOM_DEFAULT,
@@ -55,14 +60,40 @@ func _ready():
 	
 	day_timer.start(DAY_LENGTH_SECONDS)
 	time_label.add_color_override("font_color", Color.white)
+	
+	var shop_items = shop_container.get_all_shop_items()
+	var purchaseable_tools = []
+	for tool_item in ToolData.Tools.values():
+		if ToolData.TOOLS_DATA[tool_item].cost > 0:
+			purchaseable_tools.append(tool_item)
+		else:
+			player_tools.append(tool_item)
+		
+	purchaseable_tools.sort()
+	
+	if purchaseable_tools.size() != shop_items.size():
+		print("ERROR - size mismatch" + str(purchaseable_tools.size()) + "," + str(shop_items.size()))
+		return
+	
+	for i in range(shop_items.size()):
+		var item = shop_items[i]
+		item.set_data(purchaseable_tools[i])
+		item.connect("pressed", self, "_on_shop_item_pressed")
 
+	for selectable_tool in get_tree().get_nodes_in_group("selectable_tool"):
+		if player_tools.has(selectable_tool.tool_type):
+			selectable_tool.visible = true
+		else:
+			selectable_tool.visible = false
+	
+	patient_generator.start_day(player_tools)
 
 func convert_to_timer_string(time_left):
 	var minutes_string = ""
 	if time_left >= 60.0:
 		minutes_string = str(int(time_left) / 60)
 	
-	var seconds_string = "%2d" % (int(time_left) % 60)
+	var seconds_string = "%02d" % (int(time_left) % 60)
 	
 	return minutes_string + ":" + seconds_string
 
@@ -152,6 +183,7 @@ func _on_surgery_container_patient_death():
 
 func _on_patient_cured(patient, percent_damage_taken):
 	treated_count += 1
+	total_treated += 1
 	var time_waited_payment = patient.get_cure_payment()
 	var post_damage_calculation_payment =  max(1.0 - percent_damage_taken, 0.25) * (time_waited_payment)
 	money_label_container.set_display_money(player_money)
@@ -160,9 +192,11 @@ func _on_patient_cured(patient, percent_damage_taken):
 
 func _on_patient_death(patient):
 	death_count += 1
+	total_deaths += 1
 
 func _on_patient_not_treated(patient):
 	not_treated_count += 1
+	total_untreated += 1
 
 func end_of_day():
 	state = DAY_END_SCREEN
@@ -170,13 +204,35 @@ func end_of_day():
 	day_end_screen.set_stats( death_count, treated_count, not_treated_count, player_money - day_start_money, current_day, TOTAL_NUM_DAYS - current_day)
 	day_end_screen.visible = true
 	patient_generator.end_day()
+
+func _on_shop_item_pressed(item):
+	var item_tool = item.tool_type
+	# get item cost
+	var item_cost = ToolData.TOOLS_DATA[item_tool].cost
+	if player_money >= item_cost:
+		# can afford:
+		item.purchase()
+		player_money -= item_cost
+		money_label_container.add_money(-item_cost)
+		
+		player_tools.append(item_tool)
+		
+		if item_tool == ToolData.Tools.Defibrillator or item_tool == ToolData.Tools.Adenosine:
+			surgery_container.enable_tool(item_tool)	
+		else:
+			for selectable_tool in get_tree().get_nodes_in_group("selectable_tool"):
+				if player_tools.has(selectable_tool.tool_type):
+					selectable_tool.visible = true
+				else:
+					selectable_tool.visible = false
+		
 	
 func _on_DayTimer_timeout():
 	day_ended = true
 
 func _on_ShopButton_pressed():
 	state = SHOP_SCREEN
-	print ("button pressed")
+	shop_container.visible = true
 
 
 func _on_drbook_entered():
@@ -185,6 +241,24 @@ func _on_drbook_entered():
 
 func _on_drbook_exited():
 	mouse_on_drbook = false
+	
 func _on_NextDay_pressed():
-	# next day
-	pass # Replace with function body.
+	current_day += 1
+	grey_out.visible = false
+	day_end_screen.visible = false
+	patient_generator.start_day(player_tools)
+	state = WAITING_ROOM_DEFAULT
+	
+	day_start_money = player_money
+	death_count = 0
+	treated_count = 0
+	not_treated_count = 0
+	day_ended = false
+	
+	day_timer.start(DAY_LENGTH_SECONDS)
+	time_label.add_color_override("font_color", Color.white)
+	
+
+func _on_BackButton_pressed():
+	state = DAY_END_SCREEN
+	shop_container.visible = false
