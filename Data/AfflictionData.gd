@@ -76,7 +76,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Large Wound",
 		"texture": preload("res://Assets/AfflictionIcons/majorwound.png"),
-		"base_payment": 40,
+		"base_payment": 60,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Suture,
@@ -90,7 +90,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Insulin Injection",
 		"texture": preload("res://Assets/AfflictionIcons/insulin.png"),
-		"base_payment": 40,
+		"base_payment": 60,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Syringe,
@@ -104,7 +104,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Bloody Wound",
 		"texture": preload("res://Assets/AfflictionIcons/boodywound.png"),
-		"base_payment": 60,
+		"base_payment": 200,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Pipette,
@@ -121,7 +121,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Gastric Suction",
 		"texture": preload("res://Assets/AfflictionIcons/gastricsuction.png"),
-		"base_payment": 70,
+		"base_payment": 250,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Scalpel,
@@ -141,7 +141,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Gastric Bypass",
 		"texture": preload("res://Assets/AfflictionIcons/gastricbypass.png"),
-		"base_payment": 60,
+		"base_payment": 250,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Scalpel,
@@ -159,7 +159,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Blood Clot Removal",
 		"texture": preload("res://Assets/AfflictionIcons/bloodclot.png"),
-		"base_payment": 70,
+		"base_payment": 250,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Scalpel,
@@ -179,7 +179,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Surgical Biopsy",
 		"texture": preload("res://Assets/AfflictionIcons/surgicalbiopsy.png"),
-		"base_payment": 70,
+		"base_payment": 250,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Scalpel,
@@ -215,7 +215,7 @@ const AFFLICTIONS = {
 					"tool": ToolData.Tools.Bandage,
 				}
 			],
-			"base_payment": 2000,
+			"base_payment": 500,
 		}
 }
 
