@@ -19,7 +19,7 @@ const TOOLS_DATA = {
 		"texture_scale": 1.0,
 		"tool_scene": preload("res://Tools/Scalpel/ScalpelGame.tscn"),
 		"tool_input_handler": preload("res://Tools/Scalpel/ScalpelGameInputHandler.tscn"),
-		"cost": 10
+		"cost": 350
 	},
 	Tools.Bandage: {
 		"name": "Bandage",
@@ -34,14 +34,14 @@ const TOOLS_DATA = {
 		"texture": preload("res://Assets/Tools/Defibrillator/Defib_View.png"),
 		"texture_scale": .15,
 		"tool_input_handler": preload("res://Tools/Defibrillator/DefibrillatorGameInputHandler.tscn"),
-		"cost": 10
+		"cost": 500
 	},
 	Tools.Adenosine: {
 		"name": "Adenosine",
 		"texture": preload("res://Assets/Tools/Syringe/Adenosine Vial.png"),
 		"texture_scale": .15,
 		"tool_input_handler": preload("res://Tools/Adenosine/AdenosineGameInputHandler.tscn"),
-		"cost": 10
+		"cost": 500
 	},
 	Tools.Syringe: {
 		"name": "Syringe",
@@ -49,7 +49,7 @@ const TOOLS_DATA = {
 		"texture_scale": .15,
 		"tool_scene": preload("res://Tools/Syringe/SyringeGame.tscn"),
 		"tool_input_handler": preload("res://Tools/Syringe/SyringeInputHandler.tscn"),
-		"cost": 20
+		"cost": 350
 	},
 	Tools.Pipette: {
 		"name": "Pipette",
@@ -57,7 +57,7 @@ const TOOLS_DATA = {
 		"texture_scale": .15,
 		"tool_scene": preload("res://Tools/Pipette/PipetteGame.tscn"),
 		"tool_input_handler": preload("res://Tools/Pipette/PipetteInputHandler.tscn"),
-		"cost": 10
+		"cost": 600
 	},
 	Tools.Suture: {
 		"name": "Suture Needle",
@@ -65,7 +65,7 @@ const TOOLS_DATA = {
 		"texture_scale": 1.0,
 		"tool_scene": preload("res://Tools/Suture/SutureMinigame.tscn"),
 		"tool_input_handler": preload("res://Tools/Suture/SutureGameInputHandler.tscn"),
-		"cost": 20
+		"cost": 350
 	},
 	Tools.RX: {
 		"name": "RX",
@@ -81,6 +81,6 @@ const TOOLS_DATA = {
 		"texture_scale": .15,
 		"tool_scene": preload("res://Tools/BiopsyNeedle/BiopsyNeedleGame.tscn"),
 		"tool_input_handler": preload("res://Tools/BiopsyNeedle/BiopsyNeedleGameInputHandler.tscn"),
-		"cost": 100
+		"cost": 600
 	}
 }
