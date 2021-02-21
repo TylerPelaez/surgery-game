@@ -38,6 +38,10 @@ var current_input_handler
 var direction_multiplier = 1.0
 var running = false
 
+var defib_available = false
+var adenosine_available = false
+
+
 var last_viewed_organ = 2
 var currently_selected_button
 
@@ -220,6 +224,16 @@ func get_next_game():
 	current_game.connect("health_item_used", self, "_on_health_item_used")
 	viewport.add_child(current_game)
 
+func enable_tool(item_tool):
+	if item_tool == ToolData.Tools.Defibrillator:
+		$HBoxContainer/DefibItemButton.modulate = Color.white
+		$HBoxContainer/DefibItemButton/DefibMarginContainer.mouse_filter = MOUSE_FILTER_STOP
+		defib_available = true
+	else:
+		$HBoxContainer/AdenosineItemButton.modulate = Color.white
+		$HBoxContainer/AdenosineItemButton/DefibMarginContainer.mouse_filter = MOUSE_FILTER_STOP
+		adenosine_available = true
+
 func _on_DefibMarginContainer_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == BUTTON_LEFT:
@@ -227,11 +241,11 @@ func _on_DefibMarginContainer_gui_input(event):
 			_on_tool_select_button_selected(defib_button, ToolData.Tools.Defibrillator)
 
 func _on_DefibMarginContainer_mouse_entered():
-	if currently_selected_button != defib_button:
+	if currently_selected_button != defib_button and defib_available:
 		defib_button.get_node("NinePatchRect").modulate = SELECT_HOVER_COLOR
 
 func _on_DefibMarginContainer_mouse_exited():
-	if currently_selected_button != defib_button:
+	if currently_selected_button != defib_button and defib_available:
 		defib_button.get_node("NinePatchRect").modulate = original_defib_modulate
 
 func _on_AdenosineMarginContainer_gui_input(event):
@@ -241,9 +255,9 @@ func _on_AdenosineMarginContainer_gui_input(event):
 			_on_tool_select_button_selected(adenosine_button, ToolData.Tools.Adenosine)
 
 func _on_AdenosineMarginContainer_mouse_entered():
-	if currently_selected_button != defib_button:
+	if currently_selected_button != adenosine_button and adenosine_available:
 		adenosine_button.get_node("NinePatchRect").modulate = SELECT_HOVER_COLOR
 
 func _on_AdenosineMarginContainer_mouse_exited():
-	if currently_selected_button != defib_button:
+	if currently_selected_button != adenosine_button and adenosine_available:
 		adenosine_button.get_node("NinePatchRect").modulate = original_adenosine_modulate

@@ -30,9 +30,17 @@ __meta__ = {
 margin_top = 152.0
 margin_right = 1912.0
 margin_bottom = 984.0
+size_flags_horizontal = 3
+alignment = 1
 
 [node name="DefibItemButton" parent="HBoxContainer" instance=ExtResource( 4 )]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 158.0
+grow_horizontal = 0
+mouse_filter = 2
+size_flags_horizontal = 8
+
+[node name="DefibMarginContainer" parent="HBoxContainer/DefibItemButton" index="0"]
 mouse_filter = 2
 
 [node name="MarginContainer" parent="HBoxContainer/DefibItemButton/DefibMarginContainer" index="1"]
@@ -51,6 +59,10 @@ mouse_filter = 2
 margin_left = 162.0
 margin_right = 1750.0
 margin_bottom = 832.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
 
 [node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/GameScreenContainer"]
 margin_right = 1588.0
@@ -103,8 +115,10 @@ text = "80"
 align = 1
 
 [node name="AdenosineItemButton" parent="HBoxContainer" instance=ExtResource( 4 )]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 1754.0
 margin_right = 1912.0
+mouse_filter = 2
 
 [node name="NinePatchRect" parent="HBoxContainer/AdenosineItemButton/DefibMarginContainer" index="0"]
 modulate = Color( 0.501961, 0.592157, 1, 1 )

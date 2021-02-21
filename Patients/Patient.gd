@@ -82,8 +82,8 @@ func _ready():
 	
 	total_possible_wait_time_ms = total_wait_time_s * 1000.0
 	
-func init(max_affliction):
-	var affliction_array = _choose_random_afflictions(1, max_affliction)
+func init(max_affliction, player_tools):
+	var affliction_array = _choose_random_afflictions(1, max_affliction, player_tools)
 	for affliction in affliction_array:
 		var tools_needed = []
 		
@@ -98,12 +98,31 @@ func _process(delta):
 		var current_max_time = EMOTIONAL_STATES[current_emotion].wait_time_s
 		dialog_box.update_emotion_progress((current_max_time - $EmotionChangeTimer.time_left) / current_max_time)
 
-func _choose_random_afflictions(min_count, max_count):
+func get_all_possible_afflictions_for_tools(player_tools):
+	var possible_afflictions = []
+	
+	for affliction in AfflictionData.Afflictions.values():
+		var data = AfflictionData.AFFLICTIONS[affliction]
+		var skip = false
+		for tool_data in data.tools_required:
+			if !player_tools.has(tool_data["tool"]):
+				skip = true
+				break
+		if skip:
+			continue
+		else:
+			possible_afflictions.append(affliction)
+	
+	return possible_afflictions
+
+func _choose_random_afflictions(min_count, max_count, player_tools):
 	var result = []
+	var possible_afflictions = get_all_possible_afflictions_for_tools(player_tools)
+	
 	for i in range(max_count):
 		var affliction_to_add = null
 		while affliction_to_add == null || result.has(affliction_to_add):
-			affliction_to_add = AfflictionData.Afflictions.values()[randi() % AfflictionData.Afflictions.size()]
+			affliction_to_add = possible_afflictions[randi() % possible_afflictions.size()]
 		if i >= min_count:
 			if rand_range(0.0, 1.0) > BASE_ADD_AFFLICTION_CHANCE:
 				continue

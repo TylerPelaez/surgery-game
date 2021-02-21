@@ -7,5 +7,4 @@ script = ExtResource( 1 )
 y_bounds = 5
 
 [node name="SpawnPatientTimer" type="Timer" parent="."]
-autostart = true
 [connection signal="timeout" from="SpawnPatientTimer" to="." method="_on_SpawnPatientTimer_timeout"]

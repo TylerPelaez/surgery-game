@@ -13,6 +13,7 @@ export var draw_debug = false
 export var MAX_PATIENT_AFFLICTIONS = 1
 
 var spawned_patients = []
+var player_tools = []
 
 func _ready():
 	randomize()
@@ -44,7 +45,7 @@ func spawn_patient():
 	if x != null:
 		var y = global_position.y + rand_range(-y_bounds, y_bounds)
 		var instance = Utils.instance_scene_on_main(PatientScene, Vector2(x,y))
-		instance.init(MAX_PATIENT_AFFLICTIONS)
+		instance.init(MAX_PATIENT_AFFLICTIONS, player_tools)
 		instance.connect("not_treated", self, "remove_patient")
 		spawned_patients.append(instance)
 		emit_signal("spawned_patient", instance)
@@ -61,3 +62,8 @@ func end_day():
 	for patient in spawned_patients:
 		patient.queue_free()
 	spawned_patients = []
+	$SpawnPatientTimer.stop()
+	
+func start_day(player_tools):
+	self.player_tools = player_tools
+	$SpawnPatientTimer.start()
