@@ -43,7 +43,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Vaccination",
 		"texture": preload("res://Assets/AfflictionIcons/vaccinations.png"),
-		"base_payment": 20,
+		"base_payment": 50,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Syringe,
@@ -90,7 +90,7 @@ const AFFLICTIONS = {
 	{
 		"name": "Insulin Injection",
 		"texture": preload("res://Assets/AfflictionIcons/insulin.png"),
-		"base_payment": 60,
+		"base_payment": 150,
 		"tools_required": [
 			{
 				"tool": ToolData.Tools.Syringe,
