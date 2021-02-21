@@ -15,6 +15,7 @@ func _ready():
 
 func _on_Close_pressed():
 	self.visible = false
+	get_tree().paused = false
 
 func _on_IndexButton_pressed():
 	current_page.visible = false

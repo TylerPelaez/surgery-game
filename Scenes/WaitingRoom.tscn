@@ -497,6 +497,7 @@ one_shot = true
 layer = 2
 
 [node name="DrBook" parent="DrBook" instance=ExtResource( 14 )]
+pause_mode = 2
 visible = false
 [connection signal="pressed" from="CanvasLayer/DayEndScreen/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ShopButton" to="." method="_on_ShopButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/DayEndScreen/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/NextDay" to="." method="_on_NextDay_pressed"]

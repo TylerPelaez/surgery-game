@@ -121,6 +121,7 @@ func _physics_process(delta):
 			
 func openDrBook():
 	$DrBook/DrBook.visible = true
+	get_tree().paused = true
 
 func _on_tool_clicked(tool_instance):
 	if currently_held_tool != null:
@@ -175,6 +176,7 @@ func _on_surgery_container_all_games_finished(percent_damage_taken):
 	patient_in_surgery = null
 
 func _on_surgery_container_patient_death():
+	state = WAITING_ROOM_DEFAULT
 	_hide_surgery_ui()
 	patient_generator.remove_patient(patient_in_surgery)
 	_on_patient_death(patient_in_surgery)
@@ -213,6 +215,7 @@ func _on_shop_item_pressed(item):
 		# can afford:
 		item.purchase()
 		player_money -= item_cost
+		money_label_container.set_display_money(player_money)
 		money_label_container.add_money(-item_cost)
 		
 		player_tools.append(item_tool)
