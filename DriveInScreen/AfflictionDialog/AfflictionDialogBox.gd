@@ -34,7 +34,7 @@ func _draw():
 			main_color = Color.red
 			growing_color = null	
 			
-		var draw_position = Vector2($MarginContainer.rect_position.x, 10.0)
+		var draw_position = Vector2($MarginContainer.rect_position.x, 0.0)
 		if growing_color != null:
 			draw_circle(draw_position, 12.0, main_color)
 			

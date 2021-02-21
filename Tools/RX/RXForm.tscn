@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Assets/Tools/RX/RX Prescription.png" type="Texture" id=1]
 [ext_resource path="res://Tools/RX/RXForm.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Tools/RX/Pink Tablet.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Tools/RX/Sayla Mass.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Tools/RX/Red Capsule.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Tools/RX/Amuro Ray.png" type="Texture" id=4]
 
 [node name="RXForm" type="Node2D"]
 script = ExtResource( 2 )

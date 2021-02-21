@@ -25,8 +25,11 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_rotation = 1.0
 rect_pivot_offset = Vector2( 60, 60 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource( 1 )
-stretch_mode = 3
+expand = true
+stretch_mode = 6
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false

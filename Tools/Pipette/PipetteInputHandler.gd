@@ -18,7 +18,7 @@ func _process(delta):
 		$Pipette.visible = true
 		$Pipette.position = Vector2(mouse_pos.x + 175, mouse_pos.y - 210)
 		var input_data = PipetteInputData.new()
-		input_data.initialize([])
+		input_data.initialize(delta)
 		emit_signal("input_finished", input_data)
 		# TODO: SFX
 	else:
