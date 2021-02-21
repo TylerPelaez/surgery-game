@@ -39,12 +39,27 @@ var direction_multiplier = 1.0
 var running = false
 
 var last_viewed_organ = 2
-
 var currently_selected_button
 
 func _physics_process(delta):
 	if running:
 		self.current_heart_rate += (delta * NATURAL_FLUCTUATION_PER_SECOND * direction_multiplier)
+		
+		var tool_selected = null
+		
+		if Input.is_action_just_pressed("1"):
+			tool_selected = 0
+		elif Input.is_action_just_pressed("2"):
+			tool_selected = 1
+		elif Input.is_action_just_pressed("3"):
+			tool_selected = 2
+		elif Input.is_action_just_pressed("4"):
+			tool_selected = 3
+		elif Input.is_action_just_pressed("5"):
+			tool_selected = 4
+		
+		if tool_selected != null && tool_selected <= tool_select_container.get_child_count() - 1:
+			tool_select_container.get_child(tool_selected).select()
 
 func set_heart_rate(value):
 	current_heart_rate = value
@@ -61,11 +76,10 @@ func set_heart_rate(value):
 	
 	bpm_label.text = str(round(current_heart_rate))
 
-func add_surgery_games_for_tools(tool_list):
-	surgery_list = []
-	for tool_to_add in tool_list:
-		surgery_list.append(ToolData.TOOLS_DATA[tool_to_add].tool_scene)
-	
+
+func add_surgery_games_for_afflictions(afflictions):
+	# First the simple stuff:
+	# Set up the background:
 	if (last_viewed_organ == 2):
 		SURGERY_TEXTURES.shuffle()
 		last_viewed_organ = -1
@@ -75,24 +89,55 @@ func add_surgery_games_for_tools(tool_list):
 	viewport_background.texture = SURGERY_TEXTURES[last_viewed_organ]
 	viewport_background.rect_position = Vector2(rand_range(0.0, MAX_TEXTURE_OFFSET.x), rand_range(0.0, MAX_TEXTURE_OFFSET.y))
 	
-	tool_list.shuffle()
+	# Now create the list of games
+	# No sets in godot :( 
+	var unique_tools = {}
 	
-	for tool_to_add in tool_list:
+	for affliction in afflictions:
+		for tool_required_data in AfflictionData.AFFLICTIONS[affliction].tools_required:
+			var tool_to_add = tool_required_data["tool"]
+			
+			if !unique_tools.has(tool_to_add):
+				unique_tools[tool_to_add] = true
+			
+			var task_count = 1
+			if tool_required_data.has("task_count"):
+				task_count = tool_required_data.task_count
+			
+			for i in range(task_count):
+				surgery_list.append(ToolData.TOOLS_DATA[tool_to_add].tool_scene)
+	
+	var only_tool_button = null
+	
+	var unique_tool_list = []
+	# Get the UI buttons working:
+	for tool_to_add in unique_tools:
+		unique_tool_list.append(tool_to_add)
+	
+	unique_tool_list.sort()
+	
+	for tool_to_add in unique_tool_list:
 		var instance = ToolSelectButtonScene.instance()
 		tool_select_container.add_child(instance)
 		instance.set_tool(tool_to_add)
 		instance.connect("selected", self, "_on_tool_select_button_selected")
+		if unique_tools.size() == 1:
+			only_tool_button = instance
 	
-	get_next_game()
-	
-	running = true
-	
+	# Reset some state
 	self.current_heart_rate = RESTING_HEART_RATE
 	if randf() > 0.5:
 		direction_multiplier = -1.0
 	else:
 		direction_multiplier = 1.0
 	
+	# And begin
+	get_next_game()
+	running = true
+	
+	# For user convenience: If there's only one choice to make, let's make it for them
+	if only_tool_button != null:
+		only_tool_button.select()
 
 func _on_tool_select_button_selected(button, tool_type):
 	if current_input_handler != null:
@@ -102,7 +147,7 @@ func _on_tool_select_button_selected(button, tool_type):
 		defib_button.get_node("NinePatchRect").modulate = original_defib_modulate
 	elif currently_selected_button == adenosine_button:
 		adenosine_button.get_node("NinePatchRect").modulate = original_adenosine_modulate
-	elif currently_selected_button != null:
+	elif currently_selected_button != null && button != currently_selected_button:
 		currently_selected_button.deselect()
 	
 	currently_selected_button = button
@@ -118,6 +163,10 @@ func _on_game_finished(result):
 		current_game.queue_free()
 	if !surgery_list.empty():
 		get_next_game()
+		var tmp = currently_selected_button
+		currently_selected_button.deselect()
+		currently_selected_button = null
+		tmp.select()
 	else:
 		if current_input_handler != null:
 			current_input_handler.queue_free()

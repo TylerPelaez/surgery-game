@@ -4,7 +4,6 @@
 
 [node name="PatientGenerator" type="Node2D"]
 script = ExtResource( 1 )
-max_patients = 10
 y_bounds = 5
 
 [node name="SpawnPatientTimer" type="Timer" parent="."]

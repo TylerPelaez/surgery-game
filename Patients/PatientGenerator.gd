@@ -10,7 +10,7 @@ export var max_patients = 6
 export var bounds = 10
 export var y_bounds = 10
 export var draw_debug = false
-export var MAX_PATIENT_AFFLICTIONS = 2
+export var MAX_PATIENT_AFFLICTIONS = 1
 
 var spawned_patients = []
 

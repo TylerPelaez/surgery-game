@@ -25,9 +25,12 @@ func _on_MarginContainer_mouse_exited():
 func _on_MarginContainer_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == BUTTON_LEFT:
-			selected = true
-			nine_patch_rect.modulate = SELECT_HOVER_COLOR
-			emit_signal("selected", self, tool_type)
+			select()
+
+func select():
+	selected = true
+	nine_patch_rect.modulate = SELECT_HOVER_COLOR
+	emit_signal("selected", self, tool_type)
 
 func deselect():
 	selected = false

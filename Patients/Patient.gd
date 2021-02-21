@@ -99,7 +99,6 @@ func _process(delta):
 		dialog_box.update_emotion_progress((current_max_time - $EmotionChangeTimer.time_left) / current_max_time)
 
 func _choose_random_afflictions(min_count, max_count):
-	return [AfflictionData.Afflictions.HeartPain]
 	var result = []
 	for i in range(max_count):
 		var affliction_to_add = null
@@ -177,8 +176,6 @@ func show_dialog_box():
 
 func check_begin_hide_dialog_box():
 	pass
-#	if !mouse_in_viewport and !mouse_in_dialog_box and !tool_in_drop_range:
-#		dialog_box.hide()
 
 func _on_ViewportContainer_mouse_entered():
 	mouse_in_viewport = true

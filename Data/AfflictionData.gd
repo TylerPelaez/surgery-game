@@ -1,23 +1,41 @@
 extends Node
 
 enum Afflictions {
-	HeartPain, 
+	HeartBypass, 
 	Tumor,
 }
 
 const AFFLICTIONS = {
-	Afflictions.HeartPain:
+	
+	# order matters!
+	Afflictions.HeartBypass:
 		{
-			"name": "Heart Pain", 
+			"name": "Heart Bypass", 
 			"texture": preload("res://Data/Afflictions/heartpain.png"),
 			"tools_required": [
 				{ 
 					"tool": ToolData.Tools.Scalpel,
 					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
-					"tool_params": [], 
+					"tool_params": [],
 				},
+								{ 
+					"tool": ToolData.Tools.Syringe,
+					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
+					"tool_params": [],
+				},
+								{ 
+					"tool": ToolData.Tools.Suture,
+					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
+					"tool_params": [],
+					"task_count": 2
+				},
+								{ 
+					"tool": ToolData.Tools.Bandage,
+					# If we ever want some special para`ms for tools like a specific pattern, drug color, etc
+					"tool_params": [],
+				}
 			],
-			"base_payment": 100,
+			"base_payment": 2000,
 		},
 	Afflictions.Tumor:
 		{

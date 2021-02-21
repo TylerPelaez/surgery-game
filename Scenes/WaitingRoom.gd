@@ -47,7 +47,6 @@ func _on_tool_released(tool_instance):
 				patient.prepare_tool(currently_held_tool.tool_type)
 		
 		currently_held_tool = null
-		
 
 func _on_tool_mouse_event(tool_instance, entered):
 	if entered and currently_held_tool == null:
@@ -59,7 +58,7 @@ func _on_patient_generator_spawned_patient(patient):
 	patient.connect("ready_for_surgery", self, "_on_patient_ready_for_surgery")
 
 func _on_patient_ready_for_surgery(patient):
-	surgery_container.add_surgery_games_for_tools(patient.prepared_tools)
+	surgery_container.add_surgery_games_for_afflictions(patient.afflictions.keys())
 	grey_out.visible = true
 	surgery_container.visible = true
 	patient_in_surgery = patient
@@ -85,7 +84,7 @@ func _on_surgery_container_patient_death():
 
 func _on_patient_cured(patient, percent_damage_taken):
 	var time_waited_payment = patient.get_cure_payment()
-	var post_damage_calculation_payment =  max(1.0 - percent_damage_taken, 0.1) * (time_waited_payment)
+	var post_damage_calculation_payment =  max(1.0 - percent_damage_taken, 0.25) * (time_waited_payment)
 	player_money += post_damage_calculation_payment
 	money_label_container.add_money(post_damage_calculation_payment)
 
