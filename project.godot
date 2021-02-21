@@ -111,7 +111,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SurgeryGame"
-run/main_scene="res://Scenes/WaitingRoom.tscn"
+run/main_scene="res://TitleScreen/Title.tscn"
 config/icon="res://icon.png"
 
 [autoload]

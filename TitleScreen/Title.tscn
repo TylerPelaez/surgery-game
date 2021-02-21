@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://TitleScreen/Title.gd" type="Script" id=1]
+[ext_resource path="res://PermanentMarker-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://DrBook/DrBook.tscn" type="PackedScene" id=3]
+[ext_resource path="res://DrBook/DrBook Icon.png" type="Texture" id=4]
+[ext_resource path="res://TitleScreen/Title Logo.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 72
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 72
+font_data = ExtResource( 2 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 567.494
+
+[node name="Title" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Title Logo" type="Sprite" parent="."]
+position = Vector2( 960, 340 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 5 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 777.042
+margin_top = 563.933
+margin_right = 1024.04
+margin_bottom = 681.933
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "DocMD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Help" type="Label" parent="."]
+margin_left = 717.71
+margin_top = 699.236
+margin_right = 1143.71
+margin_bottom = 817.236
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "<- Click for Help"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="."]
+margin_left = 752.379
+margin_top = 807.921
+margin_right = 1020.38
+margin_bottom = 916.921
+custom_fonts/font = SubResource( 4 )
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DrBookButton" type="Sprite" parent="."]
+position = Vector2( 658.261, 741.086 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="DrBookButton"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DrBookButton/Area2D"]
+shape = SubResource( 3 )
+
+[node name="DrBook" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 6.10352e-05, 0.00012207 )
+scale = Vector2( 1, 1 )
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="mouse_entered" from="DrBookButton/Area2D" to="." method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="DrBookButton/Area2D" to="." method="_on_Area2D_mouse_exited"]

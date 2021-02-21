@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://SynopsisScreen/Synopsis.gd" type="Script" id=1]
+[ext_resource path="res://PermanentMarker-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 72
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 72
+font_data = ExtResource( 2 )
+
+[node name="Synopsis" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Header" type="Label" parent="."]
+margin_left = 854.429
+margin_top = 23.4303
+margin_right = 1090.43
+margin_bottom = 126.43
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Oh No!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plot" type="Label" parent="."]
+margin_left = 124.726
+margin_top = 219.161
+margin_right = 1837.73
+margin_bottom = 581.161
+custom_fonts/font = SubResource( 2 )
+text = "You roll out of bed and smash the snooze button on your alarm clock.
+Your phone glows with the notification you dread to see. It's from your
+student loan collector. it's pedal to the metal... either make that 
+$100,000 repayment by the end of the week, or have your somewhat
+questionably obtained medical practitioner's license revoked, and 
+your sweet new lamborghini repossessed! getting that car taken would
+be such a travesty!
+
+Time to get doc'ing!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Button" parent="."]
+margin_left = 768.402
+margin_top = 930.932
+margin_right = 1162.4
+margin_bottom = 1039.93
+custom_fonts/font = SubResource( 3 )
+text = "Begin day 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]
