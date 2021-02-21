@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://DriveInScreen/SelectableTools/scalpel.png" type="Texture" id=1]
+[ext_resource path="res://Ui/Roboto-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 2 )
+
+[node name="ShopItem" type="MarginContainer"]
+margin_right = 251.0
+margin_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 251.0
+margin_bottom = 216.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.160784, 0.2, 0.219608, 1 )
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+margin_right = 251.0
+margin_bottom = 216.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+margin_right = 251.0
+margin_bottom = 216.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/VBoxContainer"]
+margin_right = 251.0
+margin_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="ItemName" type="Label" parent="MarginContainer2/VBoxContainer"]
+margin_top = 154.0
+margin_right = 251.0
+margin_bottom = 183.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Scalpel"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemName2" type="Label" parent="MarginContainer2/VBoxContainer"]
+margin_top = 187.0
+margin_right = 251.0
+margin_bottom = 216.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Cost: $50"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
