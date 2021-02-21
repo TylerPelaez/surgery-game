@@ -14,7 +14,6 @@ export var MAX_PATIENT_AFFLICTIONS = 1
 
 var spawned_patients = []
 
-
 func _ready():
 	randomize()
 	set_physics_process(true)
@@ -57,3 +56,8 @@ func remove_patient(patient):
 func _on_SpawnPatientTimer_timeout():
 	if spawned_patients.size() < max_patients:
 		spawn_patient()
+
+func end_day():
+	for patient in spawned_patients:
+		patient.queue_free()
+	spawned_patients = []
