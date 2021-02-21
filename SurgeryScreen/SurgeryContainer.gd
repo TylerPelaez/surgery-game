@@ -8,6 +8,15 @@ const MIN_HEART_RATE = 10
 const MAX_HEART_RATE = 180
 const NATURAL_FLUCTUATION_PER_SECOND = 2.0
 
+
+const SURGERY_TEXTURES = [
+	preload("res://Assets/Organs/Heart.png"), 
+	preload("res://Assets/Organs/Liver.png"), 
+	preload("res://Assets/Organs/Stomach.png")
+]
+const MAX_TEXTURE_OFFSET = Vector2(-500, -700)
+
+
 const SELECT_HOVER_COLOR = Color("#e4e89c")
 
 const ToolSelectButtonScene = preload("res://Ui/SurgeryToolSelectButton.tscn")
@@ -28,6 +37,8 @@ var current_game
 var current_input_handler
 var direction_multiplier = 1.0
 var running = false
+
+var last_viewed_organ = 2
 
 var currently_selected_button
 
@@ -54,7 +65,15 @@ func add_surgery_games_for_tools(tool_list):
 	surgery_list = []
 	for tool_to_add in tool_list:
 		surgery_list.append(ToolData.TOOLS_DATA[tool_to_add].tool_scene)
-		
+	
+	if (last_viewed_organ == 2):
+		SURGERY_TEXTURES.shuffle()
+		last_viewed_organ = -1
+	last_viewed_organ += 1
+	var viewport_background = viewport.get_node("TextureRect")
+	
+	viewport_background.texture = SURGERY_TEXTURES[last_viewed_organ]
+	viewport_background.rect_position = Vector2(rand_range(0.0, MAX_TEXTURE_OFFSET.x), rand_range(0.0, MAX_TEXTURE_OFFSET.y))
 	
 	tool_list.shuffle()
 	

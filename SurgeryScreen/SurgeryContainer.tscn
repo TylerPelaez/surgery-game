@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://DriveInScreen/AfflictionDialog/9slice.png" type="Texture" id=1]
 [ext_resource path="res://SurgeryScreen/SurgeryContainer.gd" type="Script" id=2]
 [ext_resource path="res://Ui/Roboto-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Ui/HealthItemButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Tools/Syringe/AdenosineIcon.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Organs/Heart.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -82,6 +83,15 @@ size = Vector2( 1548, 792 )
 size_override_stretch = true
 handle_input_locally = false
 render_target_update_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GameScreenContainer/MarginContainer/ViewportContainer/Viewport"]
+margin_left = -500.0
+margin_top = -700.0
+margin_right = 1548.0
+margin_bottom = 836.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+stretch_mode = 2
 
 [node name="BPMLabel" type="Label" parent="HBoxContainer/GameScreenContainer"]
 margin_right = 1588.0
