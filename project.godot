@@ -114,11 +114,16 @@ config/name="SurgeryGame"
 run/main_scene="res://TitleScreen/Title.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [autoload]
 
 Utils="*res://Utils.gd"
 ToolData="*res://Data/ToolData.gd"
 AfflictionData="*res://Data/AfflictionData.gd"
+BackgroundMusic="*res://BackgroundMusic.tscn"
 
 [display]
 
