@@ -82,7 +82,6 @@ func _ready():
 	
 	total_possible_wait_time_ms = total_wait_time_s * 1000.0
 	
-
 func init(max_affliction):
 	var affliction_array = _choose_random_afflictions(1, max_affliction)
 	for affliction in affliction_array:
@@ -93,6 +92,11 @@ func init(max_affliction):
 		
 		afflictions[affliction] = tools_needed
 	dialog_box.set_afflictions(affliction_array)
+
+func _process(delta):
+	if !$EmotionChangeTimer.is_paused() and !$EmotionChangeTimer.is_stopped():
+		var current_max_time = EMOTIONAL_STATES[current_emotion].wait_time_s
+		dialog_box.update_emotion_progress((current_max_time - $EmotionChangeTimer.time_left) / current_max_time)
 
 func _choose_random_afflictions(min_count, max_count):
 	return [AfflictionData.Afflictions.HeartPain]
@@ -113,6 +117,7 @@ func _on_spawn_animation_finished():
 	ready = true
 	$EmotionChangeTimer.start(EMOTIONAL_STATES[current_emotion].wait_time_s)
 	became_ready_tick_time_ms = OS.get_ticks_msec()
+	$DialogBoxHolder/AfflictionDialogBox.update_circle()
 
 func requires_tool(tool_type):
 	if ready_for_surgery:
@@ -150,14 +155,6 @@ func enter_surgery():
 	$EmotionChangeTimer.stop()
 	time_to_treatment_ms = OS.get_ticks_msec() - became_ready_tick_time_ms
 	prepared_tools.shuffle()
-
-#func cure():
-#	emit_signal("cured", self)
-#	queue_free()
-#
-#func death():
-#	emit_signal("death", self)
-#	queue_free()
 
 func get_cure_payment():
 	var base_payments = []
@@ -205,6 +202,7 @@ func _on_EmotionChangeTimer_timeout():
 		emit_signal("not_treated", self)
 		queue_free()
 	else:
+		dialog_box.next_emotional_state()
 		var emotional_state_dict = EMOTIONAL_STATES[current_emotion]
 		face.texture =emotional_state_dict.face_texture
 		if emotional_state_dict.has("texture_offset"):

@@ -52,7 +52,6 @@ tracks/2/keys = {
 }
 
 [node name="Patient" type="Node2D"]
-modulate = Color( 0, 0, 0, 0 )
 script = ExtResource( 5 )
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -109,14 +108,16 @@ centered = false
 offset = Vector2( 56.818, 47.577 )
 
 [node name="DialogBoxHolder" type="Node2D" parent="."]
+position = Vector2( 0, -192 )
 z_index = 2
 z_as_relative = false
 
 [node name="AfflictionDialogBox" parent="DialogBoxHolder" instance=ExtResource( 8 )]
-margin_left = -40.0
-margin_top = -208.0
-margin_right = -40.0
-margin_bottom = -208.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
 grow_vertical = 0
 
 [node name="EmotionChangeTimer" type="Timer" parent="."]
